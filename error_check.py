@@ -1,8 +1,13 @@
 
 class error_check():
 
-    def __init__(self):
-        self.balance = 1000
-
+    def check_wager(wager):  #is it okay to leave out self?
+        if type(wager) == int:
+            if wager <= 0:
+                print("Wait... \nWhat kind of tricks are you trying to pull?? Get out!")
+                quit()
+        else:
+            print("wait... \nWhat kind of tricks are you trying to pull?? Get out!")
+            quit()
 
     
