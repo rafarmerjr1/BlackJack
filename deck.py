@@ -12,9 +12,9 @@ class deck():
     
     def __init__(self):
         self.Suits = ['Spades', 'Hearts', 'Clubs', 'Diamonds']
-        self.Value_dict = {'2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'Jack':10, 'Queen':10, 'King':10}
-        # Need to add Aces later - 1 or 11
-        #score = 0
+        self.Value_dict = {'Ace':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'Jack':10, 'Queen':10, 'King':10}
+        # Need to add Ace Handling later - 1 or 11
+        
         self.starting_deck = []
         self.playing_deck = []
 
@@ -37,19 +37,20 @@ class deck():
         card_value = yourcard.value
         return card_value
 
-    def get_next_move(self):
-        next_move = input("Do you want to hit or stay? ")
-        next_move = next_move.lower()
-        if next_move == 'hit':
-            return True
-        elif next_move == 'stay':
-            return False
-        else:
-            print("Error. Exiting")
-            exit
+    #def get_next_move(self):
+    #    next_move = input("Do you want to hit or stay? ")
+    #    next_move = next_move.lower()
+    #    if next_move == 'hit':
+    #        return True
+    #    elif next_move == 'stay':
+    #        return False
+    #    else:
+    #        print("Error. Exiting")
+    #        quit()
         
 
     def get_hand(self):
         self.shuffle_deck()
-        yourCard = self.deal_card()        
+        yourCard = self.deal_card()
+        self.shuffle_deck()        
         return self.calc_card(yourCard)

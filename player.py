@@ -35,6 +35,8 @@ class player():
         self.set_balance(adjusted_balance)
         return adjusted_balance
 
+
+    # Check Scores and Balance
     def check_score(self):
         if self.score == 21:
             print("21 Points! You win!")
@@ -43,7 +45,7 @@ class player():
             print("Your balance is now {} dollars".format(adjusted_balance))
             over = True
         elif self.score >= 22:
-            print("Sorry - you lose. You were over 21 points.")
+            print("\nSorry - you lose. You were over 21 points.")
             print("You had {} points.".format(self.score))
             self.subtract_balance(self.wager)
             adjusted_balance = self.get_balance()
@@ -56,7 +58,7 @@ class player():
     def check_dealer_score(self):
         if self.score >= 22:
             print("I currently have {} points. ".format(self.get_score()))
-            print("You won! I lost. Adding your winnings to your balance.")
+            print("\nYou won! I lost. Adding your winnings to your balance.")
             self.subtract_balance(self.wager)
             adjusted_balance = self.get_balance()
             print("My balance is now {} dollars".format(adjusted_balance))
@@ -65,8 +67,8 @@ class player():
             over = False
         return over
 
-    def broke(self):
-        if self.balance >= 0 and self.wager <= self.balance:
+    def not_broke(self):
+        if self.balance <= 0 or self.wager > self.balance or self.wager < 0:
             return False
         else:
             return True

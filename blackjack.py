@@ -1,7 +1,7 @@
-import app
+import dealer
 
 
-game = app.app()
+game = dealer.dealer()
 
 def play_game():
 

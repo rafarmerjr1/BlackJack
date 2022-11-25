@@ -10,8 +10,7 @@ class app():
         self.dealer = player(1000)
         #self.error_check = error_check()
 
-    def new_hand(self):
-        #Reset score if not first game
+    def new_hand(self):  #Reset score if not first game
         self.player.set_score(0)
         self.dealer.set_score(0)
         self.stays = 0
@@ -24,26 +23,25 @@ class app():
 
     def get_wager(self):
         wager = input("How much would you like to bet? ")
-        print("Ok, you bet: {}.  I will wager the same amount.".format(wager))
+        print("\nOk, you bet: {}.  I will wager the same amount.".format(wager))
         
-
-        self.wager = int(wager) # breaks if it gets a string
+        self.wager = int(wager) # breaks if it gets a string, needs error handling
         error_check.check_wager(self.wager)
         self.player.set_wager(self.wager)
         self.dealer.set_wager(self.wager)
-        if not self.player.broke():
+        if self.player.not_broke():
             self.dealer_hit()
-            print('\n Now I will draw a card for you.')
+            print('\nNow I will draw a card for you.')
             self.lets_deal()
         else:
-            print("Wait a minute... You're Broke! You can't play anymore")
+            print("Wait a minute... You don't have enough money! Get out!!!\n")
             quit()
 
     def lets_deal(self):
         # Deal a card and adjust total score
         card_value = self.deck.get_hand()
         self.player.adjust_score(card_value)
-
+        
         # Check for over 21 point limit 
         self.over = self.player.check_score()
         if not self.over:
@@ -54,8 +52,19 @@ class app():
         else:
             pass
 
+    def get_next_move(self):
+        next_move = input("Do you want to hit or stay? ")
+        next_move = next_move.lower()
+        if next_move == 'hit':
+            return True
+        elif next_move == 'stay':
+            return False
+        else:
+            print("Error. Exiting")
+            quit()
+
     def check_hit(self):  
-        if self.deck.get_next_move():
+        if self.get_next_move():
             self.lets_deal() 
         else:
             self.stay()
