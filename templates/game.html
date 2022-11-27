@@ -2,14 +2,15 @@
 
 {% block content %}
     <h1>{% block title %} Let's Play BlackJack! {% endblock %}</h1>
-    <br>
 
     <h2>Dealer's Hand</h2>
     {% for i in dealer_imgs %}
     <img src={{ url_for('static', filename =i) }}></img> 
     {% endfor %}
+    {% if dealer_score %}
     <p>Dealer Score: {{ dealer_score }}</p>
     <p>My {{ dealer_card }}</p>
+    {% endif %}
 
     <h2>Your Hand</h2>
     <p>{{ balance }}</p>
@@ -25,8 +26,16 @@
     <img src={{ url_for('static', filename =i) }}></img> 
     {% endfor %}
 
+    {% if player_score %}
     <p>Your Score: {{ player_score }}</p>
     <p>Your {{ player_card }}</p>
+    {% endif %}
 
+    {% if next %}
+    <form action="/nextMove" method="post" autocomplete="off">
+        <input type="submit" name="Next" value="Hit">
+        <input type="submit" name="Next" value="Stand">
+    </form>
+    {% endif %}
 {% endblock %}
 

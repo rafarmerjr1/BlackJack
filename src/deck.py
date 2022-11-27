@@ -11,8 +11,6 @@ class deck():
         self.starting_deck = []
         self.playing_deck = []
 
-
-
         self.dealer_starting_balance = 1000
         for suit in self.Suits:
             for key, value in self.Value_dict.items():

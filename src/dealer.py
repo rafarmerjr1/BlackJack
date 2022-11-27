@@ -29,28 +29,23 @@ class dealer():
             player_card = self.player_card 
             dealer_card = self.dealer_card
             over = self.over
-            print(dealer_card)
-            print(player_card)
-            return dealer_score, player_score, dealer_card, player_card, over
+            dealer_img = self.dealer_card_img
+            player_img = self.player_card_img
+            print(type(dealer_score))
+            print(type(player_score))
+            print(type(dealer_card))
+            print(type(player_card))
+            print(type(dealer_img))
+            print(type(player_img))
+            return dealer_score, player_score, dealer_card, player_card, dealer_img, player_img 
 
     def get_wager(self,wager):
-
         self.wager = int(wager) # breaks if it gets a string, needs error handling
         error_check.check_wager(self.wager)
         self.player.set_wager(self.wager)
         self.dealer.set_wager(self.wager)
         if self.player.not_broke():
-            self.dealer_hit()
-            self.lets_deal()
-            dealer_score = self.dealer_score
-            player_score = self.player_score
-            player_card = self.player_card 
-            dealer_card = self.dealer_card
-            dealer_img = self.dealer_card_img
-            player_img = self.player_card_img
-            print(dealer_card)
-            print(player_card)
-            return dealer_score, player_score, dealer_card, player_card, dealer_img, player_img 
+            return self.lets_deal() 
         else:
             print("Wait a minute... You don't have enough money! Get out!!!\n")
             quit()
@@ -63,31 +58,15 @@ class dealer():
         self.player_score = self.player.get_score()
         # Check for over 21 point limit 
         self.over = self.player.check_score()  #returns True is over limit
-
-
-    def get_next_move(self):
-        next_move = input("Do you want to hit or stay? ")
-        next_move = next_move.lower()
-        if next_move == 'hit':
-            return True
-        elif next_move == 'stay':
-            return False
-        else:
-            print("Error. Exiting")
-            quit()
-
-    def check_hit(self):  
-        if self.get_next_move():
-            self.lets_deal() 
-        else:
-            self.stay()
+        self.dealer_hit()
+        return self.handler()
 
     def hitme(self):
         self.stays = 0
-        self.lets_deal() 
+        return self.lets_deal() 
 
     def dealer_hit(self):
-        self.game_over = False
+        #self.game_over = False
         #Dealer draws a card
         print("I will now draw my card.\n")
         card_value, self.dealer_card, self.dealer_card_img = self.deck.get_hand()
@@ -106,13 +85,14 @@ class dealer():
         else:
             pass
 
-    def stay(self):
+    def stand(self):
         if self.stays < 2:
             pbalance = self.player.get_score()
             print("You will stay at {} points. ".format(pbalance))
             self.stays += 1
             #Dealer should hit
             self.dealer_hit()
+            return self.handler()
             while self.game_over == False:
                 self.check_hit()
         else:

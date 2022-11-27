@@ -13,12 +13,24 @@ def home():
     return render_template('index.html') 
 
 @app.route('/hit', methods=['GET'])
-def login():
+def hit():
     return None
 
 @app.route('/stand', methods=['GET'])
-def login1():
+def stand():
     return None
+
+@app.route('/nextMove', methods=['POST'])
+def next():
+    if request.form['Next'] == 'Hit':
+        dealer_score, player_score, dealer_card, player_card, dealer_card_img, player_card_img = game.hitme()
+        dealer_card_image_list.append(dealer_card_img)
+        player_card_image_list.append(player_card_img)
+        return render_template('game.html', dealer_score=dealer_score, player_score=player_score, dealer_card=dealer_card, player_card=player_card, dealer_imgs=dealer_card_image_list, player_imgs=player_card_image_list, next=True)
+    if request.form['Next'] == 'Stand':
+        dealer_score, player_score, dealer_card, player_card, dealer_card_img, player_card_img = game.stand()
+        dealer_card_image_list.append(dealer_card_img)
+        return render_template('game.html', dealer_score=dealer_score, player_score=player_score, dealer_card=dealer_card, player_card=player_card, dealer_imgs=dealer_card_image_list, player_imgs=player_card_image_list, next=True)
 
 @app.route('/newGame', methods=['POST'])
 def new_game():
@@ -34,7 +46,7 @@ def wager():
     dealer_score, player_score, dealer_card, player_card, dealer_card_img, player_card_img = game.get_wager(wager)
     dealer_card_image_list.append(dealer_card_img)
     player_card_image_list.append(player_card_img)
-    return render_template('game.html', dealer_score=dealer_score, player_score=player_score, dealer_card=dealer_card, player_card=player_card, dealer_imgs=dealer_card_image_list, player_imgs=player_card_image_list)
+    return render_template('game.html', dealer_score=dealer_score, player_score=player_score, dealer_card=dealer_card, player_card=player_card, dealer_imgs=dealer_card_image_list, player_imgs=player_card_image_list, next=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
