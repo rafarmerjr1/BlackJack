@@ -15,6 +15,7 @@ class player():
         return self.score
 
     def adjust_score(self, cardVal):
+        cardVal =int(cardVal)
         new_score = cardVal + self.score
         self.set_score(new_score)
 

@@ -1,8 +1,8 @@
-from deck import deck
-from player import player
-from error_check import error_check  ## this is how you do it From FILE import CLASS
+from src.deck import deck as deck
+from src.player import player as player
+from src.error_check import error_check  as error_check## this is how you do it From FILE import CLASS
 
-class app():
+class dealer():
  
     def __init__(self):
         self.deck = deck()
@@ -18,39 +18,52 @@ class app():
         # Greeting
         print("Let's play Blackjack...")
         player_balance = self.player.get_balance()
-        print("Your starting balance is {} dollars.".format(player_balance))
-        self.get_wager()
+        #print("Your starting balance is {} dollars.".format(player_balance))
+        data = "Your starting balance is {} dollars. How much would you like to bet?".format(player_balance)
+        return data
+        #self.get_wager()
 
-    def get_wager(self):
-        wager = input("How much would you like to bet? ")
-        print("\nOk, you bet: {}.  I will wager the same amount.".format(wager))
-        
+    def handler(self):
+            dealer_score = self.dealer_score
+            player_score = self.player_score
+            player_card = self.player_card 
+            dealer_card = self.dealer_card
+            over = self.over
+            print(dealer_card)
+            print(player_card)
+            return dealer_score, player_score, dealer_card, player_card, over
+
+    def get_wager(self,wager):
+
         self.wager = int(wager) # breaks if it gets a string, needs error handling
         error_check.check_wager(self.wager)
         self.player.set_wager(self.wager)
         self.dealer.set_wager(self.wager)
         if self.player.not_broke():
             self.dealer_hit()
-            print('\nNow I will draw a card for you.')
             self.lets_deal()
+            dealer_score = self.dealer_score
+            player_score = self.player_score
+            player_card = self.player_card 
+            dealer_card = self.dealer_card
+            dealer_img = self.dealer_card_img
+            player_img = self.player_card_img
+            print(dealer_card)
+            print(player_card)
+            return dealer_score, player_score, dealer_card, player_card, dealer_img, player_img 
         else:
             print("Wait a minute... You don't have enough money! Get out!!!\n")
             quit()
 
     def lets_deal(self):
         # Deal a card and adjust total score
-        card_value = self.deck.get_hand()
+        card_value, self.player_card, self.player_card_img = self.deck.get_hand()
+        print(type(card_value))
         self.player.adjust_score(card_value)
-        
+        self.player_score = self.player.get_score()
         # Check for over 21 point limit 
-        self.over = self.player.check_score()
-        if not self.over:
-            print("You currently have {} points. \n".format(self.player.get_score()))
-            self.check_hit()
-        if self.over:
-            self.game_over = True
-        else:
-            pass
+        self.over = self.player.check_score()  #returns True is over limit
+
 
     def get_next_move(self):
         next_move = input("Do you want to hit or stay? ")
@@ -77,8 +90,10 @@ class app():
         self.game_over = False
         #Dealer draws a card
         print("I will now draw my card.\n")
-        card_value = self.deck.get_hand()
+        card_value, self.dealer_card, self.dealer_card_img = self.deck.get_hand()
+        print(type(card_value))
         self.dealer.adjust_score(card_value)
+        self.dealer_score = self.dealer.get_score()
 
         # Check for limit 
         self.over = self.dealer.check_dealer_score()

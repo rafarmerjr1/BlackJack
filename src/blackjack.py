@@ -1,4 +1,4 @@
-import dealer
+import src.dealer as dealer
 
 
 game = dealer.dealer()
