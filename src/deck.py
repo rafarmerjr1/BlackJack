@@ -1,4 +1,3 @@
-#from card import *
 import random
 import src.card as card
 class deck():
@@ -23,7 +22,6 @@ class deck():
 
     def deal_card(self):
         self.yourCard = self.playing_deck.pop()
-        #print(f"This card is {self.yourCard.key} of {self.yourCard.suit}.")
         self.what_card = f"card is {self.yourCard.key} of {self.yourCard.suit}."
         return self.yourCard, self.yourCard.get_image()
 
@@ -31,23 +29,8 @@ class deck():
         card_value = yourcard.value
         return card_value
 
-    #def get_next_move(self):
-    #    next_move = input("Do you want to hit or stay? ")
-    #    next_move = next_move.lower()
-    #    if next_move == 'hit':
-    #        return True
-    #    elif next_move == 'stay':
-    #        return False
-    #    else:
-    #        print("Error. Exiting")
-    #        quit()
-        
-
     def get_hand(self):
         yourCard = 0
         self.shuffle_deck()
         yourCard, card_img = self.deal_card()
-        #self.shuffle_deck()        
-        #card_value = self.calc_card(yourCard)
-        #return yourCard, self.calc_card(yourCard), self.what_card
         return self.calc_card(yourCard), self.what_card, card_img

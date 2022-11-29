@@ -1,12 +1,10 @@
 # BlackJack
 
 Next items to do:
-- implement better state handling
-- implement error handling
+- implement error handling logic
 - add Ace handling logic
-- Convert program to Flask REST API 
-- Write frontend - maybe jinja or some other framework like https://streamlit.io/
-- Obtain images of a card deck.  
+- check player balance at each wager
+- input checking
 
 After application is done, create two ways of hosting - docker and AWS:
 - Write terraform or Python IaC
