@@ -4,13 +4,13 @@ class deck():
     
     def __init__(self):
         self.Suits = ['Spades', 'Hearts', 'Clubs', 'Diamonds']
-        self.Value_dict = {'ace':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'Jack':10, 'Queen':10, 'King':10}
+        self.Value_dict = {'Ace':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'Jack':10, 'Queen':10, 'King':10}
         # Need to add Ace Handling later - 1 or 11
         
         self.starting_deck = []
         self.playing_deck = []
 
-        self.dealer_starting_balance = 1000
+        #self.dealer_starting_balance = 1000
         for suit in self.Suits:
             for key, value in self.Value_dict.items():
                 thisCard = card.card(key, suit, value)

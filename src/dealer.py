@@ -32,15 +32,12 @@ class dealer():
         self.dealer.set_score(0)
         self.next = True
         self.wager = int(wager) # breaks if it gets a string, needs error handling
-        #error_check.check_wager(self.wager)
         self.player.set_wager(self.wager)
         self.dealer.set_wager(self.wager)
         
         if self.player.not_broke():
             return self.lets_deal() 
         else:
-            #print("Wait a minute... You don't have enough money! Get out!!!\n")
-            #quit()
             self.over = True
             return self.state()
 
@@ -49,7 +46,6 @@ class dealer():
         card_value, self.player_card, self.player_card_img = self.deck.get_hand()
         self.player.adjust_score(card_value)
         self.player_score = self.player.get_score()
-        # Check for over 21 point limit 
         self.over, self.win = self.player.check_score()
         if self.win == True:
             self.player.add_balance(self.wager)
@@ -78,16 +74,18 @@ class dealer():
             self.player.add_balance(self.wager)
             self.dealer.subtract_balance(self.wager)
             return self.state()
-        return self.handler()
+        else:
+            return self.handler()
 
     def stand(self):
+        # Can only stand once per game, then final scores are compared
         self.dealer_hit()
         self.over = True
         if self.dealer_score > self.player_score and self.dealer_score <= 21:
             self.win = False
             self.dealer.add_balance(self.wager)
             self.player.subtract_balance(self.wager)
-        elif self.dealer_score <= self.player_score:
+        if self.dealer_score <= self.player_score:
             self.win = True
             self.player.add_balance(self.wager)
             self.dealer.subtract_balance(self.wager)

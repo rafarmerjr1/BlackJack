@@ -102,7 +102,10 @@ def play_again():
     dealer_card_image_list.clear()
     player_card_image_list.clear()
     balance = game.player.get_balance()
-    return render_template('game.html', place_bet=True, balance=balance)
+    if balance == 0:
+        return redirect(url_for('cheat'))
+    else:
+        return render_template('game.html', place_bet=True, balance=balance)
         
 
 if __name__ == "__main__":
