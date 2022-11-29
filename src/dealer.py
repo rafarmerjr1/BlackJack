@@ -10,8 +10,8 @@ class dealer():
         self.over = False
         self.win = False
         self.next = True
-        self.player.set_score(0)
-        self.dealer.set_score(0)
+        self.player._set_score(0)
+        self.dealer._set_score(0)
 
 ##########################
 #     Start a Game       #
@@ -19,8 +19,8 @@ class dealer():
 
     def new_hand(self):  
         #Reset values if not first game
-        self.player.set_balance(100)
-        self.dealer.set_balance(1000)
+        self.player._set_balance(100)
+        self.dealer._set_balance(1000)
         
         # Start Game
         print("Let's play Blackjack...")
@@ -28,8 +28,8 @@ class dealer():
         return player_balance
 
     def get_wager(self, wager):
-        self.player.set_score(0)
-        self.dealer.set_score(0)
+        self.player._set_score(0)
+        self.dealer._set_score(0)
         self.next = True
         self.wager = int(wager) # breaks if it gets a string, needs error handling
         self.player.set_wager(self.wager)
@@ -44,11 +44,11 @@ class dealer():
     def lets_deal(self):
         # Deal a card and adjust total score
         card_value, self.player_card, self.player_card_img = self.deck.get_hand()
-        self.player.adjust_score(card_value)
+        self.player._adjust_score(card_value)
         self.player_score = self.player.get_score()
         self.over, self.win = self.player.check_score()
         if self.win == True:
-            self.player.add_balance(self.wager)
+            self.player._add_balance(self.wager)
             self.dealer.subtract_balance(self.wager)
             return self.state()
         if self.player_score > 21 or self.player_score == 21:
@@ -67,11 +67,11 @@ class dealer():
     def dealer_hit(self):
         #Dealer draws a card
         card_value, self.dealer_card, self.dealer_card_img = self.deck.get_hand()
-        self.dealer.adjust_score(card_value)
+        self.dealer._adjust_score(card_value)
         self.dealer_score = self.dealer.get_score()
         self.over, self.win = self.dealer.check_dealer_score()
         if self.win == True:
-            self.player.add_balance(self.wager)
+            self.player._add_balance(self.wager)
             self.dealer.subtract_balance(self.wager)
             return self.state()
         else:
@@ -83,11 +83,11 @@ class dealer():
         self.over = True
         if self.dealer_score > self.player_score and self.dealer_score <= 21:
             self.win = False
-            self.dealer.add_balance(self.wager)
+            self.dealer._add_balance(self.wager)
             self.player.subtract_balance(self.wager)
         if self.dealer_score <= self.player_score:
             self.win = True
-            self.player.add_balance(self.wager)
+            self.player._add_balance(self.wager)
             self.dealer.subtract_balance(self.wager)
         return self.state()
 

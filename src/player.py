@@ -6,23 +6,23 @@ class player():
     
 # Scores ---------------------------------------------------------
 
-    def set_score(self, score):
+    def _set_score(self, score):
         self.score = int(score)
 
     def get_score(self):
         return self.score
 
-    def adjust_score(self, cardVal):
+    def _adjust_score(self, cardVal):
         cardVal =int(cardVal)
         new_score = cardVal + self.score
-        self.set_score(new_score)
+        self._set_score(new_score)
 
 # Finances----------------------------------------------------------
 
     def set_wager(self,wager):
         self.wager = wager
 
-    def set_balance(self, new_balance):
+    def _set_balance(self, new_balance):
         self.balance = new_balance
 
     def get_balance(self):
@@ -30,12 +30,12 @@ class player():
 
     def subtract_balance(self, wager):
         adjusted_balance = self.balance - wager
-        self.set_balance(adjusted_balance)
+        self._set_balance(adjusted_balance)
         return adjusted_balance
 
-    def add_balance(self,wager):
+    def _add_balance(self,wager):
         adjusted_balance = self.balance + wager
-        self.set_balance(adjusted_balance)
+        self._set_balance(adjusted_balance)
         return adjusted_balance
 
     def not_broke(self):
@@ -48,7 +48,7 @@ class player():
 
     def check_score(self):
         if self.score == 21:
-            self.add_balance(self.wager)
+            self._add_balance(self.wager)
             over = True
             win = True
         elif self.score >= 22:
@@ -62,7 +62,7 @@ class player():
 
     def check_dealer_score(self):
         if self.score == 21:
-            self.add_balance(self.wager)
+            self._add_balance(self.wager)
             over = True
             win = False
         elif self.score >= 22:
