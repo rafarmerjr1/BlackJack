@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1>Let's Play BlackJack!</h1>
+<body>
+    <h3>Place Your Bet</h3>
+    <p> I will bet the same amount.</p>
+    {% if balance %}
+    <p>Your current balance is ${{ balance }} dollars.</p>
+    {% endif %}
+
+    <div id="balancediv"></div>
+
+    <!-- Wager if new game -->
+    <form action="/wager" method="post" autocomplete="off">
+        <input type="text" name="bet">
+        <input type="submit" value="Place Bet">
+    </form>
+
+<script>
+    const balance_div = document.querySelector("balancediv");
+    fetch('/Get_balance').then(response => {return response.json()}).then(data => console.log(data.balance));
+    console.log(document.querySelector("balancediv"))
+</script>
+</body>
+
+{% endblock %}
+

@@ -65,13 +65,16 @@
     {% endif %}
 
     {% if next %}
-    <form action="/nextMove" method="post" autocomplete="off">
+    <form action="/Hitme" method="post" autocomplete="off">
         <input type="submit" name="Next" value="Hit">
         <input type="submit" name="Next" value="Stand">
         <br>
         <input type="submit" name="Next" value="New Game">
     </form>
     {% endif %}
+
+
     
 {% endblock %}
+
 
