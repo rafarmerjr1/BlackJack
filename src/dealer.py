@@ -21,19 +21,21 @@ class dealer():
         #Reset values if not first game
         self.player._set_balance(100)
         self.dealer._set_balance(1000)
+        self.player.set_wager(0)
+        self.player.set_wager(0)
         
         # Start Game
         print("Let's play Blackjack...")
         player_balance = self.player.get_balance()
         return player_balance
 
-    def get_wager(self, wager):
+    def get_wager(self):
         self.player._set_score(0)
         self.dealer._set_score(0)
         self.next = True
-        self.wager = int(wager) # breaks if it gets a string, needs error handling
-        self.player.set_wager(self.wager)
-        self.dealer.set_wager(self.wager)
+        #self.wager = int(wager) # breaks if it gets a string, needs error handling
+        #self.player.set_wager(self.wager)
+        #self.dealer.set_wager(self.wager)
         
         if self.player.not_broke():
             return self.lets_deal() 
@@ -41,6 +43,11 @@ class dealer():
             self.over = True
             return self.state()
 
+    def set_wager(self, wager):
+        self.wager = int(wager) # breaks if it gets a string, needs error handling
+        self.player.set_wager(self.wager)
+        self.dealer.set_wager(self.wager)
+        
     def lets_deal(self):
         # Deal a card and adjust total score
         card_value, self.player_card, self.player_card_img = self.deck.get_hand()
