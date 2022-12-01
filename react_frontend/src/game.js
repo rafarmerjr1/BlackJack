@@ -11,8 +11,8 @@ class Game extends React.Component {
             "player_score":0, 
             "dealer_card":"", 
             "player_card":"", 
-            "dealer_imgs":[""], 
-            "player_imgs":[""], 
+            "dealer_imgs":[], 
+            "player_imgs":[], 
             "next":"",
             "over":"",
             "win":"",
@@ -27,9 +27,9 @@ class Game extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getNewGame = this.getNewGame.bind(this);
         this.fetchGame = this.fetchGame.bind(this);
-        //this.getBalance = this.getBalance.bind(this);
         //this.fetchBalance = this.fetchBalance.bind(this);
         this.getFirstHand = this.getFirstHand.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
 };
     handleChange(event) {    
@@ -43,9 +43,6 @@ class Game extends React.Component {
         var gameState = await this.fetchGame();
         console.log(gameState.balance);
         this.updateState(gameState)
-        //const wagerElement = createRoot(document.getElementById('root'));
-        //let element = <Wagerform balance={ playerBalance.balance }/>;
-        //wagerElement.render(element)
     }
     //fetchBalance(){
     //    return fetch('/newGame')
@@ -81,6 +78,7 @@ render() {
     return (
         <div className="App">
         <header className="App-header">
+            <div id="Actions">
         <h1>Place Your Bet</h1>
         <p> I will bet the same amount. </p>
         <p>Your balance is ${this.state.balance}.</p>
@@ -93,12 +91,20 @@ render() {
              />
         <input type="submit" value="Place Bet"/>
         </form>
+        </div>
           <h3>Dealer Hand</h3>
+          
+          {this.state.dealer_imgs.map((cardImage) => 
+          <img className="App-image" src={require(`./${cardImage}`)} />)}
+          
             <p>Dealer Score: {this.state.dealer_score}</p>
             <p>Dealer Card: This {this.state.dealer_card}</p>
             
             <h3>Player Hand</h3>
-            <img src={require("./images/PNG-cards-1.3/10_of_clubs.png")} />
+
+            {this.state.player_imgs.map((cardImage) => 
+          <img className="App-image" src={require(`./${cardImage}`)} />)}
+           
             <p>Player Score: {this.state.player_score}</p>
             <p>Player Card: Your {this.state.player_card}</p>
           </header>
@@ -109,20 +115,8 @@ render() {
 
 export default Game;
 
-/*
-        
-        const betPlaced = this.state.wager_set;
-        if (!betPlaced){
-            var state = this.state;
-        } else {
-            var state = "hi"
-        }
-     return (
-        <div className="App">
-            <header className="App-header">
-            <p>{state}</p>
-         </header>
-         </div>
-            )
+//            <img className="App-image" src={require("./images/PNG-cards-1.3/10_of_clubs.png")} />
+//          <img className="App-image" src={require(`./${cardImage}`)} /> )}
 
-*/
+// {this.state.player_imgs.map((cardImage) => 
+//  <img className="App-image" src={require(`./${cardImage}`)} />)}

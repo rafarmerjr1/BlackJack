@@ -31,3 +31,6 @@ react_frontend/*.log
 react_frontend/npm-debug.log*
 react_frontend/yarn-debug.log*
 react_frontend/yarn-error.log*
+
+/zipped_resources
+zipped_resources/*
