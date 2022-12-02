@@ -29,7 +29,18 @@
 }
 
 .App-image{
-  max-width: 10%;
+  max-width: 25%;
+}
+
+.App-body {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 1vmin);
+  color: white;
 }
 
 @keyframes App-logo-spin {

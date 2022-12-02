@@ -111,37 +111,38 @@ class Stand(Resource):
         }
         return data
 
-#class Wager(Resource):
-#    def post(self):
-#        dealer_card_image_list.clear()
-#        player_card_image_list.clear()
-#        req = request.json
-#        print(req['bet'])
-#        wager = req['bet']
-#        try:
-#            wager = int(wager)
-#            if isinstance(wager, int):
-#                dealer_score, player_score, dealer_card, player_card, dealer_card_img, player_card_img, balance, over, win, next = game.get_wager(wager)
-#                dealer_card_image_list.append(dealer_card_img)
-#                player_card_image_list.append(player_card_img)
-#                if over:
-#                    return redirect(url_for('cheat'))
-#                else:
-#                    data = {
-#                        "dealer_score":dealer_score, 
-#                        "player_score":player_score, 
-#                        "dealer_card":dealer_card, 
-#                        "player_card":player_card, 
-#                        "dealer_imgs":dealer_card_image_list, 
-#                        "player_imgs":player_card_image_list, 
-#                        "next":next,
-#                        "over":over,
-#                        "win":win,
-#                        "balance":balance  
-#                        }
-#                    return data
-#        except:
-#            return redirect(url_for('cheat'))
+class Wager(Resource):
+    def post(self):
+        req = request.json
+        print(type(req))
+        print(req["wager"])
+        wager = req['wager']
+        wager = int(wager)
+        game.set_wager(wager)
+        #try:
+            #if isinstance(wager, int):
+        dealer_score, player_score, dealer_card, player_card, dealer_card_img, player_card_img, balance, over, win, next = game.hitme()
+        dealer_card_image_list.append(dealer_card_img)
+        player_card_image_list.append(player_card_img)
+        if over:
+            return redirect(url_for('cheat'))
+        else:
+            data = {
+                "dealer_score":dealer_score, 
+                "player_score":player_score, 
+                "dealer_card":dealer_card, 
+                "player_card":player_card, 
+                "dealer_imgs":dealer_card_image_list, 
+                "player_imgs":player_card_image_list, 
+                "next":next,
+                "over":over,
+                "win":win,
+                "balance":balance,
+                "wager_set":True  
+                }
+            return data
+        #except:
+        #    return redirect(url_for('cheat'))
 
 class Get_balance(Resource):
     def get(self):
@@ -165,7 +166,7 @@ api.add_resource(New_game, '/newGame')
 api.add_resource(Get_balance, '/Get_balance')
 api.add_resource(Hitme, '/Hitme')
 api.add_resource(Stand, '/stand')
-#api.add_resource(Wager, '/wager')
+api.add_resource(Wager, '/wager')
 
 
 if __name__ == "__main__":

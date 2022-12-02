@@ -1,7 +1,7 @@
 import './App.css';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, Link } from 'react'
 import { createRoot } from 'react-dom/client';
-import Wager from './wager';
+import { Wager, Hitme} from './wager';
 
 class Game extends React.Component {
     constructor(props) {
@@ -19,7 +19,8 @@ class Game extends React.Component {
             "balance":1,
             "wager_set":false,
             "wager":0,
-            "startGame": true
+            "startGame": true, 
+            "isToggleOn": true
         };
         this.getFirstHand();
 
@@ -30,15 +31,10 @@ class Game extends React.Component {
         //this.fetchBalance = this.fetchBalance.bind(this);
         this.getFirstHand = this.getFirstHand.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleHit = this.handleHit.bind(this);
+        this.handleStand = this.handleStand.bind(this)
 
 };
-    handleChange(event) {    
-        this.setState({wager: event.target.value});  
-    };
-    handleSubmit(event) {
-        console.log("A bet was submitted!");
-        event.preventDefault();
-        };
     async getNewGame() {
         var gameState = await this.fetchGame();
         console.log(gameState.balance);
@@ -48,7 +44,7 @@ class Game extends React.Component {
     //    return fetch('/newGame')
     //      .then(response => response.json())
     //};
-    updateState(gameState){
+    async updateState(gameState){
         this.setState({
             balance: gameState.balance,
             dealer_score: gameState.dealer_score,
@@ -67,18 +63,51 @@ class Game extends React.Component {
         return fetch('/newGame')
           .then(response => response.json())
           };
-
     async getFirstHand(){
         let startGame = this.state.startGame;
         if (startGame){
            await this.getNewGame();
         } else {};
     };
+    handleChange(event) {    
+        this.setState({wager: event.target.value});  
+    };
+    async handleSubmit(event) {
+        event.preventDefault();
+        console.log("A bet was submitted!" + this.state.wager);
+        var newState = await Wager(this.state)
+        console.log(newState)
+        this.updateState(newState)
+        //event.preventDefault();
+        };
+    async handleHit(){
+        console.log("Hit");
+        var newState = await Hitme(this.state);
+        this.updateState(newState);
+    };
+    async handleStand(){
+        console.log("Stand");
+    };
 render() {
     return (
-        <div className="App">
-        <header className="App-header">
-            <div id="Actions">
+    <div className="App">
+    <header className="App-header">
+    <body className="App-body">
+          <h3>Dealer Hand</h3>
+          
+          {this.state.dealer_imgs.map((cardImage) => 
+          <img className="App-image" src={require(`./${cardImage}`)} />)}
+          
+            <p>Dealer Score: {this.state.dealer_score}</p>
+            <p>Dealer Card: This {this.state.dealer_card}</p>
+            
+            <h3>Player Hand</h3>
+            {this.state.player_imgs.map((cardImage) => 
+          <img className="App-image" src={require(`./${cardImage}`)} />)}
+            <p>Player Score: {this.state.player_score}</p>
+            <p>Player Card: Your {this.state.player_card}</p>
+
+    <div id="Actions">
         <h1>Place Your Bet</h1>
         <p> I will bet the same amount. </p>
         <p>Your balance is ${this.state.balance}.</p>
@@ -92,22 +121,12 @@ render() {
         <input type="submit" value="Place Bet"/>
         </form>
         </div>
-          <h3>Dealer Hand</h3>
-          
-          {this.state.dealer_imgs.map((cardImage) => 
-          <img className="App-image" src={require(`./${cardImage}`)} />)}
-          
-            <p>Dealer Score: {this.state.dealer_score}</p>
-            <p>Dealer Card: This {this.state.dealer_card}</p>
-            
-            <h3>Player Hand</h3>
-
-            {this.state.player_imgs.map((cardImage) => 
-          <img className="App-image" src={require(`./${cardImage}`)} />)}
-           
-            <p>Player Score: {this.state.player_score}</p>
-            <p>Player Card: Your {this.state.player_card}</p>
-          </header>
+    <div id="HitStand">
+        <button onClick={this.handleHit}> Hit </button>
+        <button onClick={this.handleStand}> Stand </button>
+    </div>
+        </body>
+        </header>
       </div>
         );
 };
