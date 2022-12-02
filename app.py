@@ -48,21 +48,14 @@ def play_again():
 class New_game(Resource):
     def get(self):
         print("newGame API hit")
-        # Clear any existing cards in list
-        dealer_card_image_list.clear()
-        player_card_image_list.clear()
-
+        
         game.new_hand()
-        dealer_score, player_score, dealer_card, player_card, dealer_card_img, player_card_img, balance, over, win, next = game.get_wager()
-        dealer_card_image_list.append(dealer_card_img)
-        player_card_image_list.append(player_card_img)
+        dealer_score, player_score, dealer_card_img, player_card_img, balance, over, win, next = game.get_wager()
         data = {
             "dealer_score":dealer_score, 
             "player_score":player_score, 
-            "dealer_card":dealer_card, 
-            "player_card":player_card, 
-            "dealer_imgs":dealer_card_image_list, 
-            "player_imgs":player_card_image_list, 
+            "dealer_imgs":dealer_card_img, 
+            "player_imgs":player_card_img, 
             "next":next,
             "over":over,
             "win":win,
@@ -73,17 +66,13 @@ class New_game(Resource):
 
 class Hitme(Resource):
     def post(self):
-        dealer_score, player_score, dealer_card, player_card, dealer_card_img, player_card_img, balance, over, win, next = game.hitme()
-        dealer_card_image_list.append(dealer_card_img)
-        player_card_image_list.append(player_card_img)
+        dealer_score, player_score, dealer_card_img, player_card_img, balance, over, win, next = game.hitme()
 
         data = {
             "dealer_score":dealer_score, 
             "player_score":player_score, 
-            "dealer_card":dealer_card, 
-            "player_card":player_card, 
-            "dealer_imgs":dealer_card_image_list, 
-            "player_imgs":player_card_image_list, 
+            "dealer_imgs":dealer_card_img, 
+            "player_imgs":player_card_img, 
             "next":next,
             "over":over,
             "win":win,
@@ -94,16 +83,13 @@ class Hitme(Resource):
 class Stand(Resource):
     def post(self):
         over=True
-        dealer_score, player_score, dealer_card, player_card, dealer_card_img, player_card_img, balance, over, win, next = game.stand()
-        dealer_card_image_list.append(dealer_card_img)
+        dealer_score, player_score, dealer_card_img, player_card_img, balance, over, win, next = game.stand()
 
         data = {
            "dealer_score":dealer_score, 
-           "player_score":player_score, 
-           "dealer_card":dealer_card, 
-           "player_card":player_card, 
-           "dealer_imgs":dealer_card_image_list, 
-           "player_imgs":player_card_image_list, 
+           "player_score":player_score,  
+           "dealer_imgs":dealer_card_img, 
+           "player_imgs":player_card_img, 
            "next":next,
            "over":over,
            "win":win,
@@ -118,22 +104,18 @@ class Wager(Resource):
         print(req["wager"])
         wager = req['wager']
         wager = int(wager)
-        game.set_wager(wager)
+        #game.set_wager(wager)
         #try:
             #if isinstance(wager, int):
-        dealer_score, player_score, dealer_card, player_card, dealer_card_img, player_card_img, balance, over, win, next = game.hitme()
-        dealer_card_image_list.append(dealer_card_img)
-        player_card_image_list.append(player_card_img)
+        dealer_score, player_score, dealer_card_img, player_card_img, balance, over, win, next = game.set_wager(wager)
         if over:
             return redirect(url_for('cheat'))
         else:
             data = {
                 "dealer_score":dealer_score, 
                 "player_score":player_score, 
-                "dealer_card":dealer_card, 
-                "player_card":player_card, 
-                "dealer_imgs":dealer_card_image_list, 
-                "player_imgs":player_card_image_list, 
+                "dealer_imgs":dealer_card_img, 
+                "player_imgs":player_card_img, 
                 "next":next,
                 "over":over,
                 "win":win,
@@ -144,17 +126,15 @@ class Wager(Resource):
         #except:
         #    return redirect(url_for('cheat'))
 
-class Get_balance(Resource):
+class Get_balance(Resource): # This calls the wrong function.
     def get(self):
         balance = game.player.get_balance()
-        dealer_score, player_score, dealer_card, player_card, dealer_card_img, player_card_img, balance, over, win, next = game.get_wager()
+        dealer_score, player_score, dealer_card_img, player_card_img, balance, over, win, next = game.get_wager()
         data = {
             "dealer_score":dealer_score, 
             "player_score":player_score, 
-            "dealer_card":dealer_card, 
-            "player_card":player_card, 
-            "dealer_imgs":dealer_card_image_list, 
-            "player_imgs":player_card_image_list, 
+            "dealer_imgs":dealer_card_img, 
+            "player_imgs":player_card_img, 
             "next":next,
             "over":over,
             "win":win,

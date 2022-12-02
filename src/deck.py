@@ -22,7 +22,7 @@ class deck():
 
     def deal_card(self):
         self.yourCard = self.playing_deck.pop()
-        self.what_card = f"card is {self.yourCard.key} of {self.yourCard.suit}."
+        #self.what_card = f"card is {self.yourCard.key} of {self.yourCard.suit}."
         return self.yourCard, self.yourCard.get_image()
 
     def calc_card(self, yourcard):
@@ -33,4 +33,4 @@ class deck():
         yourCard = 0
         self.shuffle_deck()
         yourCard, card_img = self.deal_card()
-        return self.calc_card(yourCard), self.what_card, card_img
+        return self.calc_card(yourCard), card_img
