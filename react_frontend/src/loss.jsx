@@ -10,8 +10,11 @@ export function Loss(props) {
     <React.Fragment>
         <h1>Sorry, You Lose!</h1>
         <p>Want to try again?</p>
-        <p>Your Balance: ${props.bal}</p>
-        <Link to={'/'}> New Game</Link>
+        <button onClick={props.cont}>Keep Playing</button>
+        <p>Your Balance: ${props.state.balance}</p>
+        <p>Dealer Final Score: {props.state.dealer_score}</p>
+        <p>Your Final Score: {props.state.player_score}</p>
+        <Link to={'/'}> Exit Game</Link>
     </React.Fragment>
     );
          };

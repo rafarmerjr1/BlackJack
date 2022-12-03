@@ -1,20 +1,22 @@
 import './App.css';
-import React from 'react';
+import React from 'react'
 import { Link } from 'react-router-dom';
 
 
-export function Win(props) {
+export function Tie(props) {
+    console.log(props.bal)
+    //render() {
     return (
-        <React.Fragment>
-        <h1>You Win!</h1>
-        <p>Want to play again?</p>
+    <React.Fragment>
+        <h1>It's a tie!</h1>
+        <p>Want to try again?</p>
         <button onClick={props.cont}>Keep Playing</button>
         <p>Your Balance: ${props.state.balance}</p>
         <p>Dealer Final Score: {props.state.dealer_score}</p>
         <p>Your Final Score: {props.state.player_score}</p>
-        <Link to={'/'}> New Game</Link>
-        </React.Fragment>
+        <Link to={'/'}> Exit Game</Link>
+    </React.Fragment>
     );
-};
-
-export default Win;
+         };
+      
+export default Tie;

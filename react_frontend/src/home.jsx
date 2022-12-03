@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Game from './game';
 
 export function Home() {
     return (
@@ -6,8 +7,10 @@ export function Home() {
       <header className="App-header">
         <p>
         </p>
-        <Link to={'/game'}> New Game</Link>
+        <Link to={'/game'} > New Game</Link>
       </header>
     </div>
     )
 }
+
+// Can we trigger a new game with something like: onClick={Game.getNewGame()}

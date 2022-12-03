@@ -1,6 +1,6 @@
 class player():
 
-    def __init__(self,balance):
+    def __init__(self, balance):
         self.balance = balance
         self.score = 0
     

@@ -38,4 +38,14 @@ async function postHit(props) {
     .then(response => response.json())
 }
 
- 
+export async function Stand(props) {
+  console.log(props);
+   let newState = await postStand(props);
+   console.log("newState:"+newState)
+   return newState;
+}
+
+async function postStand(props) {
+  return fetch('/stand')
+    .then(response => response.json())
+}

@@ -1,7 +1,7 @@
 import './App.css';
 import React  from 'react'
 //import {Routes, Route } from 'react-router-dom';
-import  Wager from './wager.js';
+import  Wager from './callAPI';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { Home } from './home';
 import Game from './game';

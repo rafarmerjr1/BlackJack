@@ -1,3 +1,4 @@
+/*
 import './App.css';
 import React from 'react'
 import { Link } from 'react-router-dom';
@@ -6,8 +7,7 @@ import { Link } from 'react-router-dom';
 
 export function WagerForm(props){
     return(
-    <header className="App-header">
-    <body className="App-body">
+        <React.Fragment>
         <h3>Dealer Hand</h3>
 
         {props.state.dealer_imgs.map((cardImage) => 
@@ -19,15 +19,34 @@ export function WagerForm(props){
         {props.state.player_imgs.map((cardImage) => 
         <img className="App-image" src={require(`./${cardImage}`)} />)}
         <p>Player Score: {props.state.player_score}</p>
-        </body>
-        </header>
+
+
+        <h1>Place Your Bet</h1>
+        <p> I will bet the same amount. </p>
+        <p>Your balance is ${props.state.balance}.</p>
+        <form onSubmit={props.handleSubmit.handleSubmit}>
+        <input
+             type="text"
+             name="bet"
+             value={props.state.wager}
+             onChange={props.handleChange.handleChange}
+             />
+        <input type="submit" value="Place Bet"/>
+        </form>
+    <div id="HitStand">
+        <button onClick={props.handleHit.handleHit}> Hit </button>
+        <button onClick={props.handleStand.handleStand}> Stand </button>
+    </div>
+        </React.Fragment>
         );
 }
 
+
+
 export default WagerForm;
 
-// ui = <WagerForm state={this.state} />
-/*
+// ui = <WagerForm state={this.state} handleHit={this.handleHit} handleSubmit={this.handleSubmit} handleChange={handleChange} handleStand={this.handleStand/>
+
  <div id="Actions">
         <h1>Place Your Bet</h1>
         <p> I will bet the same amount. </p>
@@ -47,3 +66,4 @@ export default WagerForm;
         <button onClick={this.handleStand}> Stand </button>
     </div>
 */
+
