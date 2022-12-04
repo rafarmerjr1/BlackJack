@@ -1,6 +1,7 @@
 import random
-import src.card as card
-class deck():
+#from src.card import Card as Card
+import src.card as Card
+class Deck():
     
     def __init__(self):
         self.Suits = ['Spades', 'Hearts', 'Clubs', 'Diamonds']
@@ -10,10 +11,9 @@ class deck():
         self.starting_deck = []
         self.playing_deck = []
 
-        #self.dealer_starting_balance = 1000
         for suit in self.Suits:
             for key, value in self.Value_dict.items():
-                thisCard = card.card(key, suit, value)
+                thisCard = Card.Card(key, suit, value)
                 self.starting_deck.append(thisCard)
 
     def shuffle_deck(self):
@@ -22,15 +22,14 @@ class deck():
 
     def deal_card(self):
         self.yourCard = self.playing_deck.pop()
-        #self.what_card = f"card is {self.yourCard.key} of {self.yourCard.suit}."
         return self.yourCard, self.yourCard.get_image()
 
     def calc_card(self, yourcard):
         card_value = yourcard.value
         return card_value
 
-    def get_hand(self):
-        yourCard = 0
+    def get_card(self):
+        #yourCard = ""
         self.shuffle_deck()
         yourCard, card_img = self.deal_card()
-        return self.calc_card(yourCard), card_img
+        return yourCard.key, self.calc_card(yourCard), card_img

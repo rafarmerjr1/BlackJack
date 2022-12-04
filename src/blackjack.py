@@ -1,7 +1,7 @@
-import src.dealer as dealer
+import src.Main as Main
 
 
-game = dealer.dealer()
+game = Main.dealer()
 
 def play_game():
 

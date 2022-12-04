@@ -1,8 +1,14 @@
-class player():
+from src.deck import Deck as Deck
+#from src.Main import Main as Main
+
+class Player():
 
     def __init__(self, balance):
+        self.deck = Deck()
         self.balance = balance
         self.score = 0
+        self.hand = []
+        self.card_img_list = []
     
 # Scores ---------------------------------------------------------
 
@@ -44,37 +50,50 @@ class player():
         else:
             return True
 
- # Check Scores and Balance ------------------------------------------------------
+ # Hand --------------------------------------------------------------------
+    # Only used for first hand, as both players need to be assessed for a Blackjack 
+    # (A combination of an Ace and another other 10 point card)
 
-    def check_score(self):
-        if self.score == 21:
-            self._add_balance(self.wager)
-            over = True
-            win = True
-        elif self.score >= 22:
-            self.subtract_balance(self.wager)
-            over = True
-            win = False
-        else: 
-            over = False
-            win = False
-        return over, win
+    def get_hand(self):
+        return self.hand  # need to also reset this at the end of the game
 
-    def check_dealer_score(self):
-        if self.score == 21:
-            self._add_balance(self.wager)
-            over = True
-            win = False
-        elif self.score >= 22:
-            self.subtract_balance(self.wager)
-            over = True
-            win = True
-        else: 
-            over = False
-            win = False
-        return over, win
+    def clear_hand(self):
+        self.hand.clear()
 
+    def check_blackjack(self):
+        if "ace" in self.hand and self.score == "21":
+            self.clear_hand()
+            return True
+        else:
+            self.clear_hand()
+            return False
 
+# Manage player card images --------------------------------------------------
 
-    
+    def set_card_img_list(self,img):
+        self.card_img_list.append(img)
+
+    def get_card_img_list(self):
+        return self.card_img_list
+
+    def clear_card_img_list(self):
+        self.card_img_list.clear()
+
+# Actions ----------------------------------------------------------------------
+
+    def hit(self):
+        # Deal a card and adjust total score
+        card, card_value, card_img = self.deck.get_card()  # Get card value and image file
+        self.card_img_list.append(card_img)        # Add image to list
+        self._adjust_score(card_value)               # Add card value to store
+        self.hand.append(card)                       # List of card values
+
         
+# Check for bust, return true if >=21 else false:
+    def check_bust(self):
+        print(self.score)
+        if self.score >= 22:
+            return True
+        else:
+            return False
+

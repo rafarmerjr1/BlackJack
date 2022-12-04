@@ -5,6 +5,7 @@ import { Wager, Hitme, Stand} from './callAPI';
 import Loss from './loss';
 import  Win from './win'
 import Tie from './tie'
+import Blackjack from './blackjack';
 
 class Game extends React.Component {
     constructor(props) {
@@ -14,9 +15,7 @@ class Game extends React.Component {
             "player_score":0, 
             "dealer_imgs":[], 
             "player_imgs":[], 
-            "tie":false,
-            "over":"",
-            "win":"",
+            "results":"",
             "balance":1,
             "wager_set":false,
             "wager":0
@@ -56,9 +55,7 @@ class Game extends React.Component {
             player_score: gameState.player_score,
             dealer_imgs: gameState.dealer_imgs,
             player_imgs: gameState.player_imgs,
-            tie: gameState.tie,
-            over: gameState.over,
-            win: gameState.win
+            results: gameState.results
         })
     };
     async fetchGame() {
@@ -145,30 +142,32 @@ render() {
     
     //Rendering Logic based on game state:
     let ui = null;
-    if (!this.state.win && this.state.over){
+    if (this.state.results === "loss"){
         console.log("You lose!");
         ui = <Loss state={this.state} cont={this.continuePlaying}/>;
         console.log(this.state.balance)
     }
-    else if (this.state.win && this.state.over){
+    else if (this.state.results === "win"){
         console.log("You Win!");
         ui = <Win state={this.state} cont={this.continuePlaying} />;
     }
-    else if (!this.state.win && !this.state.over && !this.state.wager_set){
+    else if (this.state.results === "continue" && !this.state.wager_set){
         console.log("Taking bets...");
         ui = <this.WagerUI />; 
     }
-    else if (!this.state.win && !this.state.over && this.state.wager_set && !this.state.tie){
+    else if (this.state.results === "continue" && this.state.wager_set){
         console.log("Game on...");
         ui = <this.GameUI />; 
     }
-    else if (this.state.tie){
+    else if (this.state.results === "tie"){
         console.log("Tie!");
-        ui = <Tie state={this.state} />; 
+        ui = <Tie state={this.state} cont={this.continuePlaying} />; 
+    }
+    else if (this.state.results === "blackjack"){
+        console.log("Tie!");
+        ui = <Blackjack state={this.state} cont={this.continuePlaying} />; 
     }
     else {}
-
-
 
     return (
         <div className="App">
@@ -183,50 +182,3 @@ render() {
 }
 
 export default Game;
-
-//            <img className="App-image" src={require("./images/PNG-cards-1.3/10_of_clubs.png")} />
-//          <img className="App-image" src={require(`./${cardImage}`)} /> )}
-
-// {this.state.player_imgs.map((cardImage) => 
-//  <img className="App-image" src={require(`./${cardImage}`)} />)}
-
-/*
-//ui = <WagerForm state={this.state} handleHit={this.handleHit} handleSubmit={this.handleSubmit} handleChange={this.handleChange} handleStand={this.handleStand} />;
-
-    GameUI(){
-        return(
-        <React.Fragment>
-          <h3>Dealer Hand</h3>
-
-          {this.state.dealer_imgs.map((cardImage) => 
-          <img className="App-image" src={require(`./${cardImage}`)} />)}
-
-            <p>Dealer Score: {this.state.dealer_score}</p>
-            
-            <h3>Player Hand</h3>
-            {this.state.player_imgs.map((cardImage) => 
-          <img className="App-image" src={require(`./${cardImage}`)} />)}
-            <p>Player Score: {this.state.player_score}</p>
-
-            <h1>Place Your Bet</h1>
-            <p> I will bet the same amount. </p>
-            <p>Your balance is ${this.state.balance}.</p>
-           
-            <form onSubmit={this.handleSubmit}>
-            <input
-                 type="text"
-                 name="bet"
-                 value={this.state.wager}
-                 onChange={this.handleChange}
-                 />
-            <input type="submit" value="Place Bet"/>
-            </form>
-            <button onClick={this.handleHit}> Hit </button>
-            <button onClick={this.handleStand}> Stand </button>
-        </React.Fragment>
-        
-        );
-    };
-
-
-*/
