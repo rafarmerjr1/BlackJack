@@ -43,9 +43,9 @@
 
 .App-image{
   height: auto;
-  max-height: 250px;
+  max-height: 200px;
   width: auto;
-  max-width: 250px;
+  max-width: 200px;
 }
 
 .App-image-body{

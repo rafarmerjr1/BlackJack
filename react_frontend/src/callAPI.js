@@ -1,8 +1,20 @@
 
 import './App.css';
 import React, { useEffect, useState } from 'react'
-import Game, { getNewGame } from './game'
 
+// NEWGAME Fetch
+export async function fetchGame() {
+  return fetch('/newGame')
+    .then(response => response.json())
+    };
+
+// CONTINUE fetch
+export async function fetchContinue() {
+  return fetch('/continueGame')
+    .then(response => response.json())
+    };
+
+// WAGER Fetch and function
 export async function Wager(props) {
     console.log(props);
      let newState = await postWager(props);
@@ -20,7 +32,7 @@ export async function Wager(props) {
       .then(response => response.json())
  }
   
-
+// HIT Fetch and function
  export async function Hitme(props) {
   console.log(props);
    let newState = await postHit(props);
@@ -38,6 +50,7 @@ async function postHit(props) {
     .then(response => response.json())
 }
 
+//STAND Fetch and function
 export async function Stand(props) {
   console.log(props);
    let newState = await postStand(props);

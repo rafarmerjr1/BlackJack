@@ -1,11 +1,12 @@
 import './App.css';
 import React, { useEffect, Link } from 'react'
-import { createRoot } from 'react-dom/client';
-import { Wager, Hitme, Stand} from './callAPI';
+import { Wager, Hitme, Stand, fetchGame, fetchContinue } from './callAPI';
 import Loss from './loss';
 import  Win from './win'
 import Tie from './tie'
 import Blackjack from './blackjack';
+import { GameUI } from './gameUI';
+import { WagerUI } from './wagerUI';
 
 class Game extends React.Component {
     constructor(props) {
@@ -20,31 +21,30 @@ class Game extends React.Component {
             "wager_set":false,
             "wager":0
         };
-        this.getFirstHand();
-
+        this.getFirstHand();  // Deals a hand if not already in an active game
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getNewGame = this.getNewGame.bind(this);
-        this.fetchGame = this.fetchGame.bind(this);
         this.getFirstHand = this.getFirstHand.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleHit = this.handleHit.bind(this);
         this.handleStand = this.handleStand.bind(this)
-        this.GameUI = this.GameUI.bind(this);
-        this.WagerUI = this.WagerUI.bind(this);
         this.continuePlaying = this.continuePlaying.bind(this);
-        this.fetchContinue = this.fetchContinue.bind(this);
 };
-    // Initialize First Game if not already done
+
+
+
+
+    // Initialize First Game if not already done 
     async getFirstHand(){
         if (!this.state.wager_set){
            await this.getNewGame();
         } else {};
     };
 
-    // Start Game and update State
+    // Start Game and update State 
     async getNewGame() {
-        var gameState = await this.fetchGame();
+        var gameState = await fetchGame();
         console.log(gameState.balance);
         this.updateState(gameState)
     }
@@ -58,26 +58,20 @@ class Game extends React.Component {
             results: gameState.results
         })
     };
-    async fetchGame() {
-        return fetch('/newGame')
-          .then(response => response.json())
-          };
 
-    // Continue after losing or winning, retaining balance
+    // Continue after losing or winning, retaining dollar balance 
     async continuePlaying() {
-        var gameState = await this.fetchContinue();
+        var gameState = await fetchContinue();
         console.log(gameState.balance);
-        this.updateState(gameState, this.state.wager_set=false)
+        this.updateState(gameState, this.state.wager_set=false)  //reset wager_set to false so new hand will be auto-dealt
     }
-    async fetchContinue() {
-        return fetch('/continueGame')
-          .then(response => response.json())
-          };
 
     // Event Handlers 
     handleChange(event) {    
         this.setState({wager: event.target.value});  
     };
+
+    // "Place Bet" Button
     async handleSubmit(event) {
         event.preventDefault();
         console.log("A bet was submitted!" + this.state.wager);
@@ -87,94 +81,54 @@ class Game extends React.Component {
         await this.updateState(newState)
         //event.preventDefault();
         };
+
+    // "Hit" button
     async handleHit(){
         console.log("Hit");
         var newState = await Hitme(this.state);
         this.updateState(newState);
     };
+
+    // "Stand" Button
     async handleStand(){
         console.log("Stand");
         var newState = await Stand(this.state);
         this.updateState(newState);
     };
-
-    // Form UIs for Game Play
-    GameUI(){
-        return(
-        <React.Fragment>
-        <h3>Dealer Hand</h3>
-        <div className="App-image-body">
-            {this.state.dealer_imgs.map((cardImage) => 
-            <img className="App-image" src={require(`./${cardImage}`)} />)}
-        </div>
-
-            <p>Dealer Score: {this.state.dealer_score}</p>
-            
-        <h3>Player Hand</h3>
-        <div className="App-image-body">
-            {this.state.player_imgs.map((cardImage) => 
-            <img className="App-image" src={require(`./${cardImage}`)} />)}
-        </div>
-
-            <p>Player Score: {this.state.player_score}</p>
-             
-            <button className="btn" onClick={this.handleHit}> Hit </button>
-            <button className="btn" onClick={this.handleStand}> Stand </button>
-        </React.Fragment>
-        );
-    };
-
-    // Only display if wager_set state is false
-    WagerUI(){
-        return (
-        <React.Fragment>
-            <h1>Place Your Bet</h1>
-            <p> I will bet the same amount. </p>
-            <p>Your balance is ${this.state.balance}</p>
-           
-            <form onSubmit={this.handleSubmit}>
-            <input
-                 type="text"
-                 name="bet"
-                 value={this.state.wager}
-                 onChange={this.handleChange}
-                 />
-            <input className="btn" type="submit" value="Place Bet"/>
-            </form>
-        </React.Fragment>
-        );
-    };
 render() {
     
-    //Rendering Logic based on game state:
+    //UI Rendering Logic based on game state:
     let ui = null;
-    if (this.state.results === "loss"){
-        console.log("You lose!");
+
+    
+    // Place Bet
+    if (this.state.results === "continue" && !this.state.wager_set){
+        ui = <WagerUI state={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />; 
+    }
+    // Play Game
+    else if (this.state.results === "continue" && this.state.wager_set){
+        ui = <GameUI state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} />; 
+    }
+    // loss
+    else if (this.state.results === "loss"){             
         ui = <Loss state={this.state} cont={this.continuePlaying}/>;
         console.log(this.state.balance)
-    }
-    else if (this.state.results === "win"){
-        console.log("You Win!");
+    } 
+    // win
+    else if (this.state.results === "win"){         
         ui = <Win state={this.state} cont={this.continuePlaying} />;
     }
-    else if (this.state.results === "continue" && !this.state.wager_set){
-        console.log("Taking bets...");
-        ui = <this.WagerUI />; 
-    }
-    else if (this.state.results === "continue" && this.state.wager_set){
-        console.log("Game on...");
-        ui = <this.GameUI />; 
-    }
+    // Tie
     else if (this.state.results === "tie"){
-        console.log("Tie!");
         ui = <Tie state={this.state} cont={this.continuePlaying} />; 
     }
+    // BlackJack hand
     else if (this.state.results === "blackjack"){
-        console.log("Tie!");
         ui = <Blackjack state={this.state} cont={this.continuePlaying} />; 
     }
-    else {}
+    else {}  // Will want to return 404 here
 
+    // Return UI
     return (
         <div className="App">
             <header className="App-header">

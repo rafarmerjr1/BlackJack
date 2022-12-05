@@ -65,6 +65,7 @@ class Main():
         self.player.hit() 
         if self.player.check_bust():
             self.state._set_state("loss")
+            #self.state_check()
             self.adjust_balances()
             #return self.return_to_API()
         return self.return_to_API()
@@ -101,6 +102,7 @@ class Main():
 
     # Modify dollar balances based on outcome
     def adjust_balances(self):
+        self.results = self.state.get_state()
         if self.results == "win":
             self.player._add_balance(self.wager)
             self.dealer.subtract_balance(self.wager)
@@ -129,7 +131,7 @@ class Main():
         self.clear_blackjack_lists()
 
         # Decide to show dealer's hidden card or not
-        if self.results != "continue":
+        if results != "continue":
             dealer_img = dealer_img[1:]
             return dealer_score, player_score, dealer_img, player_img, balance, results 
         else:

@@ -61,7 +61,9 @@ class Player():
         self.hand.clear()
 
     def check_blackjack(self):
-        if "ace" in self.hand and self.score == "21":
+        #for i in self.hand:
+         #   print(i)
+        if "Ace" in self.hand and self.score == "11":  # change this to 21 later once Ace handling is done
             self.clear_hand()
             return True
         else:
