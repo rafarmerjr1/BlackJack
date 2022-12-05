@@ -84,14 +84,13 @@ class Player():
     def hit(self):
         # Deal a card and adjust total score
         card, card_value, card_img = self.deck.get_card()  # Get card value and image file
-        self.card_img_list.append(card_img)        # Add image to list
+        self.set_card_img_list(card_img)        # Add image to list
         self._adjust_score(card_value)               # Add card value to store
         self.hand.append(card)                       # List of card values
 
         
 # Check for bust, return true if >=21 else false:
     def check_bust(self):
-        print(self.score)
         if self.score >= 22:
             return True
         else:

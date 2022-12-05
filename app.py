@@ -14,24 +14,6 @@ app = Flask(__name__)
 api = Api(app)
 
 ##########################
-#         ROUTING        #
-##########################
-
-#@app.route("/")
-#def home():
-#    return render_template('index.html') 
-#
-#@app.route('/cheat', methods=['GET'])
-#def cheat():
-#    return render_template('cheat.html')
-#@app.route('/newGame', methods=['GET', 'POST'])
-#def new_game():
-#    dealer_card_image_list.clear()
-#    player_card_image_list.clear()
-#    balance = game.new_hand()
-#    return render_template('wager.html', balance=balance, place_bet=True)
-
-##########################
 # APIs #
 ##########################
 class New_game(Resource):
@@ -40,11 +22,11 @@ class New_game(Resource):
         game.reset_balances()
         balance = game.new_hand()
         dealer_score, player_score, dealer_card_img, player_card_img, balance, results = game.deal_first_hand()
-        data = {
+        data = { 
             "dealer_score":dealer_score, 
             "player_score":player_score, 
             "dealer_imgs":dealer_card_img, 
-            "player_imgs":player_card_img, 
+            "player_imgs":player_card_img,
             "results":results,
             "balance":balance,
             "startGame": False
@@ -105,13 +87,7 @@ class Wager(Resource):
         print(req["wager"])
         wager = req['wager']
         wager = int(wager)
-        #game.set_wager(wager)
-        #try:
-            #if isinstance(wager, int):
         dealer_score, player_score, dealer_card_img, player_card_img, balance, results = game.set_wager(wager)
-        #if over:
-        #    return redirect(url_for('cheat'))
-        #else:
         data = {
             "dealer_score":dealer_score, 
             "player_score":player_score, 
@@ -122,8 +98,7 @@ class Wager(Resource):
             "wager_set":True
             }
         return data
-        #except:
-        #    return redirect(url_for('cheat'))
+
 
 
 api.add_resource(New_game, '/newGame')

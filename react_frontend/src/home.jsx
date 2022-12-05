@@ -7,7 +7,7 @@ export function Home() {
       <header className="App-header">
         <p>
         </p>
-        <Link to={'/game'} > New Game</Link>
+        <Link to={'/game'} > Play Blackjack</Link>
       </header>
     </div>
     )

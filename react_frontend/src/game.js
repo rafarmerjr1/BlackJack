@@ -103,17 +103,23 @@ class Game extends React.Component {
         return(
         <React.Fragment>
         <h3>Dealer Hand</h3>
+        <div className="App-image-body">
             {this.state.dealer_imgs.map((cardImage) => 
             <img className="App-image" src={require(`./${cardImage}`)} />)}
+        </div>
+
             <p>Dealer Score: {this.state.dealer_score}</p>
             
         <h3>Player Hand</h3>
+        <div className="App-image-body">
             {this.state.player_imgs.map((cardImage) => 
             <img className="App-image" src={require(`./${cardImage}`)} />)}
+        </div>
+
             <p>Player Score: {this.state.player_score}</p>
              
-            <button onClick={this.handleHit}> Hit </button>
-            <button onClick={this.handleStand}> Stand </button>
+            <button className="btn" onClick={this.handleHit}> Hit </button>
+            <button className="btn" onClick={this.handleStand}> Stand </button>
         </React.Fragment>
         );
     };
@@ -124,7 +130,7 @@ class Game extends React.Component {
         <React.Fragment>
             <h1>Place Your Bet</h1>
             <p> I will bet the same amount. </p>
-            <p>Your balance is ${this.state.balance}.</p>
+            <p>Your balance is ${this.state.balance}</p>
            
             <form onSubmit={this.handleSubmit}>
             <input
@@ -133,7 +139,7 @@ class Game extends React.Component {
                  value={this.state.wager}
                  onChange={this.handleChange}
                  />
-            <input type="submit" value="Place Bet"/>
+            <input className="btn" type="submit" value="Place Bet"/>
             </form>
         </React.Fragment>
         );
@@ -172,9 +178,9 @@ render() {
     return (
         <div className="App">
             <header className="App-header">
-            <body className="App-body">
+            <div className="App-title"> <h1>Blackjack!</h1> </div>
+
             {ui}
-            </body>
             </header>
         </div>
         );
