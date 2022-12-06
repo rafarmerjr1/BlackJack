@@ -14,16 +14,16 @@ export function Tie(props) {
 
         <h4 className="section__title">Want to play again?</h4>
         <button className="btn btn--outline" onClick={props.cont}>Keep Playing</button>
-        <p>Your Balance: ${props.state.balance}</p>
+        <p>Your Balance: <span className="score">${props.state.balance}</span></p>
        
        
-        <h4 className="section section__title">Dealer Final Score: {props.state.dealer_score}</h4>
+        <h4 className="section section__title">Dealer Final Score: <span className="score">{props.state.dealer_score}</span></h4>
     <div className="App-image-body">
         {props.state.dealer_imgs.map((cardImage) => 
         <img className="App-image-static" src={require(`./${cardImage}`)} />)}
     </div>
 
-        <h4 className="section section__title">Your Final Score: {props.state.player_score}</h4>
+        <h4 className="section section__title">Your Final Score: <span className="score">{props.state.player_score}</span></h4>
     <div className="App-image-body">
         {props.state.player_imgs.map((cardImage) => 
         <img className="App-image-static" src={require(`./${cardImage}`)} />)}

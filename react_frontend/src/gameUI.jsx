@@ -34,24 +34,4 @@ export function GameUI(props){
 /*
 
 <GameUI state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} />
-
-
-// loss
-    else if (props.state.results === "loss"){             
-        ui = <Loss state={this.state} cont={this.continuePlaying}/>;
-        console.log(this.state.balance)
-    } 
-    // win
-    else if (props.state.results === "win"){         
-        ui = <Win state={this.state} cont={this.continuePlaying} />;
-    }
-    // Tie
-    else if (props.state.results === "tie"){
-        ui = <Tie state={this.state} cont={this.continuePlaying} />; 
-    }
-    // BlackJack hand
-    else if (props.state.results === "blackjack"){
-        ui = <Blackjack state={this.state} cont={this.continuePlaying} />; 
-    }
-    else {} 
 */

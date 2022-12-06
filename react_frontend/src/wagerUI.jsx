@@ -4,9 +4,9 @@ import React, { useEffect, Link } from 'react'
 export function WagerUI(props){
     return (
     <React.Fragment>
-        <h2 className="about__role"> Place Your Bet </h2>
-        <p className="section"> I will bet the same amount. </p>
-        <p>Your balance is ${props.state.balance}</p>
+        <h2 className="section__title"> Place Your Bet </h2>
+        <p className="section__title"> I will bet the same amount. </p>
+        <p>Your balance is <span className="score">${props.state.balance}</span></p>
        
         <form className="section" onSubmit={props.handleSubmit}>
         <input 

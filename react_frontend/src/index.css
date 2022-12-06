@@ -33,9 +33,12 @@ html {
 
 h1,
 h2,
-h3,
+h3 {
+  margin-bottom: 0.1em;
+}
+
 h4 {
-  line-height: 1.2;
+  line-height: 1;
   color: var(--clr-fg-alt);
 }
 

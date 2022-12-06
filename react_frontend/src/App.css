@@ -126,7 +126,7 @@
 }
 
 .header {
-  height: 8em;
+  height: 7em;
   max-width: 1100px;
   width: 95%;
   margin: 0 auto;
@@ -208,7 +208,7 @@
 
 .dark {
   --rosewater: #f4dbd6;
-  --clr-primary: #f0c6c6;
+  --peach: #f0c6c6;
   --pink: #f5bde6;
   --mauve: #c6a0f6;
   --red: #ed8796;
@@ -217,7 +217,7 @@
   --yellow: #eed49f;
   --green: #a6da95;
   --teal: #8bd5ca;
-  --sky: #91d7e3;
+  --clr-primary: #91d7e3;
   --sapphire: #7dc4e4;
   --blue: #8aadf4;
   --lavender: #b7bdf8;
@@ -267,6 +267,10 @@ main {
 .score {
   color: var(--green);
   }
+
+.losing_score {
+  color: var(--red);
+}
 
 
 .section {
