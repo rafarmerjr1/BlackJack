@@ -48,7 +48,7 @@ class Game extends React.Component {
         console.log(gameState.balance);
         this.updateState(gameState)
     }
-    async updateState(gameState){
+    updateState(gameState){
         this.setState({
             balance: gameState.balance,
             dealer_score: gameState.dealer_score,
@@ -60,7 +60,8 @@ class Game extends React.Component {
     };
 
     // Continue after losing or winning, retaining dollar balance 
-    async continuePlaying() {
+    async continuePlaying(e) {
+        e.preventDefault();
         var gameState = await fetchContinue();
         console.log(gameState.balance);
         this.updateState(gameState, this.state.wager_set=false)  //reset wager_set to false so new hand will be auto-dealt
@@ -78,19 +79,22 @@ class Game extends React.Component {
         this.setState({wager_set: true}) 
         var newState = await Wager(this.state)
         console.log(newState)
-        await this.updateState(newState)
+        //await this.updateState(newState)
+        this.updateState(newState)
         //event.preventDefault();
         };
 
     // "Hit" button
-    async handleHit(){
+    async handleHit(e){
+        e.preventDefault();
         console.log("Hit");
         var newState = await Hitme(this.state);
         this.updateState(newState);
     };
 
     // "Stand" Button
-    async handleStand(){
+    async handleStand(e){
+        e.preventDefault();
         console.log("Stand");
         var newState = await Stand(this.state);
         this.updateState(newState);
@@ -130,13 +134,22 @@ render() {
 
     // Return UI
     return (
-        <div className="App">
-            <header className="App-header">
-            <div className="App-title"> <h1>Blackjack!</h1> </div>
-
-            {ui}
+        <div className="dark app" id="top">
+            <header className="header center"> 
+            <div className="about center">
+            <h1>Let's Play <span className="about__name">Blackjack!</span></h1>
+            </div>
             </header>
-        </div>
+            <main>
+            <div className="about center">
+            
+            {ui}
+            
+            </div>
+
+            </main>
+            </div>
+
         );
 };
 }

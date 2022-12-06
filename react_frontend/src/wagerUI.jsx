@@ -4,18 +4,19 @@ import React, { useEffect, Link } from 'react'
 export function WagerUI(props){
     return (
     <React.Fragment>
-        <h1>Place Your Bet</h1>
-        <p> I will bet the same amount. </p>
+        <h2 className="about__role"> Place Your Bet </h2>
+        <p className="section"> I will bet the same amount. </p>
         <p>Your balance is ${props.state.balance}</p>
        
-        <form onSubmit={props.handleSubmit}>
-        <input
+        <form className="section" onSubmit={props.handleSubmit}>
+        <input 
+             className="form"
              type="text"
              name="bet"
              value={props.state.wager}
              onChange={props.handleChange}
              />
-        <input className="btn" type="submit" value="Place Bet"/>
+        <button className="btn btn--outline section" type="submit">Place Bet</button>
         </form>
     </React.Fragment>
     );

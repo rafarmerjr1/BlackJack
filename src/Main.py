@@ -29,7 +29,7 @@ class Main():
         self.dealer._set_score(0)
         self.player.clear_card_img_list()
         self.dealer.clear_card_img_list()
-        self.dealer.set_card_img_list("images/PNG-cards-1.3/card_back.png")
+        self.dealer.set_card_img_list("images/PixelCards/card-back1.png")
         self.player_balance = self.player.get_balance()
         return self.player_balance
 

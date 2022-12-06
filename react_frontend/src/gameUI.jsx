@@ -1,26 +1,32 @@
 import './App.css';
 import React, { useEffect, Link } from 'react'
+import { Win } from './win'
+import { Loss } from './loss';
+import { Tie } from './tie';
+import { BlackJack } from './blackjack';
+
+
 
 
 export function GameUI(props){
     return(
     <React.Fragment>
+    <div className="section__title">
     <h3>Dealer Hand</h3>
-    <div className="App-image-body">
         {props.state.dealer_imgs.map((cardImage) => 
         <img className="App-image" src={require(`./${cardImage}`)} />)}
     </div>
-        
+    <div className="section section__title">
     <h3>Player Hand</h3>
-    <div className="App-image-body">
         {props.state.player_imgs.map((cardImage) => 
-        <img className="App-image" src={require(`./${cardImage}`)} />)}
+            <img className="App-image"src={require(`./${cardImage}`)} />)}
+        
     </div>
-
-        <p>Player Score: {props.state.player_score}</p>
-         
-        <button className="btn" onClick={props.handleHit}> Hit </button>
-        <button className="btn" onClick={props.handleStand}> Stand </button>
+    <div className="section section__title">
+        <h3>Player Score: <span className="score">{props.state.player_score}</span></h3>
+    </div> 
+        <button className="btn btn--outline" onClick={props.handleHit}> Hit </button>
+        <button className="btn btn--outline" onClick={props.handleStand}> Stand </button>
     </React.Fragment>
     );
 };
@@ -29,4 +35,23 @@ export function GameUI(props){
 
 <GameUI state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} />
 
+
+// loss
+    else if (props.state.results === "loss"){             
+        ui = <Loss state={this.state} cont={this.continuePlaying}/>;
+        console.log(this.state.balance)
+    } 
+    // win
+    else if (props.state.results === "win"){         
+        ui = <Win state={this.state} cont={this.continuePlaying} />;
+    }
+    // Tie
+    else if (props.state.results === "tie"){
+        ui = <Tie state={this.state} cont={this.continuePlaying} />; 
+    }
+    // BlackJack hand
+    else if (props.state.results === "blackjack"){
+        ui = <Blackjack state={this.state} cont={this.continuePlaying} />; 
+    }
+    else {} 
 */
