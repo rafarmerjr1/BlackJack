@@ -213,7 +213,7 @@
   --mauve: #c6a0f6;
   --red: #ed8796;
   --maroon: #ee99a0;
-  --peach: #f5a97f;
+  --peach1: #f5a97f;
   --yellow: #eed49f;
   --green: #a6da95;
   --teal: #8bd5ca;
@@ -222,15 +222,15 @@
   --blue: #8aadf4;
   --lavender: #b7bdf8;
   --clr-fg: #cad3f5;
-  --subtext1: #b8c0e0;
+  --clr-fg-alt: #b8c0e0;
   --subtext0: #a5adcb;
   --overlay2: #939ab7;
   --overlay1: #8087a2;
   --overlay0: #6e738d;
   --surface2: #5b6078;
   --surface1: #494d64;
-  --surface0: #363a4f;
-  --clr-bg: #24273a;
+  --clr-bg: #363a4f;
+  --bg: #24273a;
   --mantle: #1e2030;
   --crust: #181926;
   --shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
@@ -262,6 +262,17 @@ main {
   color: var(--clr-bg);
   padding: 1rem;
   border-radius:0.7rem;
+}
+
+.fade-in-image { animation: fadeIn 3s; }
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.end_balance{
+  color: var(--yellow)
 }
 
 .score {

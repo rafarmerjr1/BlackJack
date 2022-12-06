@@ -3,7 +3,30 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 
-export function Loss(props) {
+export function Loss(){
+    return (
+        <React.Fragment>
+            <h1><span className="about__name">Sorry,</span> you lose</h1>
+        </React.Fragment>
+    )
+}
+
+export function LossButtons(props){
+    return(
+        <React.Fragment>
+            <h4 className="section__title">Want to play again?</h4>
+            <button className="btn btn--outline" onClick={props.cont}>Keep Playing</button>
+
+            <Link to={'/'} className="link about__role"> New Game</Link>
+        <p>Balance will Reset with new game.</p>
+        </React.Fragment>
+    )
+}
+
+
+
+
+export function Loss_original(props) {
     console.log(props.bal)
     //render() {
     return (
@@ -20,13 +43,13 @@ export function Loss(props) {
         <h4 className="section section__title">Dealer Final Score: <span className="score">{props.state.dealer_score}</span></h4>
     <div className="App-image-body">
         {props.state.dealer_imgs.map((cardImage) => 
-        <img className="App-image-static" src={require(`./${cardImage}`)} />)}
+        <img className="App-image" src={require(`./${cardImage}`)} />)}
     </div>
 
         <h4 className="section section__title">Your Final Score: <span className="losing_score">{props.state.player_score}</span></h4>
     <div className="App-image-body">
         {props.state.player_imgs.map((cardImage) => 
-        <img className="App-image-static" src={require(`./${cardImage}`)} />)}
+        <img className="App-image" src={require(`./${cardImage}`)} />)}
     </div>
         <Link to={'/'} className="link about__role"> New Game</Link>
         <p>Balance will Reset with new game.</p>

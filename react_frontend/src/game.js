@@ -30,6 +30,7 @@ class Game extends React.Component {
         this.handleHit = this.handleHit.bind(this);
         this.handleStand = this.handleStand.bind(this)
         this.continuePlaying = this.continuePlaying.bind(this);
+        this.getState = this.getState.bind(this)
 };
 
 
@@ -99,6 +100,9 @@ class Game extends React.Component {
         var newState = await Stand(this.state);
         this.updateState(newState);
     };
+    getState(){
+        return this.state;
+    }
 render() {
     
     //UI Rendering Logic based on game state:
@@ -106,29 +110,12 @@ render() {
 
     
     // Place Bet
-    if (this.state.results === "continue" && !this.state.wager_set){
-        ui = <WagerUI state={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />; 
+    if (!this.state.wager_set){
+        ui = <WagerUI state={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} cont={this.continuePlaying} />; 
     }
     // Play Game
-    else if (this.state.results === "continue" && this.state.wager_set){
-        ui = <GameUI state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} />; 
-    }
-    // loss
-    else if (this.state.results === "loss"){             
-        ui = <Loss state={this.state} cont={this.continuePlaying}/>;
-        console.log(this.state.balance)
-    } 
-    // win
-    else if (this.state.results === "win"){         
-        ui = <Win state={this.state} cont={this.continuePlaying} />;
-    }
-    // Tie
-    else if (this.state.results === "tie"){
-        ui = <Tie state={this.state} cont={this.continuePlaying} />; 
-    }
-    // BlackJack hand
-    else if (this.state.results === "blackjack"){
-        ui = <Blackjack state={this.state} cont={this.continuePlaying} />; 
+    else if (this.state.wager_set){
+        ui = <GameUI getState={this.getState} state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} cont={this.continuePlaying} />; 
     }
     else {}  // Will want to return 404 here
 

@@ -20,13 +20,13 @@ export function Tie(props) {
         <h4 className="section section__title">Dealer Final Score: <span className="score">{props.state.dealer_score}</span></h4>
     <div className="App-image-body">
         {props.state.dealer_imgs.map((cardImage) => 
-        <img className="App-image-static" src={require(`./${cardImage}`)} />)}
+        <img className="App-image" src={require(`./${cardImage}`)} />)}
     </div>
 
         <h4 className="section section__title">Your Final Score: <span className="score">{props.state.player_score}</span></h4>
     <div className="App-image-body">
         {props.state.player_imgs.map((cardImage) => 
-        <img className="App-image-static" src={require(`./${cardImage}`)} />)}
+        <img className="App-image" src={require(`./${cardImage}`)} />)}
     </div>
         <Link to={'/'} className="link about__role"> New Game</Link>
         <p>Balance will Reset with new game.</p>

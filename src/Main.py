@@ -34,6 +34,8 @@ class Main():
         return self.player_balance
 
     def deal_first_hand(self):
+        print("hi")
+
         if self.player.not_broke():
             self.player.hit() 
             self.player.hit()
@@ -79,6 +81,12 @@ class Main():
         self.state_check()
         self.adjust_balances()
         return self.return_to_API()
+
+    # Maybe break the stand function up so that it returns one card at a time, and will return a status that tells React to request another card? If the request is received after the results are in, a new status is sent that indicates to react that it is time to load results.  Need to find some way to keep loading the cards on at a time even when the user has won or lost.  Otherwise its way too jarring when the application transitions.  
+
+    # Or maybe just a way that react only loads the last image in the list with the animation.  Can an if loop be placed in the map?
+    
+    # Could try setting a counter that increases the delay time for CSS animation, and then just have a single element render that says "you win" or "you lose" in place of some element in the GameUI.  
 
 ##########################
 # Handle State and Comms #
