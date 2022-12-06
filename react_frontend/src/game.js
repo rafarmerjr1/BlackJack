@@ -1,10 +1,6 @@
 import './App.css';
 import React, { useEffect, Link } from 'react'
 import { Wager, Hitme, Stand, fetchGame, fetchContinue } from './callAPI';
-import Loss from './loss';
-import  Win from './win'
-import Tie from './tie'
-import Blackjack from './blackjack';
 import { GameUI } from './gameUI';
 import { WagerUI } from './wagerUI';
 

@@ -1,13 +1,8 @@
 import './App.css';
 import React from 'react'
 import { Win, Loss, Tie, Blackjack } from './outcomes'
-//import { Loss, LossButtons } from './loss';
-//import { Tie } from './tie';
-//import { Blackjack } from './blackjack';
 import { PlayerLoseScore, PlayerWinScore, DealerLoseScore, DealerWinScore } from './scores';
 import { Link } from 'react-router-dom';
-
-
 
 function HitstandOpts(props) {
     return (
@@ -45,12 +40,14 @@ function PlayerScore(props){
 function EndButtons(props){
     return(
         <React.Fragment>
+            <div className="fade-in-result">
             <h4 className="section__title">Want to play again?</h4>
             <button className="btn btn--outline" onClick={props.continuePlaying}> Keep Playing </button>
             <p>Your Balance: <span className="end_balance"> $ {props.state.balance} </span></p>
 
             <Link to={'/'} className="link about__role"> New Game</Link>
         <p>Balance will Reset with new game.</p>
+        </div>
         </React.Fragment>
     )
 };
