@@ -16,7 +16,7 @@ function HitstandOpts(props) {
 function Banner(){
     return (
     <React.Fragment>
-        <h1>Current Hand:</h1>
+        <h1 style={{"color":"var(--yellow)"}}>Current Hand:</h1>
     </React.Fragment>
     );
 };
@@ -24,7 +24,8 @@ function Banner(){
 function DealerScore(){
     return(
         <React.Fragment>
-        <h3>Dealer Score: <span className="score">x</span></h3>
+        
+        <h3 className="score">x</h3>
         </React.Fragment>
     )
 };
@@ -32,7 +33,8 @@ function DealerScore(){
 function PlayerScore(props){
     return (
         <React.Fragment>
-            <h3>Player Score: <span className="score">{props.state.player_score}</span></h3>
+            
+            <h3 className="score">{props.state.player_score}</h3>
         </React.Fragment>
     )
 };
@@ -40,14 +42,11 @@ function PlayerScore(props){
 function EndButtons(props){
     return(
         <React.Fragment>
-            <div className="fade-in-result">
-            <h4 className="section__title">Want to play again?</h4>
+            <div className="fade-in-image" >
+            
             <button className="btn btn--outline" onClick={props.continuePlaying}> Keep Playing </button>
-            <p>Your Balance: <span className="end_balance"> $ {props.state.balance} </span></p>
-
-            <Link to={'/'} className="link about__role"> New Game</Link>
-        <p>Balance will Reset with new game.</p>
-        </div>
+            <p>Your Balance: <span className="end_balance"> ${props.state.balance} </span></p>
+            </div>
         </React.Fragment>
     )
 };
@@ -57,12 +56,12 @@ export function GameUI(props){
     let stand = null
     let playerActions = null
     let dealerScore = <DealerScore />
-    let banner = <Banner />
+    let banner = null
     let playerScore = null
     //let updatedState = props.getState()
 
     if (props.state.results === "continue") {
-        banner = <Banner />
+        
         playerActions = <HitstandOpts handleHit={props.handleHit} handleStand={props.handleStand} />
         playerScore = <PlayerScore state={props.state}/>
     }
@@ -98,25 +97,20 @@ export function GameUI(props){
 
     return(
     <React.Fragment>
-    <div className="section__title">
+    <div className="banner">
         {banner}
-    <h3>Dealer Hand</h3>
+    </div>
+    <h3 className="hand">Dealer Hand</h3>
         {props.state.dealer_imgs.map((cardImage) => 
         <img className="App-image" src={require(`./${cardImage}`)} />)}
-    </div>
-    <div className="section section__title">
         {dealerScore}
-    </div> 
 
-    <div className="section section__title">
-    <h3>Player Hand</h3>
+    <h3 className="hand">Player Hand</h3>
         {props.state.player_imgs.map((cardImage) => 
-            <img className="App-image"src={require(`./${cardImage}`)} />)}
+            <img className="App-image-player" src={require(`./${cardImage}`)} />)}
         
-    </div>
-    <div className="section section__title">
+   
         {playerScore}
-    </div> 
         {playerActions}
     </React.Fragment>
     );

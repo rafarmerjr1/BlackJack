@@ -4,13 +4,14 @@ import Game from './game';
 export function Home() {
     return (
         <div className="dark app" id="top">
+          <main>
           <header className="header center"> 
             <div className="about center">
-            <h1>Let's Play <span class="about__name">Blackjack!</span></h1>
+            <p>Let's Play <span class="about__name">Blackjack!</span></p>
             </div>
             </header>
-            <main>
-            <div className="about center">        
+            
+            <div className="home">        
         <p>
         </p>
         <Link to={'/game'} className="link" > Click me to play!</Link>

@@ -3,10 +3,11 @@ import React, { useEffect, Link } from 'react'
 
 export function WagerUI(props){
     return (
-    <React.Fragment>
-        <h2 className="section__title"> Place Your Bet </h2>
-        <p className="section__title"> I will bet the same amount. </p>
-        <p>Your balance is <span className="score">${props.state.balance}</span></p>
+    <React.Fragment> 
+         <div className="wager"> 
+        <h1> Place Your Bet </h1>
+        <p className="section__title"> &#40;I will bet the same amount&#41; </p>
+        <h4>Your balance is <span className="score">${props.state.balance}</span></h4>
        
         <form className="section" onSubmit={props.handleSubmit}>
         <input 
@@ -18,6 +19,7 @@ export function WagerUI(props){
              />
         <button className="btn btn--outline section" type="submit">Place Bet</button>
         </form>
+        </div> 
     </React.Fragment>
     );
 };

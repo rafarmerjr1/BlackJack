@@ -178,10 +178,20 @@
   }
 }
 
-.footer {
+.banner{
+  flex-direction: column;
   padding: 3em 0;
-  margin-top: 4em;
   text-align: center;
+  position: fixed;
+  top:0;
+}
+
+.footer {
+  flex-direction: column;
+  padding: 3em 0;
+  text-align: center;
+  position: fixed;
+  bottom:0;
 }
 
 .footer__link {
@@ -195,15 +205,6 @@
     padding: 2em;
     margin-top: 3em;
   }
-}
-
-.light {
-  --clr-bg: #fcfcfc;
-  --clr-bg-alt: #fff;
-  --clr-fg: #555;
-  --clr-fg-alt: #444;
-  --clr-primary: #2978b5;
-  --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .dark {
@@ -229,29 +230,42 @@
   --overlay0: #6e738d;
   --surface2: #5b6078;
   --surface1: #494d64;
-  --clr-bg: #363a4f;
-  --bg: #24273a;
+  --bg: #363a4f;
+  --clr-bg: #24273a;
   --mantle: #1e2030;
   --crust: #181926;
   --shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
-/*
-.dark {
-  --clr-bg: #23283e;
-  --clr-bg-alt: #2a2f4c;
-  --clr-bg: #bdbddd;
-  --clr-fg-alt: #cdcdff;
-  --clr-primary: #90a0d9;
-  --shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-}
-*/
+
 
 main {
   max-width: 1100px;
   width: 95%;
   margin: 0 auto;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.wager {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.game{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .form {
@@ -279,12 +293,29 @@ main {
 
 .score {
   color: var(--green);
+  margin-bottom: 4rem;
   }
+
+.outcome_color{
+    color: var(--clr-primary);
+}
 
 .losing_score {
   color: var(--red);
+  margin-bottom: 4rem;
 }
 
+.hand{
+  margin-bottom: 2rem;
+}
+
+.dealer_score {
+  margin-bottom: 2em;
+}
+
+.section_tall{
+  margin-top: 4em;
+}
 
 .section {
   margin-top: 2em;
@@ -301,14 +332,14 @@ main {
 }
 
 .link {
-  color: var(--clr-primary);
+  color: var(--green);
   padding: 0 0 0.4em 0;
   position: relative;
   font-size: 1.5rem;
 }
 
 .link:hover {
-  color: var(--clr-primary);
+  color: var(--green);
 }
 
 .link::before {
@@ -335,6 +366,15 @@ main {
 
 .link--icon {
   color: var(--clr-fg);
+}
+
+.outline {
+  border: 2px solid var(--yellow);
+  margin: 5rem;
+  border-radius:0.7rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction:column;
 }
 
 .btn {
@@ -409,91 +449,21 @@ main {
   }
 }
 
-
 .App-image{
   animation: dealCard;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
+  transform: rotate(-15deg);
+  max-width: 8vw;
 }
 
-/*
-.App {
-  text-align: center;
-}
-
-
-
-
-.App-title{
-  position:fixed;
-  top: 0;
-}
-
-.App-header {
-  color: var(--clr-fg-alt);
-  background-color: var(--clr-bg);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: start;
-  justify-content: center;
-  font-size: calc(8px + 1vmin);  
-}
-
-.App-link {
-  color: var(--clr-fg-alt);
-}
-
-.App-image{
-  height: auto;
-  max-height: 200px;
-  width: auto;
-  max-width: 200px;
+.App-image-player{
   animation: dealCard;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
+  transform: rotate(-15deg);
+  max-width: 10vw;
 }
-
-.App-image-static {
-  height: auto;
-  max-height: 200px;
-  width: auto;
-  max-width: 200px;
-}
-
-.App-image-body{
-  flex-direction: column;
-}
-
-.App-body {
-  background-color: var(--clr-bg);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 1vmin);
-  color: var(--clr-fg);
-}
-
-.btn {
-  color: var(--clr-fg);
-  transition: transform 0.2s ease-in-out;
-  text-transform: lowercase;
-  padding: 0.8em 1.4em;
-  background-color: var(--clr-bg-alt);
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-  border: 0;
-  display: block;
-  text-align:center;
-  
-}
-
-.btn:hover {
-  transform: translateY(-4px);
-}
-*/
 
 @keyframes dealCard {
  from {
@@ -506,11 +476,3 @@ main {
  }
 }
 
-@keyframes App-image-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

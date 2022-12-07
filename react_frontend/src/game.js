@@ -1,8 +1,10 @@
 import './App.css';
-import React, { useEffect, Link } from 'react'
+import React from 'react'
 import { Wager, Hitme, Stand, fetchGame, fetchContinue } from './callAPI';
 import { GameUI } from './gameUI';
 import { WagerUI } from './wagerUI';
+import { Link } from 'react-router-dom';
+import { Footer } from './footer';
 
 class Game extends React.Component {
     constructor(props) {
@@ -103,35 +105,37 @@ render() {
     
     //UI Rendering Logic based on game state:
     let ui = null;
-
+    let footer = null;
     
     // Place Bet
     if (!this.state.wager_set){
         ui = <WagerUI state={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} cont={this.continuePlaying} />; 
+        footer = null;
     }
     // Play Game
     else if (this.state.wager_set){
         ui = <GameUI getState={this.getState} state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} cont={this.continuePlaying} />; 
+        footer = <Footer/>
     }
     else {}  // Will want to return 404 here
 
     // Return UI
     return (
-        <div className="dark app" id="top">
-            <header className="header center"> 
-            <div className="about center">
-            <h1>Let's Play <span className="about__name">Blackjack!</span></h1>
-            </div>
+        <div className="dark app center" id="top">
+            <header className="header"> 
+            
+            {/*<h1>Let's Play <span className="about__name">Blackjack!</span></h1> */}
+            
             </header>
             <main>
-            <div className="about center">
+            
             
             {ui}
             
-            </div>
 
             </main>
-            </div>
+            {footer}
+        </div>
 
         );
 };

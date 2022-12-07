@@ -29,7 +29,8 @@ class Main():
         self.dealer._set_score(0)
         self.player.clear_card_img_list()
         self.dealer.clear_card_img_list()
-        self.dealer.set_card_img_list("images/PixelCards/card-back1.png")
+        #self.dealer.set_card_img_list("images/PixelCards/card-back1.png")
+        self.dealer.set_card_img_list("images/PaperCards/CardBack2.png")
         self.player_balance = self.player.get_balance()
         return self.player_balance
 
@@ -140,7 +141,9 @@ class Main():
 
         # Decide to show dealer's hidden card or not
         if results != "continue":
-            dealer_img = dealer_img[1:]
+            #dealer_img = dealer_img[1:]
+            del dealer_img[0]
+            dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
             return dealer_score, player_score, dealer_img, player_img, balance, results 
         else:
             dealer_img = dealer_img[:-1]
