@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Game from './game';
+import './App.css';
 
 export function Home() {
     return (
@@ -14,7 +15,7 @@ export function Home() {
             <div className="home">        
         <p>
         </p>
-        <Link to={'/game'} className="link" > Click me to play!</Link>
+        <Link to={'/game'}> <img className="home-Image" src={require('./images/blackjack.png')}/></Link>
         </div>
 
       </main>

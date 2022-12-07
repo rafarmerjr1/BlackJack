@@ -45,7 +45,7 @@ function EndButtons(props){
             <div className="fade-in-image" >
             
             <button className="btn btn--outline" onClick={props.continuePlaying}> change Wager </button>
-            <button className="btn btn--outline" onClick={props.contSame}> ${props.state.wager} Wager </button>
+            <button className="btn btn--outline" onClick={props.contSame}> Wager ${props.state.wager} </button>
             <p>Your Balance: <span className="end_balance"> ${props.state.balance} </span></p>
             </div>
         </React.Fragment>
