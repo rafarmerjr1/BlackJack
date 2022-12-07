@@ -44,7 +44,8 @@ function EndButtons(props){
         <React.Fragment>
             <div className="fade-in-image" >
             
-            <button className="btn btn--outline" onClick={props.continuePlaying}> Keep Playing </button>
+            <button className="btn btn--outline" onClick={props.continuePlaying}> change Wager </button>
+            <button className="btn btn--outline" onClick={props.contSame}> ${props.state.wager} Wager </button>
             <p>Your Balance: <span className="end_balance"> ${props.state.balance} </span></p>
             </div>
         </React.Fragment>
@@ -67,7 +68,7 @@ export function GameUI(props){
     }
     else if (props.state.results === "loss"){  
         //updatedState = props.getState();           
-        playerActions = <EndButtons continuePlaying={props.cont} state={props.state}/>
+        playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
         banner = <Loss/>
         playerScore = <PlayerLoseScore state={props.state} />
         dealerScore = <DealerWinScore state={props.state} />
@@ -75,21 +76,21 @@ export function GameUI(props){
     // win
     else if (props.state.results === "win"){     
         banner = <Win/>    
-        playerActions = <EndButtons continuePlaying={props.cont} state={props.state}/>
+        playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
         playerScore = <PlayerWinScore state={props.state} />
         dealerScore = <DealerLoseScore state={props.state} />
     }
     // Tie
     else if (props.state.results === "tie"){
         banner = <Tie/>
-        playerActions = <EndButtons continuePlaying={props.cont} state={props.state}/>
+        playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
         playerScore = <PlayerWinScore state={props.state} />
         dealerScore = <DealerWinScore state={props.state} />
     }
     // BlackJack hand
     else if (props.state.results === "blackjack"){
         banner = <Blackjack/>
-        playerActions = <EndButtons continuePlaying={props.cont} state={props.state}/>
+        playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
         playerScore = <PlayerWinScore state={props.state} />
         dealerScore = <DealerLoseScore state={props.state} />
     };

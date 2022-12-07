@@ -29,6 +29,7 @@ class Game extends React.Component {
         this.handleStand = this.handleStand.bind(this)
         this.continuePlaying = this.continuePlaying.bind(this);
         this.getState = this.getState.bind(this)
+        this.continueSameWager = this.continueSameWager.bind(this)
 };
 
 
@@ -64,6 +65,13 @@ class Game extends React.Component {
         var gameState = await fetchContinue();
         console.log(gameState.balance);
         this.updateState(gameState, this.state.wager_set=false)  //reset wager_set to false so new hand will be auto-dealt
+    };
+    async continueSameWager(w){
+        w.preventDefault();
+        var gameState = await fetchContinue();
+        console.log(gameState.balance);
+        this.continuePlaying();
+        this.handleSubmit(w);
     }
 
     // Event Handlers 
@@ -74,9 +82,9 @@ class Game extends React.Component {
     // "Place Bet" Button
     async handleSubmit(event) {
         event.preventDefault();
-        console.log("A bet was submitted!" + this.state.wager);
+        var currentWager = this.state
         this.setState({wager_set: true}) 
-        var newState = await Wager(this.state)
+        var newState = await Wager(currentWager)
         console.log(newState)
         //await this.updateState(newState)
         this.updateState(newState)
@@ -114,7 +122,7 @@ render() {
     }
     // Play Game
     else if (this.state.wager_set){
-        ui = <GameUI getState={this.getState} state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} cont={this.continuePlaying} />; 
+        ui = <GameUI getState={this.getState} state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} cont={this.continuePlaying} contWag={this.continueSameWager} />; 
         footer = <Footer/>
     }
     else {}  // Will want to return 404 here
