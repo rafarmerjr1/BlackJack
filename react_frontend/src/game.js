@@ -117,7 +117,8 @@ class Game extends React.Component {
         var currentWager = this.state
         this.setState({wager_set: true}) 
         var newState = await Wager(currentWager)
-        this.updateState(newState)
+        //this.updateState(newState)
+        this.setState({results: newState.results})
         };
 
     // "Hit" button

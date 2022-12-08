@@ -102,7 +102,7 @@ class Wager(Resource):
             "balance":balance
             #"wager_set":True
             }
-        return data
+        return {"results": results} #data
 
 class Get_state(Resource):
     def get(self):

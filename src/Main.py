@@ -54,31 +54,16 @@ class Main():
         #wager = int(wager) # breaks if it gets a string, needs error handling
         #self.player.set_wager(wager)
         
-        if self.player.check_if_broke():
+        if self.player.check_if_broke(wager):
             self.state._set_state("broke")
             print("Broke")
+            return self.return_to_API()
         else:
             self.state._set_state("continue") #Need this for the "continue with same wager" functionality
             self.player.set_wager(wager)
             self.dealer.set_wager(wager)
             self.wager = wager
-        return self.return_to_API()
-
-
-    #def set_wager(self, wager):
-    #    #wager = int(wager) # breaks if it gets a string, needs error handling
-    #    if self.check_wager(wager):
-    #        if self.player.set_wager(wager):
-    #            if self.player.check_if_broke():
-    #                self.state._set_state("broke")
-    #            else:
-    #                self.state._set_state("continue") #Need this for the "continue with same wager" functionality
-    #                self.player.set_wager(wager)
-    #                self.dealer.set_wager(wager)
-    #                self.wager = wager
-    #            return self.return_to_API()
-    #    else:
-    #        return self.return_to_API()
+            return self.return_to_API()
 
     def check_wager(self, wager):
         print(type(wager))
