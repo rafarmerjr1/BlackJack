@@ -64,7 +64,7 @@ class Game extends React.Component {
         console.log(this.state)
     }
     
-    // Used for Broke functionality to start over
+    // Used for Broke and input checking functionality to start over
     async reset_game(e){
         e.preventDefault()
         //await fetchClear()
@@ -96,8 +96,9 @@ class Game extends React.Component {
         //send wager to trigger the wager check in the set_wager function.
         let newState = await Wager(this.state)
         console.log(newState)
-        if (newState.results === "broke"){
-            this.updateState(newState)
+        if (newState.results === "broke" || newState.results === "invalid" ){
+            //this.setState({results: newState.results})
+            this.updateState(newState);
         }
         else {
             var gameState = await fetchContinue();

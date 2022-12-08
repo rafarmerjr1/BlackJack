@@ -88,16 +88,19 @@ class Wager(Resource):
         wager = req['wager'] 
         print(wager) 
         dealer_score, player_score, dealer_card_img, player_card_img, balance, results = game.check_wager(wager)
-        data = {
-            "dealer_score":dealer_score, 
-            "player_score":player_score, 
-            "dealer_imgs":dealer_card_img, 
-            "player_imgs":player_card_img, 
-            "results":results,
-            "balance":balance
-            #"wager_set":True
-            }
-        return {"results": results} #data
+        if results != "broke" and results != "invalid":
+            return {"results": results}
+        else:
+            data = { 
+                "dealer_score":dealer_score, 
+                "player_score":player_score, 
+                "dealer_imgs":dealer_card_img, 
+                "player_imgs":player_card_img, 
+                "results":results,
+                "balance":balance
+                
+                }
+            return data
 
 class Get_state(Resource):
     def get(self):

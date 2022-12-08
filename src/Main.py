@@ -45,6 +45,7 @@ class Main():
             self.blackjack_state_check()
             return self.return_to_API()
         else:
+            self.player._set_balance(100)
             return self.return_to_API()
 
     def set_wager(self, wager):
@@ -161,15 +162,18 @@ class Main():
             print("1111")
             dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
             return dealer_score, player_score, dealer_img, player_img, balance, results
-        elif results != "continue" and results != "broke" and results != "invalid" and results != "blackjack":
+        elif results == "invalid":
+             print("Invalid Input Detected")
+             return dealer_score, player_score, dealer_img, player_img, balance, results
+        elif results == "broke":
+             print("Broke player Detected")
+             return dealer_score, player_score, dealer_img, player_img, balance, results
+        elif results == "win" or results == "loss":
             print(results)  
             del dealer_img[0]
             print("2")
             dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
             return dealer_score, player_score, dealer_img, player_img, balance, results
-        elif results == "invalid":
-             print("Invalid Input Detected")
-             return dealer_score, player_score, dealer_img, player_img, balance, results
         else:
             dealer_img = dealer_img[:-1]
             return dealer_score, player_score, dealer_img, player_img, balance, results 
