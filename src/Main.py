@@ -30,6 +30,7 @@ class Main():
         self.dealer._set_score(0)
         self.player.clear_card_img_list()
         self.dealer.clear_card_img_list()
+        self.clear_blackjack_lists()
         self.dealer.set_card_img_list("images/PaperCards/CardBack2.png")
         self.player_balance = self.player.get_balance()
         return self.player_balance
@@ -56,7 +57,6 @@ class Main():
         
         if self.player.check_if_broke(wager):
             self.state._set_state("broke")
-            print("Broke")
             return self.return_to_API()
         else:
             self.state._set_state("continue") #Need this for the "continue with same wager" functionality
@@ -66,7 +66,6 @@ class Main():
             return self.return_to_API()
 
     def check_wager(self, wager):
-        print(type(wager))
     #    # check if negative, float, or string
         if bool(re.match('^[0-9]{1,100000}$', wager)):
             wager = int(wager)
@@ -120,7 +119,7 @@ class Main():
         self.results = self.state.handle_blackjack(self.dealer_blackjack, self.player_blackjack)
         if self.results != "continue" and self.results != "tie":
             self.adjust_balances()
-            return self.return_to_API()
+            #return self.return_to_API()
         else:
             pass
 
@@ -157,13 +156,19 @@ class Main():
         dealer_img = self.dealer.get_card_img_list()
         player_img = self.player.get_card_img_list()
 
-        # Don't need these lists anymore
-        self.clear_blackjack_lists()
-
+        
+    
+        print(dealer_img)
         # Decide to show dealer's hidden card or not
-        if results != "continue" and results != "broke" and results != "invalid":
-            print(results)
+        if results == "blackjack":
             del dealer_img[0]
+            print("1111")
+            dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
+            return dealer_score, player_score, dealer_img, player_img, balance, results
+        elif results != "continue" and results != "broke" and results != "invalid" and results != "blackjack":
+            print(results)  
+            del dealer_img[0]
+            print("2")
             dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
             return dealer_score, player_score, dealer_img, player_img, balance, results
         elif results == "invalid":

@@ -28,7 +28,8 @@ export function Tie(){
 export function Blackjack(){
     return (
         <React.Fragment>
-            <h1 className="fade-in-image"> You Got <span className="outcome_color">BLACKJACK!</span></h1>
+            <h1 className="fade-in-image"> You Got</h1> 
+            <h1><span className="outcome_color">BLACKJACK!</span></h1>
         </React.Fragment>
     )
 }

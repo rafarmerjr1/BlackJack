@@ -21,7 +21,15 @@ class Player():
     def _adjust_score(self, cardVal):
         cardVal =int(cardVal)
         new_score = cardVal + self.score
-        self._set_score(new_score)
+        self.ace_handler(new_score)
+        
+    def ace_handler(self, new_score):
+        print(self.hand)
+        if "Ace" in self.hand and new_score > 21 and new_score <= 32:
+            self._set_score(new_score - 10)
+        else:
+            self._set_score(new_score)
+
 
 # Finances----------------------------------------------------------
 
@@ -61,13 +69,12 @@ class Player():
         self.hand.clear()
 
     def check_blackjack(self):
-        #for i in self.hand:
-         #   print(i)
-        if "Ace" in self.hand and self.score == "11":  # change this to 21 later once Ace handling is done
-            self.clear_hand()
+        print(self.hand[0:2])
+        if "Ace" in self.hand[0:2] and self.score == 21:  # change this to 21 later once Ace handling is done
+            #self.clear_hand()
             return True
         else:
-            self.clear_hand()
+            #self.clear_hand()
             return False
 
 # Manage player card images --------------------------------------------------
@@ -87,8 +94,10 @@ class Player():
         # Deal a card and adjust total score
         card, card_value, card_img = self.deck.get_card()  # Get card value and image file
         self.set_card_img_list(card_img)        # Add image to list
-        self._adjust_score(card_value)               # Add card value to store
         self.hand.append(card)                       # List of card values
+        self._adjust_score(card_value)               # Add card value to store
+        print(self.card_img_list)
+        
 
         
 # Check for bust, return true if >=21 else false:

@@ -58,11 +58,6 @@ class Continue_game(Resource):
 class Hitme(Resource):
     def post(self):
         dealer_score, player_score, dealer_card_img, player_card_img, balance, results = game.hitme()
-        print(type(dealer_score))
-        print(type(player_score))
-        print(type(results))
-        print(type(player_card_img))
-        print(type(dealer_card_img))
         data = {
             "dealer_score":dealer_score, 
             "player_score":player_score, 

@@ -23,20 +23,18 @@ class State():
 
     def handle_blackjack(self, dealer_blackjack, player_blackjack):
         if dealer_blackjack == False and player_blackjack == False:
+            self._set_state("continue")
             return self.game_state
         elif dealer_blackjack == True and player_blackjack == True:
             self._set_state("tie")
             return self.game_state
         elif player_blackjack == True and dealer_blackjack == False:
             self._set_state("blackjack")
-            self.adjust_balances()
             return self.game_state
-        elif dealer_blackjack == True and player_blackjack == True:
+        elif dealer_blackjack == True and player_blackjack == False:
             self._set_state("loss")
-            self.adjust_balances()
             return self.game_state
-        else:
-            self.game_state
+        
 
     def get_state(self):
         return self.game_state
