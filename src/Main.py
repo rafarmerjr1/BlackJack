@@ -29,13 +29,11 @@ class Main():
         self.dealer._set_score(0)
         self.player.clear_card_img_list()
         self.dealer.clear_card_img_list()
-        #self.dealer.set_card_img_list("images/PixelCards/card-back1.png")
         self.dealer.set_card_img_list("images/PaperCards/CardBack2.png")
         self.player_balance = self.player.get_balance()
         return self.player_balance
 
     def deal_first_hand(self):
-        print("hi")
 
         if self.player.not_broke():
             self.player.hit() 
@@ -52,11 +50,17 @@ class Main():
             return self.return_to_API()
 
     def set_wager(self, wager):
-        print("hi")
         wager = int(wager) # breaks if it gets a string, needs error handling
         self.player.set_wager(wager)
-        self.dealer.set_wager(wager)
-        self.wager = wager
+        
+        if self.player.check_if_broke():
+            self.state._set_state("broke")
+            print("Broke")
+        else:
+            self.state._set_state("continue") #Need this for the "continue with same wager" functionality
+            self.player.set_wager(wager)
+            self.dealer.set_wager(wager)
+            self.wager = wager
         return self.return_to_API()
         
     
@@ -140,8 +144,8 @@ class Main():
         self.clear_blackjack_lists()
 
         # Decide to show dealer's hidden card or not
-        if results != "continue":
-            #dealer_img = dealer_img[1:]
+        if results != "continue" and results != "broke":
+            print(dealer_img)
             del dealer_img[0]
             dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
             return dealer_score, player_score, dealer_img, player_img, balance, results 

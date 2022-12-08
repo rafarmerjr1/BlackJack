@@ -16,6 +16,21 @@ api = Api(app)
 ##########################
 # APIs #
 ##########################
+class Clear_it(Resource):
+    def get(self):
+        game.reset_balances()
+        data = {
+            "dealer_score":0, 
+            "player_score":0, 
+            "dealer_imgs":[], 
+            "player_imgs":[],
+            # "results":"", Leaving results alone so it will retain "broke" status
+            "balance":1,
+            "wager_set":False,
+        }
+        return 200
+
+
 class New_game(Resource):
     def get(self):
         print("newGame API hit")
@@ -83,10 +98,8 @@ class Stand(Resource):
 class Wager(Resource):
     def post(self):
         req = request.json
-        print(type(req))
-        print(req["wager"])
         wager = req['wager']
-        wager = int(wager)
+        wager = int(wager)  
         dealer_score, player_score, dealer_card_img, player_card_img, balance, results = game.set_wager(wager)
         data = {
             "dealer_score":dealer_score, 
@@ -94,11 +107,23 @@ class Wager(Resource):
             "dealer_imgs":dealer_card_img, 
             "player_imgs":player_card_img, 
             "results":results,
-            "balance":balance,
-            "wager_set":True
+            "balance":balance
+            #"wager_set":True
             }
         return data
 
+class Get_state(Resource):
+    def get(self):
+        dealer_score, player_score, dealer_card_img, player_card_img, balance, results = game.return_to_API()
+        data = {
+            "dealer_score":dealer_score, 
+            "player_score":player_score, 
+            "dealer_imgs":dealer_card_img, 
+            "player_imgs":player_card_img, 
+            "results":results,
+            "balance":balance
+            }
+        return data
 
 
 api.add_resource(New_game, '/newGame')
@@ -106,6 +131,8 @@ api.add_resource(Hitme, '/Hitme')
 api.add_resource(Stand, '/stand')
 api.add_resource(Wager, '/wager')
 api.add_resource(Continue_game, '/continueGame')
+api.add_resource(Clear_it, '/clearIt')
+api.add_resource(Get_state, '/getState')
 
 
 if __name__ == "__main__":

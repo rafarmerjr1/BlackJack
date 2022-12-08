@@ -3,7 +3,6 @@
 class State():
 
     def __init__(self):
-        print("nothing")
         self.game_state = "continue"
         # Compare scores and return win, loss, continue
 
@@ -44,4 +43,6 @@ class State():
 
     def _set_state(self,state):
         self.game_state = state
+        print(self.game_state + "called")
+
         

@@ -98,3 +98,9 @@ class Player():
         else:
             return False
 
+    def check_if_broke(self):
+        print("check_if_broke")
+        if self.balance <= 0 or self.balance < self.wager:
+            return True
+        else:
+            return False

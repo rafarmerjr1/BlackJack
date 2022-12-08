@@ -1,10 +1,12 @@
 import './App.css';
-import React from 'react'
-import { Wager, Hitme, Stand, fetchGame, fetchContinue } from './callAPI';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { Wager, Hitme, Stand, fetchGame, fetchContinue, fetchClear, fetchState } from './callAPI';
 import { GameUI } from './gameUI';
 import { WagerUI } from './wagerUI';
-import { Link } from 'react-router-dom';
 import { Footer } from './footer';
+import { Broke } from './broke';
+import { Home } from './home';
 
 class Game extends React.Component {
     constructor(props) {
@@ -30,9 +32,8 @@ class Game extends React.Component {
         this.continuePlaying = this.continuePlaying.bind(this);
         this.getState = this.getState.bind(this)
         this.continueSameWager = this.continueSameWager.bind(this)
+        this.reset_game = this.reset_game.bind(this)
 };
-
-
 
 
     // Initialize First Game if not already done 
@@ -48,14 +49,21 @@ class Game extends React.Component {
         console.log(gameState.balance);
         this.updateState(gameState)
     }
+
+    async reset_game(e){
+        e.preventDefault();
+        this.setState({wager_set: false})
+        this.getNewGame()
+    }
+
     updateState(gameState){
         this.setState({
-            balance: gameState.balance,
             dealer_score: gameState.dealer_score,
             player_score: gameState.player_score,
             dealer_imgs: gameState.dealer_imgs,
             player_imgs: gameState.player_imgs,
-            results: gameState.results
+            results: gameState.results,
+            balance: gameState.balance,
         })
     };
 
@@ -66,12 +74,22 @@ class Game extends React.Component {
         console.log(gameState.balance);
         this.updateState(gameState, this.state.wager_set=false)  //reset wager_set to false so new hand will be auto-dealt
     };
-    async continueSameWager(w){
-        w.preventDefault();
-        var gameState = await fetchContinue();
-        console.log(gameState.balance);
-        this.continuePlaying();
-        this.handleSubmit(w);
+
+    async continueSameWager(e){
+        e.preventDefault();
+
+        //send wager but do not update state
+        let newState = await Wager(this.state)
+        console.log(newState)
+        if (newState.results === "broke"){
+            console.log("BROKE");
+            this.updateState(newState)
+        }
+        else {
+            var gameState = await fetchContinue();
+            console.log(gameState.balance);
+            this.updateState(gameState);
+        }
     }
 
     // Event Handlers 
@@ -85,7 +103,6 @@ class Game extends React.Component {
         var currentWager = this.state
         this.setState({wager_set: true}) 
         var newState = await Wager(currentWager)
-        console.log(newState)
         this.updateState(newState)
         };
 
@@ -114,15 +131,20 @@ render() {
     let footer = null;
     
     // Place Bet
-    if (!this.state.wager_set){
+    if (!this.state.wager_set && this.state.results !== "broke"){
         ui = <WagerUI state={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} cont={this.continuePlaying} />; 
         footer = null;
     }
     // Play Game
-    else if (this.state.wager_set){
+    else if (this.state.wager_set && this.state.results !== "broke"){
         ui = <GameUI getState={this.getState} state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} cont={this.continuePlaying} contWag={this.continueSameWager} />; 
         footer = <Footer/>
     }
+    else if (this.state.results === "broke"){
+        ui = <Broke newGame={this.reset_game} />
+        
+        
+}
     else {}  // Will want to return 404 here
 
     // Return UI

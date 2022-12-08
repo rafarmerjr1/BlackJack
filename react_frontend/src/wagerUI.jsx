@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, Link } from 'react'
+import React from 'react'
 
 export function WagerUI(props){
     return (

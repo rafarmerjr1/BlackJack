@@ -14,6 +14,19 @@ export async function fetchContinue() {
     .then(response => response.json())
     };
 
+// CLEAR IT Fetch
+export async function fetchClear() {
+  return fetch('/clearIt')
+    .then(response => response.json())
+    };
+
+//GET STATE fetch
+export async function fetchState() {
+  return fetch('/getState')
+    .then(response => response.json())
+    };
+
+
 // WAGER Fetch and function
 export async function Wager(props) {
     console.log(props);
