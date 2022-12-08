@@ -19,15 +19,7 @@ api = Api(app)
 class Clear_it(Resource):
     def get(self):
         game.reset_balances()
-        data = {
-            "dealer_score":0, 
-            "player_score":0, 
-            "dealer_imgs":[], 
-            "player_imgs":[],
-            # "results":"", Leaving results alone so it will retain "broke" status
-            "balance":1,
-            "wager_set":False,
-        }
+        game.reset_all()
         return 200
 
 
@@ -98,9 +90,9 @@ class Stand(Resource):
 class Wager(Resource):
     def post(self):
         req = request.json
-        wager = req['wager']
-        wager = int(wager)  
-        dealer_score, player_score, dealer_card_img, player_card_img, balance, results = game.set_wager(wager)
+        wager = req['wager'] 
+        print(wager) 
+        dealer_score, player_score, dealer_card_img, player_card_img, balance, results = game.check_wager(wager)
         data = {
             "dealer_score":dealer_score, 
             "player_score":player_score, 

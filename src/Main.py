@@ -1,5 +1,6 @@
 from src.player import Player as Player
 from src.state import State as State
+import re
 
 class Main():
  
@@ -18,7 +19,7 @@ class Main():
     def reset_balances(self):
         self.player._set_balance(100)
         self.dealer._set_balance(10000)
-        
+
     #Reset Class values in case this is not the first hand, otherwise values will carry into next hand
     # Returns balance so player can place bet
     def new_hand(self):  
@@ -50,8 +51,8 @@ class Main():
             return self.return_to_API()
 
     def set_wager(self, wager):
-        wager = int(wager) # breaks if it gets a string, needs error handling
-        self.player.set_wager(wager)
+        #wager = int(wager) # breaks if it gets a string, needs error handling
+        #self.player.set_wager(wager)
         
         if self.player.check_if_broke():
             self.state._set_state("broke")
@@ -62,7 +63,37 @@ class Main():
             self.dealer.set_wager(wager)
             self.wager = wager
         return self.return_to_API()
-        
+
+
+    #def set_wager(self, wager):
+    #    #wager = int(wager) # breaks if it gets a string, needs error handling
+    #    if self.check_wager(wager):
+    #        if self.player.set_wager(wager):
+    #            if self.player.check_if_broke():
+    #                self.state._set_state("broke")
+    #            else:
+    #                self.state._set_state("continue") #Need this for the "continue with same wager" functionality
+    #                self.player.set_wager(wager)
+    #                self.dealer.set_wager(wager)
+    #                self.wager = wager
+    #            return self.return_to_API()
+    #    else:
+    #        return self.return_to_API()
+
+    def check_wager(self, wager):
+        print(type(wager))
+    #    # check if negative, float, or string
+        if bool(re.match('^[0-9]{1,100000}$', wager)):
+            wager = int(wager)
+            print(int)
+            if isinstance(wager, int) and wager > 0:
+                return self.set_wager(wager)
+        else:
+            print("invalid")
+            self.player.set_wager(0)
+            self.state._set_state("invalid")
+            return self.return_to_API()
+  
     
 ##########################
 #     hit and stand       #
@@ -129,12 +160,13 @@ class Main():
         elif self.results == "continue" or self.results == "tie":
             pass
         
+
+   
+
     # pull the most up to date information on the game and send it API
     def return_to_API(self):
         dealer_score = self.dealer.get_score()
         player_score = self.player.get_score()
-        player_img = self.player.get_card_img_list()
-        dealer_img = self.dealer.get_card_img_list()
         results = self.state.get_state()
         balance = self.player.get_balance()
         dealer_img = self.dealer.get_card_img_list()
@@ -144,14 +176,16 @@ class Main():
         self.clear_blackjack_lists()
 
         # Decide to show dealer's hidden card or not
-        if results != "continue" and results != "broke":
-            print(dealer_img)
+        if results != "continue" and results != "broke" and results != "invalid":
+            print(results)
             del dealer_img[0]
             dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
-            return dealer_score, player_score, dealer_img, player_img, balance, results 
+            return dealer_score, player_score, dealer_img, player_img, balance, results
+        elif results == "invalid":
+             print("Invalid Input Detected")
+             return dealer_score, player_score, dealer_img, player_img, balance, results
         else:
             dealer_img = dealer_img[:-1]
-            print(type(dealer_img))
             return dealer_score, player_score, dealer_img, player_img, balance, results 
         
         

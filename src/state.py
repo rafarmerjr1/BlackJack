@@ -43,6 +43,5 @@ class State():
 
     def _set_state(self,state):
         self.game_state = state
-        print(self.game_state + "called")
 
         
