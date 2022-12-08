@@ -23,14 +23,10 @@ class Main():
     #Reset Class values in case this is not the first hand, otherwise values will carry into next hand
     # Returns balance so player can place bet
     def new_hand(self):  
-        self.player.set_wager(0)
-        self.dealer.set_wager(0)
+        self.player.reset_players()
+        self.dealer.reset_players()
         self.state._set_state("continue")
-        self.player._set_score(0)
-        self.dealer._set_score(0)
-        self.player.clear_card_img_list()
-        self.dealer.clear_card_img_list()
-        self.clear_blackjack_lists()
+        #self.clear_blackjack_lists()
         self.dealer.set_card_img_list("images/PaperCards/CardBack2.png")
         self.player_balance = self.player.get_balance()
         return self.player_balance

@@ -9,7 +9,18 @@ class Player():
         self.score = 0
         self.hand = []
         self.card_img_list = []
+        self.card_values = []
     
+    def reset_players(self):
+        self.wager = 0
+        self.score = 0
+        self.hand = []
+        self.card_img_list = []
+        self.card_values = []
+
+        
+
+
 # Scores ---------------------------------------------------------
 
     def _set_score(self, score):
@@ -18,18 +29,14 @@ class Player():
     def get_score(self):
         return self.score
 
-    def _adjust_score(self, cardVal):
-        cardVal =int(cardVal)
-        new_score = cardVal + self.score
-        self.ace_handler(new_score)
-        
-    def ace_handler(self, new_score):
-        print(self.hand)
-        if "Ace" in self.hand and new_score > 21 and new_score <= 32:
-            self._set_score(new_score - 10)
-        else:
-            self._set_score(new_score)
+    def calc_score(self):
+        self.score = sum(i for i in self.card_values)
+        while any (i == 1 for i in self.card_values) and self.score <= 11:
+            self.score += 10
 
+    def clear_card_values(self):
+        self.card_values.clear()
+                
 
 # Finances----------------------------------------------------------
 
@@ -69,12 +76,10 @@ class Player():
         self.hand.clear()
 
     def check_blackjack(self):
-        print(self.hand[0:2])
-        if "Ace" in self.hand[0:2] and self.score == 21:  # change this to 21 later once Ace handling is done
-            #self.clear_hand()
+        #print(self.hand[0:2])
+        if "Ace" in self.hand[0:2] and self.score == 21: 
             return True
         else:
-            #self.clear_hand()
             return False
 
 # Manage player card images --------------------------------------------------
@@ -94,8 +99,10 @@ class Player():
         # Deal a card and adjust total score
         card, card_value, card_img = self.deck.get_card()  # Get card value and image file
         self.set_card_img_list(card_img)        # Add image to list
-        self.hand.append(card)                       # List of card values
-        self._adjust_score(card_value)               # Add card value to store
+        self.hand.append(card)                  # List of card values
+        #self._adjust_score(card_value)         # Add card value to store
+        self.card_values.append(card_value)     # Add card value to list
+        self.calc_score()
         print(self.card_img_list)
         
 
