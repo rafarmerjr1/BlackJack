@@ -174,7 +174,7 @@ render() {
     
     // Check for fraud
     if (this.state.results === "broke" || this.state.results === "invalid"){
-        ui = <Broke newGame={this.reset_game} />      
+        ui = <Broke resetGame={this.reset_game} />      
 }
 
     // Place Bet
