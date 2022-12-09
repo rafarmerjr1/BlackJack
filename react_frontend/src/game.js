@@ -1,7 +1,8 @@
 import './App.css';
 import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { Wager, Hitme, Stand, fetchGame, fetchContinue, fetchState } from './callAPI';
+import { Navigate, useHistory, useNavigate } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
+import { Wager, Hitme, Stand, fetchGame, fetchContinue, fetchBalance, fetchClear } from './callAPI';
 import { GameUI } from './gameUI';
 import { WagerUI } from './wagerUI';
 import { Footer } from './footer';
@@ -34,43 +35,64 @@ class Game extends React.Component {
             wager:0
         };
 
-        this.getFirstHand();  // Deals a hand if not already in an active game
+        this.gameStarted = false
+        
+        //this.getFirstHand();  // Deals a hand if not already in an active game
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getNewGame = this.getNewGame.bind(this);
-        this.getFirstHand = this.getFirstHand.bind(this);
+        //this.getFirstHand = this.getFirstHand.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleHit = this.handleHit.bind(this);
         this.handleStand = this.handleStand.bind(this)
         this.continuePlaying = this.continuePlaying.bind(this);
         this.getState = this.getState.bind(this)
         this.continueSameWager = this.continueSameWager.bind(this)
-        this.reset_game = this.reset_game.bind(this)
+        this.reset_game = this.reset_game.bind(this);
+        this.getBalance = this.getBalance.bind(this);
 };
 
     // Initialize First Game if not already done 
-    async getFirstHand(){
-        if (!this.state.wager_set){
-            console.log(this.state)
-           await this.getNewGame();
-        } else {};
-    };
+
+    async componentDidMount(){
+        if (!this.gameStarted) {
+            console.log("firsthandCalled")
+            this.gameStarted = true
+            //await this.getNewGame()
+            await this.getBalance()
+        }
+    }
+
+    //async getFirstHand(){
+    //    //if (!this.state.wager_set){
+    //    console.log("firsthandCalled")
+    //    await this.getNewGame()
+    //    }; 
+
+    // First thing - get player balance so they can wager:
+    async getBalance(){
+        var gameState = await fetchBalance()
+        console.log("getBalanceCalled");
+        this.setState({balance: gameState.balance})
+        console.log(this.state)
+    }
 
     // Start Game and update State 
     async getNewGame() {
         var gameState = await fetchGame();
-        console.log(gameState.balance);
+        console.log("newGameCalled");
         this.updateState(gameState)
         console.log(this.state)
     }
     
     // Used for Broke and input checking functionality to start over
-    async reset_game(e){
-        e.preventDefault()
-        //await fetchClear()
+    async reset_game(){
+        //e.preventDefault()
+        fetchClear()
         this.setState({wager_set: false})
-        this.getNewGame()        
-    }
+        //this.getNewGame()
+        //return redirect("/");        
+    };
     
     updateState(gameState){
         this.setState({
@@ -118,8 +140,12 @@ class Game extends React.Component {
         var currentWager = this.state
         this.setState({wager_set: true}) 
         var newState = await Wager(currentWager)
-        //this.updateState(newState)
         this.setState({results: newState.results})
+        if (newState.results != "broke" && newState.results != "invalid"){
+            var gameState = await fetchContinue();
+            this.updateState(gameState) 
+        }
+
         };
 
     // "Hit" button
@@ -153,7 +179,7 @@ render() {
 
     // Place Bet
     else if (!this.state.wager_set && this.state.results !== "broke" && this.state.results !== "invalid"){
-        ui = <WagerUI state={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} cont={this.continuePlaying} />; 
+        ui = <WagerUI state={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} cont={this.continuePlaying} resetGame={this.reset_game}/>; 
         footer = null;
     }
 

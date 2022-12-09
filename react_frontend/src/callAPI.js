@@ -14,9 +14,21 @@ export async function fetchContinue() {
     .then(response => response.json())
     };
 
+//CLEAR IT fetch
+export async function fetchClear() {
+  return fetch('/clearIt')
+    .then(response => response.json())
+    };
+
 //GET STATE fetch
 export async function fetchState() {
   return fetch('/getState')
+    .then(response => response.json())
+    };
+
+// GET BALANCE fetch
+export async function fetchBalance() {
+  return fetch('/getBalance')
     .then(response => response.json())
     };
 

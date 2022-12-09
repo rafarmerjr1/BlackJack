@@ -20,16 +20,26 @@ class Main():
         self.player._set_balance(100)
         self.dealer._set_balance(10000)
 
+    def reset_all(self):
+        self.player._set_balance(100)
+        self.dealer._set_balance(10000)
+        self.wager = 0
+        self.player.reset_players()
+        self.dealer.reset_players()
+        self.state._set_state("")
+
+    def get_balance(self):
+        return self.player.get_balance()
+
     #Reset Class values in case this is not the first hand, otherwise values will carry into next hand
     # Returns balance so player can place bet
     def new_hand(self):  
         self.player.reset_players()
         self.dealer.reset_players()
         self.state._set_state("continue")
-        #self.clear_blackjack_lists()
         self.dealer.set_card_img_list("images/PaperCards/CardBack2.png")
-        self.player_balance = self.player.get_balance()
-        return self.player_balance
+        #self.player_balance = self.player.get_balance()
+        #return self.player_balance
 
     def deal_first_hand(self):
 
@@ -45,13 +55,9 @@ class Main():
             self.blackjack_state_check()
             return self.return_to_API()
         else:
-            self.player._set_balance(100)
             return self.return_to_API()
 
     def set_wager(self, wager):
-        #wager = int(wager) # breaks if it gets a string, needs error handling
-        #self.player.set_wager(wager)
-        
         if self.player.check_if_broke(wager):
             self.state._set_state("broke")
             return self.return_to_API()
@@ -159,7 +165,7 @@ class Main():
         # Decide to show dealer's hidden card or not
         if results == "blackjack":
             del dealer_img[0]
-            print("1111")
+            print("blackjackReturntoAPI")
             dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
             return dealer_score, player_score, dealer_img, player_img, balance, results
         elif results == "invalid":
@@ -171,7 +177,7 @@ class Main():
         elif results == "win" or results == "loss":
             print(results)  
             del dealer_img[0]
-            print("2")
+            print("winLossReturntoAPI")
             dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
             return dealer_score, player_score, dealer_img, player_img, balance, results
         else:

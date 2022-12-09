@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import './App.css';
 import React from 'react';
+import Game from './game'
 
-export function Home(props) {
 
+export function Home() {
+    
     return (
         <div className="dark app" id="top">
           <main>
@@ -14,7 +16,10 @@ export function Home(props) {
             </header>
   
             <div className="home">        
-        <Link to={'/game'}> <img className="home-Image" src={require('./images/blackjack.png')}/></Link>
+        <Link to={'/game'}> 
+        {/* <span onClick={getFirstHand}> <img className="home-Image" src={require('./images/blackjack.png')}/> </span> */}
+        <img className="home-Image" src={require('./images/blackjack.png')}/>
+        </Link>
         </div>
 
       </main>
@@ -22,4 +27,9 @@ export function Home(props) {
     )
 }
 
-// Can we trigger a new game with something like: onClick={Game.getNewGame()}
+/* 
+const getFirstHand = () => {
+  new Game().getNewGame();
+}
+
+*/

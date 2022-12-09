@@ -9,6 +9,8 @@ import src.Main
 ##########################
 
 game = src.Main.Main()
+#global game 
+#game = None
 
 app = Flask(__name__)
 api = Api(app)
@@ -18,7 +20,6 @@ api = Api(app)
 ##########################
 class Clear_it(Resource):
     def get(self):
-        game.reset_balances()
         game.reset_all()
         return 200
 
@@ -115,6 +116,10 @@ class Get_state(Resource):
             }
         return data
 
+class Get_balance(Resource):
+    def get(self):
+        balance = game.get_balance()
+        return { "balance": balance }
 
 api.add_resource(New_game, '/newGame')
 api.add_resource(Hitme, '/Hitme')
@@ -123,6 +128,7 @@ api.add_resource(Wager, '/wager')
 api.add_resource(Continue_game, '/continueGame')
 api.add_resource(Clear_it, '/clearIt')
 api.add_resource(Get_state, '/getState')
+api.add_resource(Get_balance, '/getBalance')
 
 
 if __name__ == "__main__":
