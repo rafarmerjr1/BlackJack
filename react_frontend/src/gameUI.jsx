@@ -5,22 +5,20 @@ import { PlayerLoseScore, PlayerWinScore, DealerLoseScore, DealerWinScore } from
 
 // Main Gameplay component
 
+
+
 // Ask player if they want to hit or stand
 function HitstandOpts(props) {
+
+    const sendButton = (action) => {
+        props.handleAction(action)
+    }
+
     return (
         <React.Fragment>
-        <button className="btn btn--outline" onClick={props.handleHit}> Hit </button>
-        <button className="btn btn--outline" onClick={props.handleStand}> Stand </button>
+        <button className="btn btn--outline" onClick={() => sendButton("hit")}> Hit </button>
+        <button className="btn btn--outline" onClick={() => sendButton("stand")}> Stand </button>
         </React.Fragment>
-    );
-};
-
-// Banner presenting on win, loss, etc.
-function Banner(){
-    return (
-    <React.Fragment>
-        <h1 style={{"color":"var(--yellow)"}}>Current Hand:</h1>
-    </React.Fragment>
     );
 };
 
@@ -46,12 +44,16 @@ function PlayerScore(props){
 
 // post-hand functionality - allow continuing with same wager or changing wager
 function EndButtons(props){
+
+    const keepOrChangeWager = (bet) => {
+        props.determineWager(bet)
+    }
+
     return(
         <React.Fragment>
             <div className="fade-in-image" >
-            
-            <button className="btn btn--outline" onClick={props.continuePlaying}> change Wager </button>
-            <button className="btn btn--outline" onClick={props.contSame}> Wager ${props.state.wager} </button>
+            <button className="btn btn--outline" onClick={() => keepOrChangeWager("change")}> change Wager </button>
+            <button className="btn btn--outline" onClick={() => keepOrChangeWager("keep")}> Wager ${props.state.wager} </button>
             <p>Your Balance: <span className="end_balance"> ${props.state.balance} </span></p>
             </div>
         </React.Fragment>
@@ -66,35 +68,36 @@ export function GameUI(props){
     let playerScore = null
     
     // Check results to see which outcome to display:
-
-    if (props.state.results === "continue") {
-        playerActions = <HitstandOpts handleHit={props.handleHit} handleStand={props.handleStand} />
-        playerScore = <PlayerScore state={props.state}/>
-    }
-    else if (props.state.results === "loss"){             
-        playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
+    switch(props.state.results){
+    case "loss":
+        playerActions = <EndButtons state={props.state} determineWager={props.determineWager} />
         banner = <Loss/>
         playerScore = <PlayerLoseScore state={props.state} />
         dealerScore = <DealerWinScore state={props.state} />
-    } 
-    else if (props.state.results === "win"){     
+        break;
+    case "win":
         banner = <Win/>    
-        playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
+        playerActions = <EndButtons state={props.state} determineWager={props.determineWager}/>
         playerScore = <PlayerWinScore state={props.state} />
         dealerScore = <DealerLoseScore state={props.state} />
-    }
-    else if (props.state.results === "tie"){
+        break;
+    case "tie":
         banner = <Tie/>
-        playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
+        playerActions = <EndButtons state={props.state} determineWager={props.determineWager}/>
         playerScore = <PlayerWinScore state={props.state} />
         dealerScore = <DealerWinScore state={props.state} />
-    }
-    else if (props.state.results === "blackjack"){
+        break;
+    case "blackjack":
         banner = <Blackjack/>
-        playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
+        playerActions = <EndButtons state={props.state} determineWager={props.determineWager}/>
         playerScore = <PlayerWinScore state={props.state} />
         dealerScore = <DealerLoseScore state={props.state} />
-    };
+        break;
+    default:  //"continue":
+        playerActions = <HitstandOpts handleAction={props.handleAction} />
+        playerScore = <PlayerScore state={props.state}/>
+        break;
+    }
 
     return(
     <React.Fragment>

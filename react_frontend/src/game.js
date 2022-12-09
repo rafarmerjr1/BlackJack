@@ -25,18 +25,16 @@ class Game extends React.Component {
 
         this.gameStarted = false
         
+        this.handleAction = this.handleAction.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleHit = this.handleHit.bind(this);
-        this.handleStand = this.handleStand.bind(this)
-        this.continuePlaying = this.continuePlaying.bind(this);
-        this.continueSameWager = this.continueSameWager.bind(this)
+        this.determineWager = this.determineWager.bind(this)
         this.reset_game = this.reset_game.bind(this);
         this.getBalance = this.getBalance.bind(this);
         //this.updateState = this.updateState.bind(this);
 };
 
-    // First - Trigger First Game if not already done by calling the API for player balance
+    // First - Trigger Game by calling the API for player balance
     async componentDidMount(){
         if (!this.gameStarted) {
             this.gameStarted = true
@@ -50,7 +48,7 @@ class Game extends React.Component {
         this.setState({balance: gameState.balance})
     }
 
-    // Used for Broke and input checking functionality to start over
+    // Reset everything before starting new game
     async reset_game(){
         fetchClear()
         this.setState({wager_set: false})
@@ -68,31 +66,23 @@ class Game extends React.Component {
         })
     };
 
-    // Continue after losing or winning, retaining dollar balance 
-    async continuePlaying(e) {
-        e.preventDefault()
-        this.setState({wager_set: false})
+    // logic to keep or change wager after hand
+    async determineWager(bet) {
+        if (bet === "change"){
+            this.setState({wager_set: false})
+        }
+        else if (bet == "keep" ) {
+            let newState = await Wager(this.state)
+                if (newState.results === "broke" || newState.results === "invalid" ){
+                    this.updateState(newState); // change state in case bad input
+                }
+                else {
+                    var gameState = await fetchContinue();
+                    this.updateState(gameState);
+                }
+            }
     };
 
-    // Continue after losing or winning, but player can choose a different wager amount
-    async continueSameWager(e){
-        e.preventDefault();
-
-        //send wager to trigger the wager check in the set_wager function.
-        let newState = await Wager(this.state)
-
-
-        if (newState.results === "broke" || newState.results === "invalid" ){
-            // change state in case bad input
-            this.updateState(newState);
-        }
-        else {
-            //Deal hand
-            var gameState = await fetchContinue();
-            this.updateState(gameState);
-        }
-    }
-      
 //  Event Handlers  
     
     // "Place Bet" form
@@ -107,26 +97,17 @@ class Game extends React.Component {
         this.setState({wager_set: true}) 
         var newState = await Wager(currentWager)
         this.setState({results: newState.results})
-        if (newState.results != "broke" && newState.results != "invalid"){
+        if (newState.results !== "broke" && newState.results !== "invalid"){
             var gameState = await fetchContinue();
             this.updateState(gameState) 
         }
 
         };
-
-    // "Hit" button
-    async handleHit(e){
-        e.preventDefault();
-        var newState = await playerAction({action: "hit"});
+    // handle Hit and Stand
+    async handleAction(action){
+        var newState = await playerAction({action: action});
         this.updateState(newState);
-    };
-
-    // "Stand" Button
-    async handleStand(e){
-        e.preventDefault();
-        var newState = await playerAction({action: "stand"});
-        this.updateState(newState);
-    };
+    }
 
 render() {
     
@@ -166,7 +147,7 @@ render() {
 
     // Play Game via GameUI
     else if (this.state.wager_set && this.state.results !== "broke" && this.state.results !== "invalid"){
-        ui = <GameUI state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} cont={this.continuePlaying} contWag={this.continueSameWager} />; 
+        ui = <GameUI state={this.state} determineWager={this.determineWager} handleAction={this.handleAction} cont={this.continuePlaying} contWag={this.continueSameWager} />; 
         footer = <Footer/>
     }
 

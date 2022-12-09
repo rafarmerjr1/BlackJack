@@ -4,14 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 
 export function WagerUI(props){
-    const navigate = useNavigate();
-
+    
     // reset game values and redirect user to home
+    const navigate = useNavigate();
     const GoHome = () => {
         props.resetGame()
         navigate("/", {replace: true});  
     }
-
     return (
     <React.Fragment> 
          <div className="wager"> 
