@@ -1,20 +1,17 @@
 import './App.css';
 import React from 'react'
-import { useNavigate, Link } from 'react-router-dom';
-import { fetchClear } from './callAPI';
+import { useNavigate } from 'react-router-dom';
+
+// This page is returned upon invalid input, when a player is out of money, or when a wager exceeds player balance
 
 export function Broke(props) {
     const navigate = useNavigate();
 
+    // reset values and redirect to home
     const GoHome = () => {
         props.resetGame()
         navigate("/", {replace: true});
     }
-
-    const clear = () => {
-        fetchClear()
-    }
-
     return(
         <div className="home">        
             

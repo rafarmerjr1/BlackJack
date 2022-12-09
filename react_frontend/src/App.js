@@ -14,7 +14,6 @@ render()   {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/game" element={<Game />} />
-          <Route path="/broke" element={<Broke />} />
         </Routes>
     </BrowserRouter>
   );

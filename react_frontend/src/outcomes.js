@@ -1,6 +1,8 @@
 import './App.css';
 import React from 'react'
 
+// These functions export the hand outcome to the UI ("Banner" in GameUI)
+
 export function Loss(){
     return (
         <React.Fragment>

@@ -72,11 +72,9 @@ class Main():
     #    # check if negative, float, or string
         if bool(re.match('^[0-9]{1,100000}$', wager)):
             wager = int(wager)
-            print(int)
             if isinstance(wager, int) and wager > 0:
                 return self.set_wager(wager)
         else:
-            print("invalid")
             self.player.set_wager(0)
             self.state._set_state("invalid")
             return self.return_to_API()
@@ -161,23 +159,17 @@ class Main():
 
         
     
-        print(balance)
         # Decide to show dealer's hidden card or not
         if results == "blackjack":
             del dealer_img[0]
-            print("blackjackReturntoAPI")
             dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
             return dealer_score, player_score, dealer_img, player_img, balance, results
         elif results == "invalid":
-             print("Invalid Input Detected")
              return dealer_score, player_score, dealer_img, player_img, balance, results
         elif results == "broke":
-             print("Broke player Detected")
              return dealer_score, player_score, dealer_img, player_img, balance, results
         elif results == "win" or results == "loss":
-            print(results)  
             del dealer_img[0]
-            print("winLossReturntoAPI")
             dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
             return dealer_score, player_score, dealer_img, player_img, balance, results
         else:

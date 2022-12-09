@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import './App.css';
 import React from 'react';
-import Game from './game'
 
-
+// Landing Page.
 export function Home() {
     
     return (
@@ -17,7 +16,6 @@ export function Home() {
   
             <div className="home">        
         <Link to={'/game'}> 
-        {/* <span onClick={getFirstHand}> <img className="home-Image" src={require('./images/blackjack.png')}/> </span> */}
         <img className="home-Image" src={require('./images/blackjack.png')}/>
         </Link>
         </div>
@@ -27,9 +25,3 @@ export function Home() {
     )
 }
 
-/* 
-const getFirstHand = () => {
-  new Game().getNewGame();
-}
-
-*/

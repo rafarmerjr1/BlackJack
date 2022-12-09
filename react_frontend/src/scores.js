@@ -1,6 +1,8 @@
 import './App.css';
 import React from 'react'
 
+// These functions export the player and dealer score the UI
+
 export function DealerWinScore(props){
     return(
         <React.Fragment>

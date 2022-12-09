@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom';
 export function WagerUI(props){
     const navigate = useNavigate();
 
+    // reset game values and redirect user to home
     const GoHome = () => {
         props.resetGame()
-        navigate("/", {replace: true});
+        navigate("/", {replace: true});  
     }
 
     return (
@@ -36,8 +37,3 @@ export function WagerUI(props){
     </React.Fragment>
     );
 };
-
-/*
-<WagerUI state={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
-
-*/

@@ -2,8 +2,10 @@ import './App.css';
 import React from 'react'
 import { Win, Loss, Tie, Blackjack } from './outcomes'
 import { PlayerLoseScore, PlayerWinScore, DealerLoseScore, DealerWinScore } from './scores';
-import { Link } from 'react-router-dom';
 
+// Main Gameplay component
+
+// Ask player if they want to hit or stand
 function HitstandOpts(props) {
     return (
         <React.Fragment>
@@ -13,6 +15,7 @@ function HitstandOpts(props) {
     );
 };
 
+// Banner presenting on win, loss, etc.
 function Banner(){
     return (
     <React.Fragment>
@@ -21,6 +24,7 @@ function Banner(){
     );
 };
 
+// Keep dealer score hidden until after end of hand
 function DealerScore(){
     return(
         <React.Fragment>
@@ -30,6 +34,7 @@ function DealerScore(){
     )
 };
 
+// Present player score
 function PlayerScore(props){
     return (
         <React.Fragment>
@@ -39,6 +44,7 @@ function PlayerScore(props){
     )
 };
 
+// post-hand functionality - allow continuing with same wager or changing wager
 function EndButtons(props){
     return(
         <React.Fragment>
@@ -54,47 +60,41 @@ function EndButtons(props){
 
 export function GameUI(props){
 
-    let stand = null
     let playerActions = null
     let dealerScore = <DealerScore />
     let banner = null
     let playerScore = null
-    //let updatedState = props.getState()
+    
+    // Check results to see which outcome to display:
 
     if (props.state.results === "continue") {
-        
         playerActions = <HitstandOpts handleHit={props.handleHit} handleStand={props.handleStand} />
         playerScore = <PlayerScore state={props.state}/>
     }
-    else if (props.state.results === "loss"){  
-        //updatedState = props.getState();           
+    else if (props.state.results === "loss"){             
         playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
         banner = <Loss/>
         playerScore = <PlayerLoseScore state={props.state} />
         dealerScore = <DealerWinScore state={props.state} />
     } 
-    // win
     else if (props.state.results === "win"){     
         banner = <Win/>    
         playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
         playerScore = <PlayerWinScore state={props.state} />
         dealerScore = <DealerLoseScore state={props.state} />
     }
-    // Tie
     else if (props.state.results === "tie"){
         banner = <Tie/>
         playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
         playerScore = <PlayerWinScore state={props.state} />
         dealerScore = <DealerWinScore state={props.state} />
     }
-    // BlackJack hand
     else if (props.state.results === "blackjack"){
         banner = <Blackjack/>
         playerActions = <EndButtons continuePlaying={props.cont} contSame={props.contWag} state={props.state}/>
         playerScore = <PlayerWinScore state={props.state} />
         dealerScore = <DealerLoseScore state={props.state} />
     };
-
 
     return(
     <React.Fragment>
@@ -110,14 +110,8 @@ export function GameUI(props){
         {props.state.player_imgs.map((cardImage) => 
             <img className="App-image-player" src={require(`./${cardImage}`)} />)}
         
-   
         {playerScore}
         {playerActions}
     </React.Fragment>
     );
 };
-
-/*
-
-<GameUI state={props.state} handleHit={props.handleHit} handleStand={props.handleStand} />
-*/
