@@ -161,7 +161,7 @@ class Main():
 
         
     
-        print(dealer_img)
+        print(balance)
         # Decide to show dealer's hidden card or not
         if results == "blackjack":
             del dealer_img[0]

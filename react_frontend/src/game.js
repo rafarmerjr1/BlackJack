@@ -107,10 +107,11 @@ class Game extends React.Component {
 
     // Continue after losing or winning, retaining dollar balance 
     async continuePlaying(e) {
-        e.preventDefault();
-        var gameState = await fetchContinue();
-        console.log(gameState.balance);
-        this.updateState(gameState, this.setState({wager_set: false}))  //reset wager_set to false so new hand will be auto-dealt
+        e.preventDefault()
+        this.setState({wager_set: false})
+        //var gameState = await fetchContinue();
+        //console.log(gameState.balance);
+        //this.updateState(gameState, this.setState({wager_set: false}))  //reset wager_set to false so new hand will be auto-dealt
     };
 
     async continueSameWager(e){
