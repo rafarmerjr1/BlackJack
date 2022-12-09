@@ -4,10 +4,8 @@ class State():
 
     def __init__(self):
         self.game_state = "continue"
-        # Compare scores and return win, loss, continue
-
-        # Handle revealing dealer card from list
-
+        
+    # Compare scores and return win, loss, continue
     def compare_scores(self, dealer_score, player_score):
         self.dealer_score = dealer_score
         self.player_score = player_score
@@ -21,6 +19,7 @@ class State():
             self.game_state = "tie"
         return self.game_state   
 
+    # Check booleans for dealer and player blackjack check from main.py
     def handle_blackjack(self, dealer_blackjack, player_blackjack):
         if dealer_blackjack == False and player_blackjack == False:
             self._set_state("continue")
@@ -35,7 +34,6 @@ class State():
             self._set_state("loss")
             return self.game_state
         
-
     def get_state(self):
         return self.game_state
 

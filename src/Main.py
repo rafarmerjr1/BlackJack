@@ -7,7 +7,7 @@ class Main():
     def __init__(self):
         self.player = Player(100)
         self.dealer = Player(10000)
-        self.state = State() # Can be win, loss, continue, BlackJack, tie
+        self.state = State() # Can be win, loss, continue, BlackJack, tie, etc.
         self.wager = 0
 
 ##########################
@@ -15,7 +15,7 @@ class Main():
 ##########################
 
     # Reset dollar balances for new games or else this will persist
-    # We want dollars balances to persist for new HANDS but not new GAMES
+    # balances should persist for new hand but not new games
     def reset_balances(self):
         self.player._set_balance(100)
         self.dealer._set_balance(10000)
@@ -31,42 +31,35 @@ class Main():
     def get_balance(self):
         return self.player.get_balance()
 
-    #Reset Class values in case this is not the first hand, otherwise values will carry into next hand
-    # Returns balance so player can place bet
+    #Reset values
     def new_hand(self):  
         self.player.reset_players()
         self.dealer.reset_players()
         self.state._set_state("continue")
         self.dealer.set_card_img_list("images/PaperCards/CardBack2.png")
-        #self.player_balance = self.player.get_balance()
-        #return self.player_balance
+        
 
     def deal_first_hand(self):
-
-        if self.player.not_broke():
-            self.player.hit() 
-            self.player.hit()
-            self.dealer.hit()
-            self.dealer.hit()
-
-            # Check if either hand has blackjack
-            self.player_blackjack = self.player.check_blackjack()
-            self.dealer_blackjack = self.dealer.check_blackjack()
-            self.blackjack_state_check()
-            return self.return_to_API()
-        else:
-            return self.return_to_API()
+        #if self.player.not_broke():
+        self.player.hit() 
+        self.player.hit()
+        self.dealer.hit()
+        self.dealer.hit()
+        # Check if either hand has blackjack
+        self.player_blackjack = self.player.check_blackjack()
+        self.dealer_blackjack = self.dealer.check_blackjack()
+        self.blackjack_state_check()
+        return self.return_to_API()
 
     def set_wager(self, wager):
         if self.player.check_if_broke(wager):
             self.state._set_state("broke")
-            return self.return_to_API()
         else:
             self.state._set_state("continue") #Need this for the "continue with same wager" functionality
             self.player.set_wager(wager)
             self.dealer.set_wager(wager)
             self.wager = wager
-            return self.return_to_API()
+        return self.return_to_API()
 
     def check_wager(self, wager):
     #    # check if negative, float, or string
@@ -80,17 +73,14 @@ class Main():
             return self.return_to_API()
   
     
-##########################
-#     hit and stand       #
-##########################
+
+#     hit and stand       
 
     def hitme(self):
         self.player.hit() 
         if self.player.check_bust():
             self.state._set_state("loss")
-            #self.state_check()
             self.adjust_balances()
-            #return self.return_to_API()
         return self.return_to_API()
 
     def stand(self):
@@ -103,24 +93,16 @@ class Main():
         self.adjust_balances()
         return self.return_to_API()
 
-    # Maybe break the stand function up so that it returns one card at a time, and will return a status that tells React to request another card? If the request is received after the results are in, a new status is sent that indicates to react that it is time to load results.  Need to find some way to keep loading the cards on at a time even when the user has won or lost.  Otherwise its way too jarring when the application transitions.  
 
-    # Or maybe just a way that react only loads the last image in the list with the animation.  Can an if loop be placed in the map?
-    
-    # Could try setting a counter that increases the delay time for CSS animation, and then just have a single element render that says "you win" or "you lose" in place of some element in the GameUI.  
+# Handle State and Comms 
 
-##########################
-# Handle State and Comms #
-##########################
-
-    def state_check(self): # checks for end of game
+    def state_check(self): # checks for hand results by comparing scores
         self.results = self.state.compare_scores(self.dealer_score, self.player_score)
 
     def blackjack_state_check(self): # check if blackjack was hit on first hand
         self.results = self.state.handle_blackjack(self.dealer_blackjack, self.player_blackjack)
         if self.results != "continue" and self.results != "tie":
             self.adjust_balances()
-            #return self.return_to_API()
         else:
             pass
 
@@ -157,22 +139,16 @@ class Main():
         dealer_img = self.dealer.get_card_img_list()
         player_img = self.player.get_card_img_list()
 
-        
-    
-        # Decide to show dealer's hidden card or not
-        if results == "blackjack":
-            del dealer_img[0]
-            dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
-            return dealer_score, player_score, dealer_img, player_img, balance, results
-        elif results == "invalid":
+        # Logic to show dealer's hidden card or not:
+        if results in ["invalid", "broke"]:
              return dealer_score, player_score, dealer_img, player_img, balance, results
-        elif results == "broke":
-             return dealer_score, player_score, dealer_img, player_img, balance, results
-        elif results == "win" or results == "loss":
+        elif results in ["win", "loss", "tie", "blackjack"]: 
+            # "flip" dealer  hidden card
             del dealer_img[0]
             dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
             return dealer_score, player_score, dealer_img, player_img, balance, results
         else:
+            # keep dealer's card hidden
             dealer_img = dealer_img[:-1]
             return dealer_score, player_score, dealer_img, player_img, balance, results 
         

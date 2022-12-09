@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { Wager, Hitme, Stand, playerAction, fetchContinue, fetchBalance, fetchClear } from './callAPI';
+import { Wager, playerAction, fetchContinue, fetchBalance, fetchClear } from './callAPI';
 import { GameUI } from './gameUI';
 import { WagerUI } from './wagerUI';
 import { Footer } from './footer';
@@ -36,7 +36,7 @@ class Game extends React.Component {
         //this.updateState = this.updateState.bind(this);
 };
 
-    // Trigger First Game if not already done by calling the API for player balance
+    // First - Trigger First Game if not already done by calling the API for player balance
     async componentDidMount(){
         if (!this.gameStarted) {
             this.gameStarted = true
@@ -44,7 +44,7 @@ class Game extends React.Component {
         }
     }
 
-    // First thing - get player balance so they can wager:
+    // Second - get player balance so they can wager:
     async getBalance(){
         var gameState = await fetchBalance()
         this.setState({balance: gameState.balance})
@@ -74,12 +74,16 @@ class Game extends React.Component {
         this.setState({wager_set: false})
     };
 
+    // Continue after losing or winning, but player can choose a different wager amount
     async continueSameWager(e){
         e.preventDefault();
+
         //send wager to trigger the wager check in the set_wager function.
         let newState = await Wager(this.state)
+
+
         if (newState.results === "broke" || newState.results === "invalid" ){
-            // update state in case of sudden loss or win via Blackjack
+            // change state in case bad input
             this.updateState(newState);
         }
         else {
@@ -89,14 +93,14 @@ class Game extends React.Component {
         }
     }
       
-     //  Event Handlers  
+//  Event Handlers  
     
     // "Place Bet" form
     handleChange(event) {    
         this.setState({wager: event.target.value});  
     };
 
-    // "Place Bet" form Button
+    // "Place Bet" form Button - This is how the first hand is dealt
     async handleSubmit(event) {
         event.preventDefault();
         var currentWager = this.state
@@ -129,6 +133,25 @@ render() {
     //UI Rendering Logic based on game state:
     let ui = null;
     let footer = null;
+    /*
+    switch(this.state.results){
+        case "broke": 
+        case "invalid":
+            ui = <Broke resetGame={this.reset_game} /> 
+            break;
+        }
+    switch(this.state.wager_set){
+        case true:
+            ui = <GameUI state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} cont={this.continuePlaying} contWag={this.continueSameWager} />; 
+            footer = <Footer/>
+            break;
+        case false:
+            ui = <WagerUI state={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} cont={this.continuePlaying} resetGame={this.reset_game}/>; 
+            footer = null;
+            break;
+    }
+    */
+
     
     // Check for fraud
     if (this.state.results === "broke" || this.state.results === "invalid"){
@@ -148,7 +171,6 @@ render() {
     }
 
     else {}  // Will want to return 404 here
-
     
     return (
         <div className="dark app center" id="top">
