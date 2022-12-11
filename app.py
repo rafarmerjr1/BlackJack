@@ -11,7 +11,6 @@ game = src.Main.Main()
 app = Flask(__name__)
 api = Api(app)
 
-# APIs 
 
 # Clear all player and game information
 class Clear_it(Resource):
@@ -69,7 +68,6 @@ class Wager(Resource):
                 "player_imgs":player_card_img, 
                 "results":results,
                 "balance":balance
-                
                 }
             return data
 

@@ -145,32 +145,6 @@
   margin-top: 3em;
 }
 
-.about__name {
-  color: var(--clr-primary);
-}
-
-.about__role {
-  margin-top: 1.2em;
-}
-
-.about__desc {
-  font-size: 1rem;
-  max-width: 600px;
-}
-
-.about__desc,
-.about__contact {
-  margin-top: 2.4em;
-}
-
-.about .link--icon {
-  margin-right: 0.8em;
-}
-
-.about .btn--outline {
-  margin-right: 1em;
-}
-
 @media (max-width: 600px) {
   .app .about {
     align-items: flex-start;
@@ -192,12 +166,6 @@
   text-align: center;
   /*position: absolute;  fixed */
   bottom:0;
-}
-
-.footer__link {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--clr-fg);
 }
 
 @media (max-width: 600px) {
@@ -368,16 +336,6 @@ main {
   width: 100%;
 }
 
-.link--nav {
-  color: var(--clr-fg);
-  text-transform: lowercase;
-  font-weight: 500;
-}
-
-.link--icon {
-  color: var(--clr-fg);
-}
-
 .outline {
   border: 2px solid var(--yellow);
   margin: 5rem;
@@ -458,15 +416,6 @@ main {
     margin-top: 4em;
   }
 }
-
-.App-image-no-delay{
-  animation: dealCard;
-  animation-duration: 0.0s;
-  animation-timing-function: ease-in-out;
-  transform: rotate(-15deg);
-  max-width: 10%;
-}
-
 .cards{
   margin-left: 5%;
 }
