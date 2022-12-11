@@ -8,7 +8,7 @@ export function Footer(){
         fetchClear()
     }
     return (
-        <footer className="footer">
+        <footer className="footer center">
 
         <div className="outline">
             <div className="section__title">

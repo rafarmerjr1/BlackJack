@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { Win, Loss, Tie, Blackjack } from './outcomes'
 import { PlayerLoseScore, PlayerWinScore, DealerLoseScore, DealerWinScore } from './scores';
 
-// Main Gameplay component
 
 export function GameUI(props){
     let [count, setCount] = useState(2);
@@ -124,25 +123,39 @@ export function GameUI(props){
 
     return(
     <React.Fragment>
-    <div className="banner">
-        {banner}
-    </div>
+    
     <h3 className="hand">Dealer Hand</h3>
-       <div className="cards"> {CardList} </div>
+    <div className="card-row">
+        {banner}
+       <div className="cards"> 
+       <div className="card-box">
+        {CardList} 
+        </div>
+        </div>
+       </div>
 
         {dealerScore}
 
     <h3 className="hand">Player Hand</h3>
         <div className="cards"> 
+        <div className="card-box">
         {props.player_imgs.map((cardImage, index) => 
             <img className="App-image-player" key={index} src={require(`./${cardImage}`)} />)}
+            </div>
         </div>
 
         {playerScore}
         {playerActions}
         <p>Your Balance: <span className="end_balance"> ${props.balance} </span></p>
-        
     </React.Fragment>
     );
         
 };
+
+
+/*
+<div className="banner">
+        {banner}
+    </div>
+
+    */

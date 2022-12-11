@@ -125,7 +125,7 @@ export default function Game(){
         
 
         return (
-            <div className="dark app center" id="top">
+            <div className="dark app" id="top">
                 
                 <header className="header"> 
                 {/* Header will go here */}
