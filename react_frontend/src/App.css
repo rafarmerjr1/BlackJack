@@ -302,6 +302,7 @@ main {
 .score {
   color: var(--green);
   margin-bottom: 4rem;
+  margin-top: 1rem;
   }
 
 .outcome_color{
@@ -311,6 +312,7 @@ main {
 .losing_score {
   color: var(--red);
   margin-bottom: 4rem;
+  margin-top: 1rem;
 }
 
 .hand{
@@ -465,12 +467,17 @@ main {
   max-width: 10%;
 }
 
+.cards{
+  margin-left: 5%;
+}
+
 .App-image{
   animation: dealCard;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   transform: rotate(-15deg);
-  max-width: 10%;
+  max-width: 12%;
+  margin-left: -5%;
 }
 
 .App-image-player{
@@ -478,7 +485,8 @@ main {
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   transform: rotate(-15deg);
-  max-width: 15%;
+  max-width: 17%;
+  margin-left: -5%;
 }
 
 .home-Image{

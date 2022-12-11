@@ -63,12 +63,10 @@ function EndButtons(props){
 export function GameUI(props){
     let [count, setCount] = useState(2);
 
-    
+    // Display dealer hits one array item at a time
     useEffect(() => {
         setCount(count => 2)
         let counter = count;
-        console.log(count)
-        console.log(counter + " counter")
         const interval = setInterval(() => {
             if (counter >= props.state.dealer_imgs.length) {
                 clearInterval(interval);
@@ -133,25 +131,20 @@ export function GameUI(props){
         {banner}
     </div>
     <h3 className="hand">Dealer Hand</h3>
-        {CardList}
-
-        {/*
-        {dealerCardTimer(props.state.player_imgs)}
-
-        {props.state.dealer_imgs.map((cardImage) => 
-        <img className="App-image" src={require(`./${cardImage}`)} />)}
-        */}
-
+       <div className="cards"> {CardList} </div>
 
         {dealerScore}
 
     <h3 className="hand">Player Hand</h3>
+        <div className="cards"> 
         {props.state.player_imgs.map((cardImage, index) => 
             <img className="App-image-player" key={index} src={require(`./${cardImage}`)} />)}
-        
+        </div>
+
         {playerScore}
         {playerActions}
         <p>Your Balance: <span className="end_balance"> ${props.state.balance} </span></p>
+        
     </React.Fragment>
     );
         

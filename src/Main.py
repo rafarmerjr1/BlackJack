@@ -40,7 +40,6 @@ class Main():
         
 
     def deal_first_hand(self):
-        #if self.player.not_broke():
         self.player.hit() 
         self.player.hit()
         self.dealer.hit()
@@ -62,7 +61,7 @@ class Main():
         return self.return_to_API()
 
     def check_wager(self, wager):
-    #    # check if negative, float, or string
+        # check if negative, float, or string
         if bool(re.match('^[0-9]{1,100000}$', wager)):
             wager = int(wager)
             if isinstance(wager, int) and wager > 0:
@@ -72,8 +71,6 @@ class Main():
             self.state._set_state("invalid")
             return self.return_to_API()
   
-    
-
 #     hit and stand       
 
     def hitme(self):
@@ -96,7 +93,7 @@ class Main():
 
 # Handle State and Comms 
 
-    def state_check(self): # checks for hand results by comparing scores
+    def state_check(self): # check for hand results by comparing scores
         self.results = self.state.compare_scores(self.dealer_score, self.player_score)
 
     def blackjack_state_check(self): # check if blackjack was hit on first hand
@@ -127,9 +124,6 @@ class Main():
         elif self.results == "continue" or self.results == "tie":
             pass
         
-
-   
-
     # pull the most up to date information on the game and send it API
     def return_to_API(self):
         dealer_score = self.dealer.get_score()

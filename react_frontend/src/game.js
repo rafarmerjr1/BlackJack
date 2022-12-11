@@ -114,37 +114,16 @@ render() {
     //UI Rendering Logic based on game state:
     let ui = null;
     let footer = null;
-    /*
-    switch(this.state.results){
-        case "broke": 
-        case "invalid":
-            ui = <Broke resetGame={this.reset_game} /> 
-            break;
-        }
-    switch(this.state.wager_set){
-        case true:
-            ui = <GameUI state={this.state} handleHit={this.handleHit} handleStand={this.handleStand} cont={this.continuePlaying} contWag={this.continueSameWager} />; 
-            footer = <Footer/>
-            break;
-        case false:
-            ui = <WagerUI state={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} cont={this.continuePlaying} resetGame={this.reset_game}/>; 
-            footer = null;
-            break;
-    }
-    */
-
     
     // Check for fraud
     if (this.state.results === "broke" || this.state.results === "invalid"){
         ui = <Broke resetGame={this.reset_game} />      
 }
-
     // Place Bet via WagerUI
     else if (!this.state.wager_set && this.state.results !== "broke" && this.state.results !== "invalid"){
         ui = <WagerUI state={this.state} handleChange={this.handleChange} handleSubmit={this.handleSubmit} cont={this.continuePlaying} resetGame={this.reset_game}/>; 
         footer = null;
     }
-
     // Play Game via GameUI
     else if (this.state.wager_set && this.state.results !== "broke" && this.state.results !== "invalid"){
         ui = <GameUI state={this.state} determineWager={this.determineWager} handleAction={this.handleAction} cont={this.continuePlaying} contWag={this.continueSameWager} />; 
