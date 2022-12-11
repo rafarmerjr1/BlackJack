@@ -6,8 +6,10 @@ import React from 'react'
 export function Loss(){
     return (
         <React.Fragment>
-            <h1 className="fade-in-image">Sorry,</h1> 
+            <div className="fade-in-image">
+            <h1>Sorry,</h1> 
             <h1><span className="outcome_color">you lose</span></h1>
+            </div>
         </React.Fragment>
     )
 }
@@ -15,10 +17,11 @@ export function Loss(){
 export function Win(){
     return (
         <React.Fragment>
-<div className="fade-in-image">
+        <div className="fade-in-image">
             <h1>You</h1> 
             <h1><span className="outcome_color">Win!</span></h1>
-            </div>        </React.Fragment>
+            </div>        
+        </React.Fragment>
     )
 }
 

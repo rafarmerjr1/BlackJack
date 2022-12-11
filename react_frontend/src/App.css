@@ -278,13 +278,21 @@ main {
   border-radius:0.7rem;
 }
 
-.fade-in-image { animation: fadeIn 3s; }
+.fade-in-image { 
+  animation: fadeIn 2s; 
+  animation-delay: 0.4s;
+  visibility: hidden;
+  animation-fill-mode: forwards;
+}
 
 .fade-in-result { animation: fadeIn 1s; }
 
 @keyframes fadeIn {
   0% { opacity: 0; }
-  100% { opacity: 1; }
+  100% { 
+    visibility: visible;
+    opacity: 1; 
+  }
 }
 
 .end_balance{
@@ -447,6 +455,14 @@ main {
   .section {
     margin-top: 4em;
   }
+}
+
+.App-image-no-delay{
+  animation: dealCard;
+  animation-duration: 0.0s;
+  animation-timing-function: ease-in-out;
+  transform: rotate(-15deg);
+  max-width: 10%;
 }
 
 .App-image{

@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Win, Loss, Tie, Blackjack } from './outcomes'
 import { PlayerLoseScore, PlayerWinScore, DealerLoseScore, DealerWinScore } from './scores';
 
@@ -61,6 +61,34 @@ function EndButtons(props){
 };
 
 export function GameUI(props){
+    let [count, setCount] = useState(2);
+
+    
+    useEffect(() => {
+        setCount(count => 2)
+        let counter = count;
+        console.log(count)
+        console.log(counter + " counter")
+        const interval = setInterval(() => {
+            if (counter >= props.state.dealer_imgs.length) {
+                clearInterval(interval);
+            } else {
+                setCount(count => count + 1);
+                counter++;
+           // }
+        }
+        }, 100);
+        return () => clearInterval(interval); 
+      }, [props.state.dealer_imgs]);
+    
+
+      let CardList = props.state.dealer_imgs.slice(0, count).map((cardImage) => {
+        return(
+            <img className="App-image" src={require(`./${cardImage}`)} /> )
+        }
+        )
+    
+
 
     let playerActions = null
     let dealerScore = <DealerScore />
@@ -105,8 +133,16 @@ export function GameUI(props){
         {banner}
     </div>
     <h3 className="hand">Dealer Hand</h3>
+        {CardList}
+
+        {/*
+        {dealerCardTimer(props.state.player_imgs)}
+
         {props.state.dealer_imgs.map((cardImage) => 
         <img className="App-image" src={require(`./${cardImage}`)} />)}
+        */}
+
+
         {dealerScore}
 
     <h3 className="hand">Player Hand</h3>
@@ -117,4 +153,5 @@ export function GameUI(props){
         {playerActions}
     </React.Fragment>
     );
+        
 };
