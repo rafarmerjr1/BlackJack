@@ -54,7 +54,7 @@ function EndButtons(props){
             <div className="fade-in-image" >
             <button className="btn btn--outline" onClick={() => keepOrChangeWager("change")}> change Wager </button>
             <button className="btn btn--outline" onClick={() => keepOrChangeWager("keep")}> Wager ${props.state.wager} </button>
-            <p>Your Balance: <span className="end_balance"> ${props.state.balance} </span></p>
+            
             </div>
         </React.Fragment>
     )
@@ -82,9 +82,9 @@ export function GameUI(props){
       }, [props.state.dealer_imgs]);
     
 
-      let CardList = props.state.dealer_imgs.slice(0, count).map((cardImage) => {
+      let CardList = props.state.dealer_imgs.slice(0, count).map((cardImage, index) => {
         return(
-            <img className="App-image" src={require(`./${cardImage}`)} /> )
+            <img className="App-image" key={index} src={require(`./${cardImage}`)} /> )
         }
         )
     
@@ -146,11 +146,12 @@ export function GameUI(props){
         {dealerScore}
 
     <h3 className="hand">Player Hand</h3>
-        {props.state.player_imgs.map((cardImage) => 
-            <img className="App-image-player" src={require(`./${cardImage}`)} />)}
+        {props.state.player_imgs.map((cardImage, index) => 
+            <img className="App-image-player" key={index} src={require(`./${cardImage}`)} />)}
         
         {playerScore}
         {playerActions}
+        <p>Your Balance: <span className="end_balance"> ${props.state.balance} </span></p>
     </React.Fragment>
     );
         
