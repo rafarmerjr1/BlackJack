@@ -25,7 +25,7 @@ export function GameUI(props){
 
       let CardList = props.dealer_imgs.slice(0, count).map((cardImage, index) => {
         return(
-            <img className="App-image" key={index} src={require(`./${cardImage}`)} /> )
+            <img className="App-image" key={index} alt="" src={require(`./${cardImage}`)} /> )
         }
         )
     
@@ -48,18 +48,17 @@ export function GameUI(props){
             </React.Fragment>
         );
     };
-
-    // Keep dealer score hidden until after end of hand
+// Keep dealer score hidden until after end of hand
     function DealerScore(){
         return(
             <React.Fragment>
             
-            <h3 className="score">x</h3>
+            <h3 className="score">&nbsp;</h3>
             </React.Fragment>
         )
     };
 
-    // Present player score
+// Present player score
     function PlayerScore(){
         return (
             <React.Fragment>
@@ -68,14 +67,11 @@ export function GameUI(props){
             </React.Fragment>
         )
     };
-
-    // post-hand functionality - allow continuing with same wager or changing wager
+// post-hand functionality - allow continuing with same wager or changing wager
     function EndButtons(){
-
         const keepOrChangeWager = (bet) => {
             props.determineWager(bet)
         }
-
         return(
             <React.Fragment>
                 <div className="fade-in-image" >
@@ -87,8 +83,6 @@ export function GameUI(props){
         )
     };
 
-
-    
     // Check results to see which outcome to display:
     switch(props.results){
     case "loss":
@@ -129,18 +123,17 @@ export function GameUI(props){
         {banner}
        <div className="cards"> 
        <div className="card-box">
-        {CardList} 
+        {CardList}
         </div>
         </div>
        </div>
-
         {dealerScore}
 
     <h3 className="hand">Player Hand</h3>
         <div className="cards"> 
         <div className="card-box">
         {props.player_imgs.map((cardImage, index) => 
-            <img className="App-image-player" key={index} src={require(`./${cardImage}`)} />)}
+            <img className="App-image-player" key={index} alt="" src={require(`./${cardImage}`)} />)}
             </div>
         </div>
 
@@ -153,9 +146,3 @@ export function GameUI(props){
 };
 
 
-/*
-<div className="banner">
-        {banner}
-    </div>
-
-    */

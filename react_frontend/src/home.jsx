@@ -9,10 +9,11 @@ export function Home() {
         <div className="dark app" id="top">
           <main>
           <header className="header center"> 
-            <div className="about center">
-            <p>Let's Play <span className="about__name">Blackjack!</span></p>
-            </div>
-            </header>
+            <p>Let's Play Blackjack!</p>
+            <a href="https://github.com/rafarmerjr1/BlackJack">
+                https://github.com/rafarmerjr1/BlackJack
+            </a>
+          </header>
   
             <div className="home">        
         <Link to={'/game'}> 

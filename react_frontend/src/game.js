@@ -75,6 +75,8 @@ export default function Game(){
                 updateState(newState); // change state in case bad input
             }
             else {
+                setPlayer_imgs([])
+                setDealer_imgs([])
                 let gameState = await fetchContinue();
                 updateState(gameState); //Continue with same wager
             }
@@ -126,18 +128,18 @@ export default function Game(){
 
         return (
             <div className="dark app" id="top">
-                
-                <header className="header"> 
-                {/* Header will go here */}
+                <header className="header center"> 
+                <p>Let's Play Blackjack!</p>
+                <a href="https://github.com/rafarmerjr1/BlackJack">
+                https://github.com/rafarmerjr1/BlackJack
+                </a>
                 </header>
-    
-    
                 <main>
-                
                 {ui}
-            
                 </main>
+                <footer className="footer center">
                 {footer}
+                </footer>
             </div>
     
             );

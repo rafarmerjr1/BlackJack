@@ -18,8 +18,6 @@ export async function fetchBalance() {
     .then(response => response.json())
     };
 
-
-
 // POST Requests 
 
 // POST Wager 

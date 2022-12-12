@@ -8,14 +8,13 @@ export function Footer(){
         fetchClear()
     }
     return (
-        <footer className="footer center">
-
+        <React.Fragment>
         <div className="outline">
             <div className="section__title">
                 <Link to={'/'} className="link" onClick={clear}> Start New Game?</Link>
             </div>
                 <p>Balance will reset to $100.</p>
         </div>
-        </footer>
+        </React.Fragment>
     )
 }
