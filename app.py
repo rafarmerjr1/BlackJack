@@ -62,21 +62,13 @@ class Action(Resource):
 # Accept Wager from player
 class Wager(Resource):
     def post(self):
-        req = request.json
-        wager = req['wager'] 
-        dealer_score, player_score, dealer_card_img, player_card_img, balance, results = game.check_wager(wager)
-        if results == "broke" or results == "invalid":
+        try:
+            req = request.json
+            wager = req['wager'] 
+            results = game.check_wager(wager)
             return {"results": results}
-        else:
-            data = { 
-                "dealer_score":dealer_score, 
-                "player_score":player_score, 
-                "dealer_imgs":dealer_card_img, 
-                "player_imgs":player_card_img, 
-                "results":results,
-                "balance":balance
-                }
-            return data
+        except:
+            raise APIError  
 
 # Return player balance
 class Get_balance(Resource):

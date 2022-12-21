@@ -87,7 +87,7 @@ export default function Game(){
         setWager_placed(true) 
         let newState = await Wager({"wager": wager})
         setResults(newState.results)
-        if (newState.results !== "broke" && newState.results !== "invalid"){
+        if (newState.results !== "broke" && newState.results !== "invalid" && newState.results !== "Error"){
             let gameState = await fetchContinue();
             updateState(gameState) 
         }

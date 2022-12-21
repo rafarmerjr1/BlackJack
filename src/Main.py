@@ -58,13 +58,13 @@ class Main():
             self.player.set_wager(wager)
             self.dealer.set_wager(wager)
             self.wager = wager
-        return self.return_to_API()
+        return self.state.get_state()
 
     def check_wager(self, wager):
         print(type(wager))
         if wager == 0:
             self.state._set_state("broke")
-            return self.return_to_API()
+            return self.state.get_state()
         if bool(re.match('^[0-9]{1,100000}$', wager)):
             wager = int(wager)
             if isinstance(wager, int) and wager >= 1:
@@ -72,7 +72,7 @@ class Main():
         else:
             self.player.set_wager(0)
             self.state._set_state("invalid")
-            return self.return_to_API()
+            return self.state.get_state()
   
 #     hit and stand       
 
@@ -136,9 +136,8 @@ class Main():
         dealer_img = self.dealer.get_card_img_list()
         player_img = self.player.get_card_img_list()
 
-        # Logic to show dealer's hidden card or not:
         if results in ["invalid", "broke"]:
-             return dealer_score, player_score, dealer_img, player_img, balance, results
+            return dealer_score, player_score, dealer_img, player_img, balance, results
         elif results in ["win", "loss", "tie", "blackjack"]: 
             # "flip" dealer  hidden card
             del dealer_img[0]
