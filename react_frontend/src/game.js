@@ -75,8 +75,7 @@ export default function Game(){
                 updateState(gameState); //Continue with same wager
             }
     }
- 
-    // "Place Bet" 
+    // "Place Bet" form field
     function handleChange(event) {    
         setWager(event.target.value);  
     };
@@ -91,8 +90,8 @@ export default function Game(){
             let gameState = await fetchContinue();
             updateState(gameState) 
         }
-
         };
+
     // Hit or Stand
     async function handleAction(action){
         let newState = await playerAction({"action": action});
@@ -104,28 +103,24 @@ export default function Game(){
             <ErrorPage />
         )
     }
-
     // Rendering Logic:
         if (results === "Error"){
             ui = <ErrorPage />
-            //reset_game()
         }
-        // fraud
-        else if (results === "broke" || results === "invalid"){
-            ui = <Broke resetGame={reset_game} />      
-    }
-        // Place Bet 
-        else if (!wager_placed) {//&& results !== "broke" && results !== "invalid") {
+        else if (results === "broke" || results === "invalid"){ 
+            ui = <Broke resetGame={reset_game} />       
+    } 
+        else if (!wager_placed) {
             ui = <WagerUI balance={balance} wager={wager} handleChange={handleChange} handleSubmit={handleSubmit} resetGame={reset_game}/>; 
             footer = null;
         }
-        // Play Game 
-        else if (wager_placed){ // && results !== "broke" && results !== "invalid"){
+        else if (wager_placed){ 
             ui = <GameUI balance={balance} wager={wager} player_score={player_score} player_imgs={player_imgs} dealer_imgs={dealer_imgs} dealer_score={dealer_score} determineWager={determineWager} handleAction={handleAction} results={results} />; 
             footer = <Footer/>
         }
-    
-        else {}  // Will want to return 404 here
+        else {
+            ui = <ErrorPage />
+        }  
         
 
         return (

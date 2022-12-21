@@ -3,6 +3,7 @@ import React  from 'react'
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { Home } from './home';
 import Game from './game';
+import { ErrorPage } from './404'
 
 
 
@@ -13,6 +14,7 @@ render()   {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/game" element={<Game />} />
+          <Route path='*' element={<ErrorPage />}/>
         </Routes>
     </BrowserRouter>
   );

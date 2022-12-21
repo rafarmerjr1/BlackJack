@@ -10,9 +10,9 @@ export function Home() {
           <main>
           <header className="header center"> 
             <p>Let's Play Blackjack!</p>
-            <a href="https://github.com/rafarmerjr1/BlackJack">
+            <a className="link" href="https://github.com/rafarmerjr1/BlackJack">
                 https://github.com/rafarmerjr1/BlackJack
-            </a>
+                </a>
           </header>
   
             <div className="home">        
