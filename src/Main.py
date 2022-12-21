@@ -44,12 +44,13 @@ class Main():
         self.player.hit()
         self.dealer.hit()
         self.dealer.hit()
-        # Check if either hand has blackjack
+        # Check if either hand has blackjack:
         self.player_blackjack = self.player.check_blackjack()
         self.dealer_blackjack = self.dealer.check_blackjack()
         self.blackjack_state_check()
         return self.return_to_API()
 
+# Confirm wager is not above player balance and then set wager
     def set_wager(self, wager):
         if self.player.check_if_broke(wager):
             self.state._set_state("broke")
@@ -60,6 +61,7 @@ class Main():
             self.wager = wager
         return self.state.get_state()
 
+# Input validation
     def check_wager(self, wager):
         print(type(wager))
         if wager == 0:
@@ -75,7 +77,6 @@ class Main():
             return self.state.get_state()
   
 #     hit and stand       
-
     def hitme(self):
         self.player.hit() 
         if self.player.check_bust():
@@ -95,19 +96,20 @@ class Main():
 
 
 # Handle State and Comms 
-
-    def state_check(self): # check for hand results by comparing scores
+    # compare scores and return results:
+    def state_check(self): 
         self.results = self.state.compare_scores(self.dealer_score, self.player_score)
 
-    def blackjack_state_check(self): # check if blackjack was hit on first hand
+    # check if blackjack was hit on first hand:
+    def blackjack_state_check(self): 
         self.results = self.state.handle_blackjack(self.dealer_blackjack, self.player_blackjack)
         if self.results != "continue" and self.results != "tie":
             self.adjust_balances()
         else:
             pass
 
+    # These lists can be cleared now, as we already used them to set our blackjack booleans:
     def clear_blackjack_lists(self):
-        # These lists can be cleared now, as we already used them to set our blackjack booleans.
         self.player.clear_hand()
         self.dealer.clear_hand()
 
@@ -139,12 +141,12 @@ class Main():
         if results in ["invalid", "broke"]:
             return dealer_score, player_score, dealer_img, player_img, balance, results
         elif results in ["win", "loss", "tie", "blackjack"]: 
-            # "flip" dealer  hidden card
+            # "flip" dealer  hidden card:
             del dealer_img[0]
             dealer_img[0], dealer_img[1] = dealer_img[1], dealer_img[0]
             return dealer_score, player_score, dealer_img, player_img, balance, results
         else:
-            # keep dealer's card hidden
+            # keep dealer's card hidden:
             dealer_img = dealer_img[:-1]
             return dealer_score, player_score, dealer_img, player_img, balance, results 
         

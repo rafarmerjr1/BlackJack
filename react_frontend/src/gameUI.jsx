@@ -6,8 +6,12 @@ import { PlayerLoseScore, PlayerWinScore, DealerLoseScore, DealerWinScore } from
 
 export function GameUI(props){
     const [count, setCount] = useState(2);
+    let playerActions = null
+    let dealerScore = <DealerScore />
+    let banner = null
+    let playerScore = null
 
-    // Display dealer hits one array item at a time
+// Display dealer hits one array item at a time
     useEffect(() => {
         //setCount(count => 2)
         let counter = count;
@@ -16,31 +20,21 @@ export function GameUI(props){
                 clearInterval(interval);
             } else {
                 setCount(count => count + 1);
-                counter++;
-        }
+                counter++;}
         }, 100);
         return () => clearInterval(interval); 
-      }, [props.dealer_imgs]);
+      }, [props.dealer_imgs, count]);
     
-
       let CardList = props.dealer_imgs.slice(0, count).map((cardImage, index) => {
         return(
-            <img className="App-image" key={index} alt="" src={require(`./${cardImage}`)} /> )
-        }
-        )
-    
-    let playerActions = null
-    let dealerScore = <DealerScore />
-    let banner = null
-    let playerScore = null
+            <img className="App-image" key={index} alt="" src={require(`./${cardImage}`)} /> )}
+        );
 
 // Ask player if they want to hit or stand
     function HitstandOpts() {
-
         const sendButton = (action) => {
             props.handleAction(action)
         }
-
         return (
             <React.Fragment>
             <button className="btn btn--outline" onClick={() => sendButton("hit")}> Hit </button>
@@ -65,6 +59,7 @@ export function GameUI(props){
             </React.Fragment>
         )
     };
+
 // post-hand functionality - allow continuing with same wager or changing wager
     function EndButtons(){
         const keepOrChangeWager = (bet) => {
@@ -75,7 +70,6 @@ export function GameUI(props){
                 <div className="fade-in-image" >
                 <button className="btn btn--outline" onClick={() => keepOrChangeWager("change")}> change Wager </button>
                 <button className="btn btn--outline" onClick={() => keepOrChangeWager("keep")}> Wager ${props.wager} </button>
-                
                 </div>
             </React.Fragment>
         )
@@ -116,30 +110,26 @@ export function GameUI(props){
 
     return(
     <React.Fragment>
-
     <h3 className="hand">Dealer Hand</h3>
-    <div className="card-row">
-    
-       <div className="cards"> 
-       <div className="card-box">
-        {CardList}
+        <div className="card-row">
+        <div className="cards"> 
+        <div className="card-box"> 
+            {CardList}
         </div>
         </div>
-       </div>
-        {dealerScore}
-
+        </div>
+            {dealerScore}
     <h3 className="hand">Player Hand</h3>
         <div className="cards"> 
         <div className="card-box">
-        {props.player_imgs.map((cardImage, index) => 
+            {props.player_imgs.map((cardImage, index) => 
             <img className="App-image-player" key={index} alt="" src={require(`./${cardImage}`)} />)}
-            </div>
         </div>
-
-        {playerScore}
-        {playerActions}
-        <p>Your Balance: <span className="end_balance"> ${props.balance} </span></p>
-        {banner}
+        </div>
+            {playerScore}
+            {playerActions}
+            <p>Your Balance: <span className="end_balance"> ${props.balance} </span></p>
+            {banner}
     </React.Fragment>
     );
         

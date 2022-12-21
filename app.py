@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask, jsonify, render_template,request, redirect, url_for
+from flask import Flask, request
 from flask_restful import Api, Resource
 import src.Main 
 
@@ -96,4 +96,5 @@ api.add_resource(Get_balance, '/getBalance')
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True) 
+    # Potentially needed for Heroku: app.run(host='0.0.0.0', debug=False, port=int(os.environ.get("PORT", 5000)))

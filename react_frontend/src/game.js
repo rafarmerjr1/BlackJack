@@ -9,7 +9,6 @@ import { ErrorPage } from './404';
 import {ErrorBoundary} from 'react-error-boundary';
 
 // Main application code
-
 export default function Game(){
 
     const [dealer_score, setDealer_score] = useState(0);
@@ -20,20 +19,18 @@ export default function Game(){
     const [balance, setBalance] = useState(0);
     const [wager_placed, setWager_placed] = useState(false);
     const [wager, setWager] = useState(0);
+    const [gameStarted, setGameStarted] = useState(false);
 
     let ui = null;
     let footer = null;
 
-    const isMounted = React.useRef(false);
-
     useEffect(() => {
-        if (!isMounted.current) {
-            isMounted.current = true;
-         } else {
-            //setGameStarted(true);
-            getBalance();    
-        }
-    }   )
+        if (!gameStarted) {
+            getBalance();
+            setGameStarted(true);
+         }
+    }, [gameStarted]  
+    );
 
     async function getBalance(){
         var gameState = await fetchBalance()
@@ -75,8 +72,9 @@ export default function Game(){
                 updateState(gameState); //Continue with same wager
             }
     }
+
     // "Place Bet" form field
-    function handleChange(event) {    
+    function handleChange(event) {   
         setWager(event.target.value);  
     };
 
@@ -92,37 +90,52 @@ export default function Game(){
         }
         };
 
-    // Hit or Stand
+    // Hit or Stand buttons
     async function handleAction(action){
         let newState = await playerAction({"action": action});
         updateState(newState);
     }        
 
+    // Error handling
     function ErrorFallBack({error, resetErrorBoundary}) {
         return(
-            <ErrorPage />
+            <ErrorPage resetGame={reset_game}/>
         )
     }
+    
     // Rendering Logic:
+
         if (results === "Error"){
-            ui = <ErrorPage />
+            ui = <ErrorPage resetGame={reset_game} />
         }
         else if (results === "broke" || results === "invalid"){ 
             ui = <Broke resetGame={reset_game} />       
     } 
         else if (!wager_placed) {
-            ui = <WagerUI balance={balance} wager={wager} handleChange={handleChange} handleSubmit={handleSubmit} resetGame={reset_game}/>; 
+            ui = 
+            <WagerUI balance={balance} 
+            wager={wager} 
+            handleChange={handleChange} 
+            handleSubmit={handleSubmit} 
+            resetGame={reset_game}/>; 
             footer = null;
         }
         else if (wager_placed){ 
-            ui = <GameUI balance={balance} wager={wager} player_score={player_score} player_imgs={player_imgs} dealer_imgs={dealer_imgs} dealer_score={dealer_score} determineWager={determineWager} handleAction={handleAction} results={results} />; 
+            ui = 
+            <GameUI balance={balance} 
+            wager={wager} 
+            player_score={player_score} 
+            player_imgs={player_imgs} 
+            dealer_imgs={dealer_imgs} 
+            dealer_score={dealer_score} 
+            determineWager={determineWager} 
+            handleAction={handleAction} 
+            results={results} />; 
             footer = <Footer/>
         }
         else {
             ui = <ErrorPage />
         }  
-        
-
         return (
             <ErrorBoundary FallbackComponent={ErrorFallBack}>
             <div className="dark app" id="top">
