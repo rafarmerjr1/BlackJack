@@ -16,7 +16,7 @@ export function Broke(props) {
         <div className="home">        
             
             <button onClick={GoHome}> 
-             <img className="home-Image" src={require('./images/blackjack.png')}/> 
+             <img className="home-Image" src={require('./images/blackjack.png')} alt="homeImage"/> 
             </button>
 
             <h1 className="fade-in-image section" ><span className="outcome_color">Whoa Parter - </span> You're all out of money.</h1>

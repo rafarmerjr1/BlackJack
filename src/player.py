@@ -57,6 +57,8 @@ class Player():
         return adjusted_balance
 
     def check_if_broke(self, wager):
+        if wager == 0:
+            return True
         if self.balance <= 0 or self.balance < wager:
             return True
         else:

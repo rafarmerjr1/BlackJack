@@ -15,7 +15,7 @@ class Main():
 ##########################
 
     # Reset dollar balances for new games or else this will persist
-    # balances should persist for new hand but not new games
+    # Balances should persist for new hand but not new games
     def reset_balances(self):
         self.player._set_balance(100)
         self.dealer._set_balance(10000)
@@ -61,10 +61,13 @@ class Main():
         return self.return_to_API()
 
     def check_wager(self, wager):
-        # check if negative, float, or string
+        print(type(wager))
+        if wager == 0:
+            self.state._set_state("broke")
+            return self.return_to_API()
         if bool(re.match('^[0-9]{1,100000}$', wager)):
             wager = int(wager)
-            if isinstance(wager, int) and wager > 0:
+            if isinstance(wager, int) and wager >= 1:
                 return self.set_wager(wager)
         else:
             self.player.set_wager(0)

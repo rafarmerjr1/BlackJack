@@ -1,15 +1,15 @@
 import './App.css';
 import React, { useState, useEffect } from 'react'
-import { Win, Loss, Tie, Blackjack } from './outcomes'
+import { Win, Loss, Tie, Blackjack, Continue } from './outcomes'
 import { PlayerLoseScore, PlayerWinScore, DealerLoseScore, DealerWinScore } from './scores';
 
 
 export function GameUI(props){
-    let [count, setCount] = useState(2);
+    const [count, setCount] = useState(2);
 
     // Display dealer hits one array item at a time
     useEffect(() => {
-        setCount(count => 2)
+        //setCount(count => 2)
         let counter = count;
         const interval = setInterval(() => {
             if (counter >= props.dealer_imgs.length) {
@@ -52,7 +52,6 @@ export function GameUI(props){
     function DealerScore(){
         return(
             <React.Fragment>
-            
             <h3 className="score">&nbsp;</h3>
             </React.Fragment>
         )
@@ -62,7 +61,6 @@ export function GameUI(props){
     function PlayerScore(){
         return (
             <React.Fragment>
-
                 <h3 className="score">{props.player_score}</h3>
             </React.Fragment>
         )
@@ -77,7 +75,7 @@ export function GameUI(props){
                 <div className="fade-in-image" >
                 <button className="btn btn--outline" onClick={() => keepOrChangeWager("change")}> change Wager </button>
                 <button className="btn btn--outline" onClick={() => keepOrChangeWager("keep")}> Wager ${props.wager} </button>
-
+                
                 </div>
             </React.Fragment>
         )
@@ -112,15 +110,16 @@ export function GameUI(props){
     default:  //"continue":
         playerActions = <HitstandOpts handleAction={props.handleAction} />
         playerScore = <PlayerScore player_score={props.player_score}/>
+        banner = <Continue />
         break;
     }
 
     return(
     <React.Fragment>
-    
+
     <h3 className="hand">Dealer Hand</h3>
     <div className="card-row">
-        {banner}
+    
        <div className="cards"> 
        <div className="card-box">
         {CardList}
@@ -140,6 +139,7 @@ export function GameUI(props){
         {playerScore}
         {playerActions}
         <p>Your Balance: <span className="end_balance"> ${props.balance} </span></p>
+        {banner}
     </React.Fragment>
     );
         

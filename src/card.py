@@ -10,7 +10,7 @@ class Card():
         if len(self.key) <=2:
             filename = self.suit + "/" + self.key + "of" + self.suit + ".png"
         else:
-            filename = self.suit + "/" + self.key[0] + "of" + self.suit + ".png"
+            filename = self.suit + "/" + self.key[0] + "of" + self.suit + ".png" 
         full_path = "images/PaperCards/"+filename
         return full_path
 

@@ -36,13 +36,21 @@
 }
 
 .banner{
-  flex-direction: column;
-  padding: 1em 0;
-  position:absolute;
-  text-align: left;
-  align-items: center;
-  justify-content: center;
-  left:6rem;
+  padding: 1em;
+  text-align: center;
+  display: inline-flex;
+  margin-top: 2rem;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  /*border: 2px solid var(--clr-primary);
+  border-radius:0.7rem;*/
+}
+
+.banner-no-underline{
+  padding: 1em;
+  text-align: center;
+  display: inline-flex;
+  margin-top: 2rem;
 }
 
 .footer {
@@ -50,6 +58,7 @@
   text-align: center;
   /*position: absolute;*/
   bottom:0;
+  margin-top:12rem;
 } 
 
 /* Catppuccin Theme*/
@@ -193,10 +202,10 @@ main {
 }
 
 .link {
-  color: var(--green);
+  color: var(--clr-fg);
   padding: 0 0 0.4em 0;
   position: relative;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .link:hover {
@@ -300,10 +309,10 @@ main {
 
 .App-image{
   animation: dealCard;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   animation-timing-function: ease;
   transform: translateX(-5%) rotate(-15deg) ;
-  max-width: 18%;
+  max-width: 15%;
   margin-left: -5%; 
   transition: transform 0.5s;
   
@@ -311,10 +320,10 @@ main {
 
 .App-image-player{
   animation: dealCard;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
   transform: rotate(-15deg);
-  max-width: 25%;
+  max-width: 21%;
   margin-left: -5%;
 }
 

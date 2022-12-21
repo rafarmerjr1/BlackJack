@@ -17,7 +17,7 @@ export function Home() {
   
             <div className="home">        
         <Link to={'/game'}> 
-        <img className="home-Image" src={require('./images/blackjack.png')}/>
+        <img className="home-Image" src={require('./images/blackjack.png')} alt="homeImage"/>
         </Link>
         </div>
 

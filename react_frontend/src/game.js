@@ -5,6 +5,8 @@ import { GameUI } from './gameUI';
 import { WagerUI } from './wagerUI';
 import { Footer } from './footer';
 import { Broke } from './broke';
+import { ErrorPage } from './404';
+import {ErrorBoundary} from 'react-error-boundary';
 
 // Main application code
 
@@ -18,7 +20,6 @@ export default function Game(){
     const [balance, setBalance] = useState(0);
     const [wager_placed, setWager_placed] = useState(false);
     const [wager, setWager] = useState(0);
-    const [gameStarted, setGameStarted] = useState(false);
 
     let ui = null;
     let footer = null;
@@ -33,13 +34,6 @@ export default function Game(){
             getBalance();    
         }
     }   )
-
-    //useEffect(() => {
-    //    if (!gameStarted){
-    //        setGameStarted(true);
-    //        getBalance(); 
-    //    }
-    // } );
 
     async function getBalance(){
         var gameState = await fetchBalance()
@@ -64,7 +58,7 @@ export default function Game(){
         if (bet === "change"){
             setWager_placed(false)
         }
-        else if (bet == "keep" ) {
+        else if (bet === "keep" ) {
             keepWager();
             }
     };
@@ -105,11 +99,19 @@ export default function Game(){
         updateState(newState);
     }        
 
+    function ErrorFallBack({error, resetErrorBoundary}) {
+        return(
+            <ErrorPage />
+        )
+    }
 
     // Rendering Logic:
-
+        if (results === "Error"){
+            ui = <ErrorPage />
+            //reset_game()
+        }
         // fraud
-        if (results === "broke" || results === "invalid"){
+        else if (results === "broke" || results === "invalid"){
             ui = <Broke resetGame={reset_game} />      
     }
         // Place Bet 
@@ -127,10 +129,11 @@ export default function Game(){
         
 
         return (
+            <ErrorBoundary FallbackComponent={ErrorFallBack}>
             <div className="dark app" id="top">
                 <header className="header center"> 
                 <p>Let's Play Blackjack!</p>
-                <a href="https://github.com/rafarmerjr1/BlackJack">
+                <a className="link" href="https://github.com/rafarmerjr1/BlackJack">
                 https://github.com/rafarmerjr1/BlackJack
                 </a>
                 </header>
@@ -141,7 +144,7 @@ export default function Game(){
                 {footer}
                 </footer>
             </div>
-    
+            </ErrorBoundary>
             );
     };
     
