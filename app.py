@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 
-from flask import Flask, request
+from flask import Flask, request, session
 from flask_restful import Api, Resource
+import secrets
 import src.Main 
 
 #    Initialize Game     
 game = src.Main.Main()
 
 app = Flask(__name__)
+#app.secret_key = secrets.token_hex(32)
+#app.secret_key = 'b4765f6bced666808d1b7701b81c2d48faae157d053b0cef135701b009765219'
 api = Api(app)
 
 # Clear all player and game information
@@ -15,7 +18,7 @@ class Clear_it(Resource):
     def get(self):
         try:
             game.reset_all()
-            return 200
+            return {"results": "new"}
         except:
             raise APIError
 

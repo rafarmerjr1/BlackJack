@@ -63,8 +63,7 @@ class Main():
 
 # Input validation
     def check_wager(self, wager):
-        print(type(wager))
-        if wager == 0:
+        if wager in [0, "0"]:
             self.state._set_state("broke")
             return self.state.get_state()
         if bool(re.match('^[0-9]{1,100000}$', wager)):

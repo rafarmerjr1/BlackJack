@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Wager, playerAction, fetchContinue, fetchBalance, fetchClear } from './callAPI';
 import { GameUI } from './gameUI';
 import { WagerUI } from './wagerUI';
@@ -7,6 +7,7 @@ import { Footer } from './footer';
 import { Broke } from './broke';
 import { ErrorPage } from './404';
 import {ErrorBoundary} from 'react-error-boundary';
+import { Home } from './home';
 
 // Main application code
 export default function Game(){
@@ -15,31 +16,23 @@ export default function Game(){
     const [player_score, setPlayer_score] = useState(0);
     const [dealer_imgs, setDealer_imgs] = useState([]);
     const [player_imgs, setPlayer_imgs] = useState([]);
-    const [results, setResults ] = useState("");
+    const [results, setResults ] = useState("new");
     const [balance, setBalance] = useState(0);
     const [wager_placed, setWager_placed] = useState(false);
     const [wager, setWager] = useState(0);
-    const [gameStarted, setGameStarted] = useState(false);
 
     let ui = null;
     let footer = null;
 
-    useEffect(() => {
-        if (!gameStarted) {
-            getBalance();
-            setGameStarted(true);
-         }
-    }, [gameStarted]  
-    );
-
     async function getBalance(){
-        var gameState = await fetchBalance()
+        let gameState = await fetchBalance()
         setBalance(gameState.balance)
-    }
+    };
 
-    function reset_game(){
-        fetchClear()
-        setWager_placed(false)
+    async function reset_game() {
+        let newResults = await fetchClear()
+        setResults(newResults.results)
+        console.log(results)
     }
 
     function updateState(gameState){
@@ -96,6 +89,10 @@ export default function Game(){
         updateState(newState);
     }        
 
+    function startNewGame(){
+        setResults("needWager");
+    }
+
     // Error handling
     function ErrorFallBack({error, resetErrorBoundary}) {
         return(
@@ -104,14 +101,16 @@ export default function Game(){
     }
     
     // Rendering Logic:
-
-        if (results === "Error"){
+        if (results === "new"){
+            ui = <Home startNewGame={startNewGame} getBalance={getBalance} resetGame={reset_game} />
+    }  
+        else if (results === "Error"){
             ui = <ErrorPage resetGame={reset_game} />
         }
         else if (results === "broke" || results === "invalid"){ 
             ui = <Broke resetGame={reset_game} />       
     } 
-        else if (!wager_placed) {
+        else if (!wager_placed || results === "needWager") {
             ui = 
             <WagerUI balance={balance} 
             wager={wager} 
@@ -131,10 +130,10 @@ export default function Game(){
             determineWager={determineWager} 
             handleAction={handleAction} 
             results={results} />; 
-            footer = <Footer/>
+            footer = <Footer startNewGame={startNewGame} getBalance={getBalance} resetGame={reset_game}/>
         }
         else {
-            ui = <ErrorPage />
+            ui = <ErrorPage startNewGame={startNewGame} getBalance={getBalance} resetGame={reset_game}/>
         }  
         return (
             <ErrorBoundary FallbackComponent={ErrorFallBack}>

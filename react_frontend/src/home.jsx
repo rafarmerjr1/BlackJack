@@ -1,28 +1,23 @@
-import { Link } from 'react-router-dom';
 import './App.css';
 import React from 'react';
+import { fetchClear } from './callAPI';
 
-// Landing Page.
-export function Home() {
-    
+export function Home(props) {
+
+  const NewGame = () => {
+    // Use fetchClear instead of resetGame to avoid modifying state
+    fetchClear() 
+    //props.resetGame()
+    props.startNewGame()
+    props.getBalance()
+};
     return (
-        <div className="dark app" id="top">
-          <main>
-          <header className="header center"> 
-            <p>Let's Play Blackjack!</p>
-            <a className="link" href="https://github.com/rafarmerjr1/BlackJack">
-                https://github.com/rafarmerjr1/BlackJack
-                </a>
-          </header>
-  
-    <div className="home">        
-        <Link to={'/game'}> 
-        <img className="home-Image" src={require('./images/blackjack.png')} alt="homeImage"/>
-        </Link>
+      <React.Fragment>
+        <div className="home">        
+            <button onClick={NewGame}> 
+             <img className="home-Image" src={require('./images/blackjack.png')} alt="homeImage"/> 
+            </button>
         </div>
-
-      </main>
-    </div>
+      </React.Fragment>
     )
 }
-

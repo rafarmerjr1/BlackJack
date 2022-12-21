@@ -1,16 +1,13 @@
 import './App.css';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
 
 export function WagerUI(props){
     
     // reset game values and redirect user to home
-    const navigate = useNavigate();
-    const GoHome = () => {
-        props.resetGame()
-        navigate("/", {replace: true});  
-    }
+    
+    const newGame = () => {
+        props.resetGame()  
+    };
     return (
     <React.Fragment> 
          <div className="wager"> 
@@ -29,7 +26,7 @@ export function WagerUI(props){
         <button className="btn btn--outline section" type="submit">Place Bet</button>
         </form>
 
-        <button className="btn btn--outline section" onClick={GoHome}>new game</button>
+        <button className="btn btn--outline section" onClick={newGame}>new game</button>
         </div>
 
         </div> 

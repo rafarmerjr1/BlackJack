@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
-import { fetchClear } from './callAPI';
 
-export function Footer(){
+export function Footer(props){
     const clear = () => {
-        fetchClear()
+        props.resetGame() 
     }
     return (
         <React.Fragment>

@@ -11,28 +11,38 @@ export function GameUI(props){
     let banner = null
     let playerScore = null
 
+
+
 // Display dealer hits one array item at a time
     useEffect(() => {
-        //setCount(count => 2)
         let counter = count;
+        console.log(count)
         const interval = setInterval(() => {
             if (counter >= props.dealer_imgs.length) {
                 clearInterval(interval);
             } else {
                 setCount(count => count + 1);
                 counter++;}
-        }, 100);
+        }, 400);
         return () => clearInterval(interval); 
       }, [props.dealer_imgs, count]);
     
-      let CardList = props.dealer_imgs.slice(0, count).map((cardImage, index) => {
+      let StaticCards = props.dealer_imgs.slice(0, 1).map((cardImage, index) => {
         return(
             <img className="App-image" key={index} alt="" src={require(`./${cardImage}`)} /> )}
         );
 
+        let CardList = props.dealer_imgs.slice(1, count).map((cardImage, index) => {
+        return(
+            <img className="App-image" key={index} alt="" src={require(`./${cardImage}`)} /> )}
+        );
+
+
+
 // Ask player if they want to hit or stand
     function HitstandOpts() {
         const sendButton = (action) => {
+            setCount(2)
             props.handleAction(action)
         }
         return (
@@ -114,6 +124,7 @@ export function GameUI(props){
         <div className="card-row">
         <div className="cards"> 
         <div className="card-box"> 
+            {StaticCards}
             {CardList}
         </div>
         </div>

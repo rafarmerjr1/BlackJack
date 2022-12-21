@@ -308,7 +308,7 @@ main {
 
 .App-image{
   animation: dealCard;
-  animation-duration: 0.3s;
+  animation-duration: 0.5s;
   animation-timing-function: ease;
   transform: translateX(-5%) rotate(-15deg) ;
   max-width: 15%;
@@ -319,7 +319,7 @@ main {
 
 .App-image-player{
   animation: dealCard;
-  animation-duration: 0.3s;
+  animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   transform: rotate(-15deg);
   max-width: 21%;
@@ -345,7 +345,7 @@ main {
 
 @keyframes dealCard {
  from {
-  transform: translateY(-300px);
+  transform: translateY(-100px);
   opacity: 25%;
  }
  to {  
