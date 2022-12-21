@@ -23,7 +23,7 @@ export function GameUI(props){
             } else {
                 setCount(count => count + 1);
                 counter++;}
-        }, 400);
+        }, 300);
         return () => clearInterval(interval); 
       }, [props.dealer_imgs, count]);
     

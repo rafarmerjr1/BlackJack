@@ -139,7 +139,9 @@ main {
   animation-fill-mode: forwards;
 }
 
-.fade-in-result { animation: fadeIn 1s; }
+.fade-in-result { 
+  animation: fadeIn 1s; 
+}
 
 @keyframes fadeIn {
   0% { opacity: 0; }
@@ -308,22 +310,26 @@ main {
 
 .App-image{
   animation: dealCard;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   animation-timing-function: ease;
-  transform: translateX(-5%) rotate(-15deg) ;
+  /*transform: translateX(-5%) rotate(-15deg) ; */
   max-width: 15%;
   margin-left: -5%; 
-  transition: transform 0.5s;
+  animation-fill-mode: forwards;
+ /* transition: transform 0.2s; */
   
 }
 
 .App-image-player{
   animation: dealCard;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
-  transform: rotate(-15deg);
+  /*transform: rotate(-15deg);
+  transition: transform 0.2s;
+  margin-left: -5%; */
   max-width: 21%;
   margin-left: -5%;
+  animation-fill-mode: forwards;
 }
 
 .home-Image{
@@ -349,7 +355,7 @@ main {
   opacity: 25%;
  }
  to {  
-  transform: translateY(0px);
+  transform: translateY(0px) translateX(-5%) rotate(-15deg);
   opacity: 100%
  }
 }
