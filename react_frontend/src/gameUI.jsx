@@ -11,8 +11,6 @@ export function GameUI(props){
     let banner = null
     let playerScore = null
 
-
-
 // Display dealer hits one array item at a time
     useEffect(() => {
         let counter = count;
@@ -23,7 +21,7 @@ export function GameUI(props){
             } else {
                 setCount(count => count + 1);
                 counter++;}
-        }, 300);
+        }, 600);
         return () => clearInterval(interval); 
       }, [props.dealer_imgs, count]);
     
@@ -36,8 +34,6 @@ export function GameUI(props){
         return(
             <img className="App-image" key={index} alt="" src={require(`./${cardImage}`)} /> )}
         );
-
-
 
 // Ask player if they want to hit or stand
     function HitstandOpts() {
@@ -60,7 +56,6 @@ export function GameUI(props){
             </React.Fragment>
         )
     };
-
 // Present player score
     function PlayerScore(){
         return (
@@ -69,7 +64,6 @@ export function GameUI(props){
             </React.Fragment>
         )
     };
-
 // post-hand functionality - allow continuing with same wager or changing wager
     function EndButtons(){
         const keepOrChangeWager = (bet) => {

@@ -18,8 +18,13 @@
 .app {
   font-family: 'Poppins', sans-serif;
   line-height: 1.5;
-  color: var(--clr-fg);
-  background-color: var(--clr-bg);
+  color: var(--text);
+  /*background-color: var(--base);
+  background-image: url("./images/far-buildings.png");
+  background-size: cover;
+  background: linear-gradient(#24273a, #181926);
+  */
+  background-color: var(--mantle);
   min-height: 100vh;
   text-align: center;
   flex-direction: column;
@@ -27,12 +32,12 @@
 
 .header {
   height: 4em;
-  max-width: 1100px;
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
   margin-bottom: 3rem;
   flex-direction: column;
   justify-content: space-between;
+  background-color: var(--mandtle);
 }
 
 .banner{
@@ -64,34 +69,33 @@
 /* Catppuccin Theme*/
 .dark {
   --rosewater: #f4dbd6;
-  --peach: #f0c6c6;
+  --flamingo: #f0c6c6;
   --pink: #f5bde6;
   --mauve: #c6a0f6;
   --red: #ed8796;
   --maroon: #ee99a0;
-  --peach1: #f5a97f;
+  --peach: #f5a97f;
   --yellow: #eed49f;
   --green: #a6da95;
   --teal: #8bd5ca;
-  --clr-primary: #91d7e3;
+  --sky: #91d7e3;
   --sapphire: #7dc4e4;
   --blue: #8aadf4;
   --lavender: #b7bdf8;
-  --clr-fg: #cad3f5;
-  --clr-fg-alt: #b8c0e0;
+  --text: #cad3f5;
+  --subtext1: #b8c0e0;
   --subtext0: #a5adcb;
   --overlay2: #939ab7;
   --overlay1: #8087a2;
   --overlay0: #6e738d;
   --surface2: #5b6078;
   --surface1: #494d64;
-  --bg: #363a4f;
-  --clr-bg: #24273a;
+  --surface0: #363a4f;
+  --base: #24273a;
   --mantle: #1e2030;
   --crust: #181926;
-  --shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
+
 
 main {
   max-width: 1100px;
@@ -126,8 +130,8 @@ main {
   display: block;
   font-weight: 500;
   font-size: 1rem;
-  background-color: var(--clr-fg);
-  color: var(--clr-bg);
+  background-color: var(--base);
+  color: var(--text);
   padding: 1rem;
   border-radius:0.7rem;
 }
@@ -162,7 +166,7 @@ main {
   }
 
 .outcome_color{
-    color: var(--clr-primary);
+    color: var(--mauve);
 }
 
 .losing_score {
@@ -204,7 +208,7 @@ main {
 }
 
 .link {
-  color: var(--clr-fg);
+  color: var(--text);
   padding: 0 0 0.4em 0;
   position: relative;
   font-size: 1rem;
@@ -221,7 +225,7 @@ main {
   height: 0.2em;
   position: absolute;
   bottom: 0;
-  background-color: var(--clr-primary);
+  background-color: var(--blue);
   transition: width 0.2s ease-in;
 }
 
@@ -250,8 +254,8 @@ main {
 }
 
 .btn--outline {
-  color: var(--clr-primary);
-  border: 2px solid var(--clr-primary);
+  color: var(--text);
+  border: 2px solid var(--blue);
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -261,13 +265,13 @@ main {
 
 .btn--outline:hover,
 .btn--outline:focus {
-  color: var(--clr-bg);
+  color: var(--base);
 }
 
 .btn--outline:before {
   content: '';
   position: absolute;
-  background-color: var(--clr-primary);
+  background-color: var(--blue);
   right: 100%;
   bottom: 0;
   left: 0;
@@ -279,6 +283,41 @@ main {
 .btn--outline:hover:before,
 .btn--outline:focus:before {
   right: 0;
+}
+
+.icon{
+  margin-top: 1rem;
+  max-width: 15%;
+}
+
+.App-image{
+  animation: dealCard;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  max-width: 15%;
+  margin-left: -10%; 
+  animation-fill-mode: forwards;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / .1), 0 8px 10px -6px rgb(0 0 0 / .1);
+  
+}
+
+.App-image-player{
+  animation: dealCard;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  max-width: 21%;
+  margin-left: -10%;
+  animation-fill-mode: forwards;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / .1), 0 8px 10px -6px rgb(0 0 0 / .1);
+}
+
+
+.home-Image{
+  max-width: 35%;
+  animation: grow-and-shrink 1000ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 .card-row {
@@ -300,44 +339,6 @@ main {
   margin-left: 5%;
   align-items: center;
   justify-content: center;
-  
-}
-
-.icon{
-  margin-top: 1rem;
-  max-width: 15%;
-}
-
-.App-image{
-  animation: dealCard;
-  animation-duration: 0.3s;
-  animation-timing-function: ease;
-  /*transform: translateX(-5%) rotate(-15deg) ; */
-  max-width: 15%;
-  margin-left: -5%; 
-  animation-fill-mode: forwards;
- /* transition: transform 0.2s; */
-  
-}
-
-.App-image-player{
-  animation: dealCard;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-in-out;
-  /*transform: rotate(-15deg);
-  transition: transform 0.2s;
-  margin-left: -5%; */
-  max-width: 21%;
-  margin-left: -5%;
-  animation-fill-mode: forwards;
-}
-
-.home-Image{
-  max-width: 35%;
-  animation: grow-and-shrink 1000ms;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
 
 @keyframes grow-and-shrink {
@@ -351,11 +352,11 @@ main {
 
 @keyframes dealCard {
  from {
-  transform: translateY(-100px);
-  opacity: 25%;
+  transform: translateY(0px);
+  opacity: 0%;
  }
  to {  
-  transform: translateY(0px) translateX(-5%) rotate(-15deg);
+  transform: translateY(0px) translateX(0%) rotate(0deg); /*-5%, -15deg */
   opacity: 100%
  }
 }

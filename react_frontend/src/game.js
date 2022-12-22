@@ -32,7 +32,6 @@ export default function Game(){
     async function reset_game() {
         let newResults = await fetchClear()
         setResults(newResults.results)
-        console.log(results)
     }
 
     function updateState(gameState){
@@ -53,14 +52,15 @@ export default function Game(){
             }
     };
 
+    // POST wager to confirm that it is not over-balance, then send GET to continue with another hand
     async function keepWager() {
         let newState = await Wager({"wager": wager})
             if (newState.results === "broke" || newState.results === "invalid" ){
                 updateState(newState); // change state in case bad input
             }
             else {
-                setPlayer_imgs([])
-                setDealer_imgs([])
+                setDealer_imgs([]);
+                setPlayer_imgs([]);
                 let gameState = await fetchContinue();
                 updateState(gameState); //Continue with same wager
             }

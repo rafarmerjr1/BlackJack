@@ -5,9 +5,8 @@ import { fetchClear } from './callAPI';
 export function Home(props) {
 
   const NewGame = () => {
-    // Use fetchClear instead of resetGame to avoid modifying state
+    // Use fetchClear() instead of resetGame() to avoid modifying state unnecessarily 
     fetchClear() 
-    //props.resetGame()
     props.startNewGame()
     props.getBalance()
 };
