@@ -139,7 +139,7 @@ export default function Game(){
             <ErrorBoundary FallbackComponent={ErrorFallBack}>
             <div className="dark app" id="top">
                 <header className="header center"> 
-                <p>Let's Play Blackjack!</p>
+                <h1>Let's Play Blackjack!</h1>
                 <a className="link" href="https://github.com/rafarmerjr1/BlackJack">
                 https://github.com/rafarmerjr1/BlackJack
                 </a>

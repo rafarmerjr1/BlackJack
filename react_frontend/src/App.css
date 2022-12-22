@@ -19,11 +19,6 @@
   font-family: 'Poppins', sans-serif;
   line-height: 1.5;
   color: var(--text);
-  /*background-color: var(--base);
-  background-image: url("./images/far-buildings.png");
-  background-size: cover;
-  background: linear-gradient(#24273a, #181926);
-  */
   background-color: var(--mantle);
   min-height: 100vh;
   text-align: center;
@@ -34,7 +29,7 @@
   height: 4em;
   width: 100%;
   margin: 0 auto;
-  margin-bottom: 3rem;
+  margin-bottom: 8rem;
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--mandtle);
@@ -47,8 +42,7 @@
   margin-top: 2rem;
   text-decoration: underline;
   text-underline-offset: 8px;
-  /*border: 2px solid var(--clr-primary);
-  border-radius:0.7rem;*/
+  
 }
 
 .banner-no-underline{
@@ -96,6 +90,11 @@
   --crust: #181926;
 }
 
+h1 {
+  background: linear-gradient(to right, var(--pink), var(--mauve));
+  color:transparent;
+  background-clip: text;
+}
 
 main {
   max-width: 1100px;
@@ -160,23 +159,25 @@ main {
 }
 
 .score {
-  color: var(--green);
+  color: var(--blue);
   margin-bottom: 2rem;
   margin-top: 1rem;
   }
 
 .outcome_color{
-    color: var(--mauve);
+  background: linear-gradient(to right, var(--pink), var(--mauve));
+  color:transparent;
+  background-clip: text;
 }
 
 .losing_score {
-  color: var(--red);
+  color: var(--pink);
   margin-bottom: 2rem;
   margin-top: 1rem;
 }
 
 .hand{
-  margin-bottom: 2rem;
+  margin-top: 2rem;
   justify-content: center;
 }
 
@@ -215,7 +216,7 @@ main {
 }
 
 .link:hover {
-  color: var(--green);
+  color: var(--pink);
 }
 
 .link::before {
@@ -225,7 +226,7 @@ main {
   height: 0.2em;
   position: absolute;
   bottom: 0;
-  background-color: var(--blue);
+  background-image: linear-gradient(to right, var(--pink), var(--mauve));;
   transition: width 0.2s ease-in;
 }
 
@@ -271,7 +272,8 @@ main {
 .btn--outline:before {
   content: '';
   position: absolute;
-  background-color: var(--blue);
+  /*background-color: var(--blue);*/
+  background-image: linear-gradient(to right, var(--pink), var(--mauve));;
   right: 100%;
   bottom: 0;
   left: 0;

@@ -71,10 +71,10 @@ export function GameUI(props){
         }
         return(
             <React.Fragment>
-                <div className="fade-in-image" >
+               
                 <button className="btn btn--outline" onClick={() => keepOrChangeWager("change")}> change Wager </button>
                 <button className="btn btn--outline" onClick={() => keepOrChangeWager("keep")}> Wager ${props.wager} </button>
-                </div>
+                
             </React.Fragment>
         )
     };
