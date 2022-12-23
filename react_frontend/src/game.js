@@ -59,9 +59,9 @@ export default function Game(){
                 updateState(newState); // change state in case bad input
             }
             else {
+                let gameState = await fetchContinue();
                 setDealer_imgs([]);
                 setPlayer_imgs([]);
-                let gameState = await fetchContinue();
                 updateState(gameState); //Continue with same wager
             }
     }
@@ -144,7 +144,7 @@ export default function Game(){
                 https://github.com/rafarmerjr1/BlackJack
                 </a>
                 </header>
-                <main>
+                <main className="center">
                 {ui}
                 </main>
                 <footer className="footer center">

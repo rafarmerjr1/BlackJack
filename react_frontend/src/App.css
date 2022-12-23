@@ -26,13 +26,17 @@
 }
 
 .header {
-  height: 4em;
+  height: 8em;
   width: 100%;
   margin: 0 auto;
-  margin-bottom: 8rem;
+  margin-bottom: 4rem;
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--mandtle);
+  box-shadow: 0px 1px 2px rgba(0,255,255,0.5), 
+              0px 2px 4px #c6a0f6, 
+              0px 4px 8px rgba(0,255,255,0.5), 
+              0px 8px 16px #c6a0f6;
 }
 
 .banner{
@@ -42,6 +46,10 @@
   margin-top: 2rem;
   text-decoration: underline;
   text-underline-offset: 8px;
+  /*box-shadow: 0px 1px 2px rgba(0,255,255,0.5), 
+              0px 2px 4px #c6a0f6, 
+              0px 4px 8px rgba(0,255,255,0.5), 
+              0px 8px 16px #c6a0f6; */
   
 }
 
@@ -98,7 +106,7 @@ h1 {
 
 main {
   max-width: 1100px;
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -137,7 +145,7 @@ main {
 
 .fade-in-image { 
   animation: fadeIn 1s; 
-  animation-delay: 0.4s;
+  animation-delay: 0.5s;
   visibility: hidden;
   animation-fill-mode: forwards;
 }
@@ -155,7 +163,9 @@ main {
 }
 
 .end_balance{
-  color: var(--yellow)
+  color: var(--blue);
+  font-weight: 600;
+  
 }
 
 .score {
@@ -200,6 +210,7 @@ main {
 
 .center {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -226,7 +237,7 @@ main {
   height: 0.2em;
   position: absolute;
   bottom: 0;
-  background-image: linear-gradient(to right, var(--pink), var(--mauve));;
+  background-image: linear-gradient(to right, var(--pink), var(--mauve));
   transition: width 0.2s ease-in;
 }
 
@@ -236,7 +247,9 @@ main {
 }
 
 .outline {
-  border: 2px solid var(--yellow);
+  border: 2px solid transparent;
+  background: linear-gradient(var(--mantle), var(--mantle)) padding-box,
+              linear-gradient(to right, var(--pink), var(--mauve)) border-box;
   margin: 5rem;
   border-radius:0.7rem;
   padding: 2rem;
@@ -256,7 +269,9 @@ main {
 
 .btn--outline {
   color: var(--text);
-  border: 2px solid var(--blue);
+  border: 2px solid transparent;
+  background: linear-gradient(var(--mantle), var(--mantle)) padding-box,
+              linear-gradient(to right, var(--pink), var(--mauve)) border-box;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -296,9 +311,9 @@ main {
   animation: dealCard;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
-  max-width: 15%;
-  margin-left: -10%; 
   animation-fill-mode: forwards;
+  max-width: 13%;
+  margin-right: -10%;
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / .1), 0 8px 10px -6px rgb(0 0 0 / .1);
   
 }
@@ -307,10 +322,12 @@ main {
   animation: dealCard;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
-  max-width: 21%;
-  margin-left: -10%;
   animation-fill-mode: forwards;
+  max-width: 18%;
+  margin-right: -10%;
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / .1), 0 8px 10px -6px rgb(0 0 0 / .1);
+  /*box-shadow: 0px 5px 10px 0px rgba(0,255,255,0.7);
+  animation-fill-mode: forwards;*/
 }
 
 
@@ -322,25 +339,17 @@ main {
   animation-direction: alternate;
 }
 
-.card-row {
-  text-align: center;
-  flex-direction: row;
-  display: flex;
-}
-
-.cards{
+.cards {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 80%;
-  margin:auto;
+  width: 100%;
+  position: relative;
+  margin-right: 10%;
 }
 
-.card-box{
-  flex-direction:row;
-  margin-left: 5%;
-  align-items: center;
-  justify-content: center;
+.delay-1 {
+  transition-delay: 0.5s;
 }
 
 @keyframes grow-and-shrink {
@@ -353,13 +362,30 @@ main {
 }
 
 @keyframes dealCard {
+  0% {
+   opacity: 0%;
+   margin-right: -10%;
+   
+  }
+  50% {  
+   opacity: 0%;
+   margin-right: -10%;
+   
+  }
+  100% {
+   opacity: 100%;
+   margin-right: -10%;
+   
+  }
+ }
+
+ /*
+@keyframes dealCard {
  from {
-  transform: translateY(0px);
   opacity: 0%;
  }
  to {  
-  transform: translateY(0px) translateX(0%) rotate(0deg); /*-5%, -15deg */
-  opacity: 100%
+  opacity: 100%;
  }
 }
-
+*/

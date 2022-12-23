@@ -86,7 +86,7 @@ class Main():
     def stand(self):
         self.player_score = self.player.get_score()
         self.dealer_score = self.dealer.get_score()
-        while self.dealer_score <= 17 or self.dealer_score < self.player_score:
+        while self.dealer_score <= 30 or self.dealer_score < self.player_score:
             self.dealer.hit()
             self.dealer_score = self.dealer.get_score()
         self.state_check()

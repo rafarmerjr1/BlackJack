@@ -14,22 +14,23 @@ export function GameUI(props){
 // Display dealer hits one array item at a time
     useEffect(() => {
         let counter = count;
-        console.log(count)
         const interval = setInterval(() => {
             if (counter >= props.dealer_imgs.length) {
                 clearInterval(interval);
             } else {
                 setCount(count => count + 1);
                 counter++;}
-        }, 600);
+        }, 700);
         return () => clearInterval(interval); 
       }, [props.dealer_imgs, count]);
     
-      let StaticCards = props.dealer_imgs.slice(0, 1).map((cardImage, index) => {
+        // First two cards in dealer deck
+        let StaticCards = props.dealer_imgs.slice(0, 1).map((cardImage, index) => {
         return(
             <img className="App-image" key={index} alt="" src={require(`./${cardImage}`)} /> )}
         );
 
+        // all cards beyond the first two dealer cards
         let CardList = props.dealer_imgs.slice(1, count).map((cardImage, index) => {
         return(
             <img className="App-image" key={index} alt="" src={require(`./${cardImage}`)} /> )}
@@ -43,8 +44,10 @@ export function GameUI(props){
         }
         return (
             <React.Fragment>
+            <div buttons>
             <button className="btn btn--outline" onClick={() => sendButton("hit")}> Hit </button>
             <button className="btn btn--outline" onClick={() => sendButton("stand")}> Stand </button>
+            </div>
             </React.Fragment>
         );
     };
@@ -71,10 +74,10 @@ export function GameUI(props){
         }
         return(
             <React.Fragment>
-               
+               <div buttons>
                 <button className="btn btn--outline" onClick={() => keepOrChangeWager("change")}> change Wager </button>
                 <button className="btn btn--outline" onClick={() => keepOrChangeWager("keep")}> Wager ${props.wager} </button>
-                
+                </div>
             </React.Fragment>
         )
     };
@@ -114,22 +117,18 @@ export function GameUI(props){
 
     return(
     <React.Fragment>
-    <h3 className="hand">Dealer Hand</h3>
-        <div className="card-row">
+    <h3 className="hand outcome_color">Dealer</h3>
+        
         <div className="cards"> 
-        <div className="card-box"> 
+         
             {StaticCards}
             {CardList}
         </div>
-        </div>
-        </div>
             {dealerScore}
-    <h3 className="hand">Player Hand</h3>
+    <h3 className="hand outcome_color">Player</h3>
         <div className="cards"> 
-        <div className="card-box">
             {props.player_imgs.map((cardImage, index) => 
             <img className="App-image-player" key={index} alt="" src={require(`./${cardImage}`)} />)}
-        </div>
         </div>
             {playerScore}
             {playerActions}
