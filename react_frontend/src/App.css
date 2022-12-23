@@ -19,7 +19,10 @@
   font-family: 'Poppins', sans-serif;
   line-height: 1.5;
   color: var(--text);
-  background-color: var(--mantle);
+  background-color: var(--base);
+  /*background-image: url("images/background-1.png");*/
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 100vh;
   text-align: center;
   flex-direction: column;
@@ -308,23 +311,27 @@ main {
 }
 
 .App-image{
+  border-radius:0.7rem;
+  border: 2px solid;
   animation: dealCard;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
-  max-width: 13%;
-  margin-right: -10%;
+  max-width: 12%;
+  margin-right: -5%;
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / .1), 0 8px 10px -6px rgb(0 0 0 / .1);
   
 }
 
 .App-image-player{
+  border-radius:0.7rem;
+  border: 2px solid var(--mauve);
   animation: dealCard;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
-  max-width: 18%;
-  margin-right: -10%;
+  max-width: 15%;
+  margin-right: -5%;
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / .1), 0 8px 10px -6px rgb(0 0 0 / .1);
   /*box-shadow: 0px 5px 10px 0px rgba(0,255,255,0.7);
   animation-fill-mode: forwards;*/
@@ -345,7 +352,7 @@ main {
   justify-content: center;
   width: 100%;
   position: relative;
-  margin-right: 10%;
+  margin-right: 5%;
 }
 
 .delay-1 {
@@ -364,17 +371,14 @@ main {
 @keyframes dealCard {
   0% {
    opacity: 0%;
-   margin-right: -10%;
    
   }
   50% {  
    opacity: 0%;
-   margin-right: -10%;
    
   }
   100% {
    opacity: 100%;
-   margin-right: -10%;
    
   }
  }

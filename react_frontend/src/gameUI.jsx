@@ -44,7 +44,7 @@ export function GameUI(props){
         }
         return (
             <React.Fragment>
-            <div buttons>
+            <div>
             <button className="btn btn--outline" onClick={() => sendButton("hit")}> Hit </button>
             <button className="btn btn--outline" onClick={() => sendButton("stand")}> Stand </button>
             </div>
@@ -74,7 +74,7 @@ export function GameUI(props){
         }
         return(
             <React.Fragment>
-               <div buttons>
+               <div>
                 <button className="btn btn--outline" onClick={() => keepOrChangeWager("change")}> change Wager </button>
                 <button className="btn btn--outline" onClick={() => keepOrChangeWager("keep")}> Wager ${props.wager} </button>
                 </div>
