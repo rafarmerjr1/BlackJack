@@ -20,7 +20,7 @@ export function GameUI(props){
             } else {
                 setCount(count => count + 1);
                 counter++;}
-        }, 700);
+        }, 500);
         return () => clearInterval(interval); 
       }, [props.dealer_imgs, count]);
     
@@ -117,22 +117,19 @@ export function GameUI(props){
 
     return(
     <React.Fragment>
-    <h3 className="hand outcome_color">Dealer</h3>
         
         <div className="cards"> 
-         
             {StaticCards}
             {CardList}
         </div>
             {dealerScore}
-    <h3 className="hand outcome_color">Player</h3>
         <div className="cards"> 
             {props.player_imgs.map((cardImage, index) => 
             <img className="App-image-player" key={index} alt="" src={require(`./${cardImage}`)} />)}
         </div>
             {playerScore}
             {playerActions}
-            <p>Your Balance: <span className="end_balance"> ${props.balance} </span></p>
+            <p>Balance: <span className="end_balance"> ${props.balance} </span></p>
             {banner}
     </React.Fragment>
     );
@@ -140,3 +137,4 @@ export function GameUI(props){
 };
 
 
+//<img className="dealer-img" src={require('./images/robot-head.png')} alt="dealerImage"/>  

@@ -118,7 +118,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 60vh;
 }
 
 .wager {
@@ -126,7 +126,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 60vh;
 }
 
 .game{
@@ -138,7 +138,7 @@ main {
 
 .form {
   display: block;
-  font-weight: 500;
+  font-weight: 100;
   font-size: 1rem;
   background-color: var(--text);
   color: var(--base);
@@ -168,7 +168,7 @@ main {
 
 .end_balance{
   color: var(--blue);
-  font-weight: 600;
+  font-weight: 100;
   
 }
 
@@ -264,7 +264,7 @@ main {
 .btn {
   cursor: pointer;
   padding: 0.8em 1.4em;
-  font-weight: 700;
+  font-weight: 100;
   font-size: 0.9rem;
   text-transform: lowercase;
   transition: transform 0.2s ease-in-out;
@@ -311,6 +311,11 @@ main {
   max-width: 15%;
 }
 
+.dealer-img{
+  width: 3.5rem;
+  margin-bottom: 1rem;
+}
+
 .App-image{
   border-radius:0.7rem;
   border: 2px solid var(--mauve);
@@ -319,7 +324,8 @@ main {
   animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
-  box-shadow: 0 20px 25px -5px #8aadf4, 0 8px 10px -6px #8aadf4;
+  box-shadow: 0 10px 15px -5px #8aadf4, 0 8px 10px -6px #8aadf4;
+  flex-wrap: wrap;
   
 }
 
@@ -331,8 +337,7 @@ main {
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
   box-shadow: 0 20px 25px -5px #8aadf4, 0 8px 10px -6px #8aadf4;
-  /*box-shadow: 0px 5px 10px 0px rgba(0,255,255,0.7);
-  animation-fill-mode: forwards;*/
+  flex-wrap: wrap;
 }
 
 
