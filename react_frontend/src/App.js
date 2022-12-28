@@ -12,6 +12,7 @@ render()   {
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<Game />} />
+          <Route path="/404" element={<ErrorPage />} />
           <Route path='*' element={<ErrorPage />}/>
         </Routes>
     </BrowserRouter>

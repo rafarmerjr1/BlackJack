@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { Wager, playerAction, fetchContinue, fetchBalance, fetchClear } from './callAPI';
 import { GameUI } from './gameUI';
 import { WagerUI } from './wagerUI';
@@ -96,7 +97,7 @@ export default function Game(){
     // Error handling
     function ErrorFallBack({error, resetErrorBoundary}) {
         return(
-            <ErrorPage resetGame={reset_game}/>
+            <Navigate to="/404" />
         )
     }
     

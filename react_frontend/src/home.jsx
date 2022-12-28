@@ -14,7 +14,7 @@ export function Home(props) {
       <React.Fragment>
         <div className="home">        
             <button onClick={NewGame}> 
-             <img className="home-Image" src={require('./images/blackjack.png')} alt="homeImage"/> 
+             <img className="home-Image" src={require('./images/titlecard.png')} alt="homeImage"/> 
             </button>
         </div>
       </React.Fragment>

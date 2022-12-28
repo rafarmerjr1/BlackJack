@@ -36,8 +36,8 @@ class Main():
         self.player.reset_players()
         self.dealer.reset_players()
         self.state._set_state("continue")
-        self.dealer.set_card_img_list("images/PaperCards/CardBack2.png")
-        #self.dealer.set_card_img_list("images/synthcards/back2.svg")
+        #self.dealer.set_card_img_list("images/PaperCards/CardBack2.png")
+        self.dealer.set_card_img_list("images/cuteCards/tile059.png")
         
 
     def deal_first_hand(self):
