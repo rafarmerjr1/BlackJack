@@ -9,9 +9,11 @@ import src.Main
 game = src.Main.Main()
 
 app = Flask(__name__)
-#app.secret_key = secrets.token_hex(32)
-#app.secret_key = 'b4765f6bced666808d1b7701b81c2d48faae157d053b0cef135701b009765219'
 api = Api(app)
+
+# Save for sessions later:
+#app.secret_key = secrets.token_hex(32)
+#app.secret_key = 'Redacted although it was never in use'
 
 # Clear all player and game information
 class Clear_it(Resource):
