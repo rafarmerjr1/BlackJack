@@ -16,7 +16,6 @@ code {
 
 * {
   padding: 0;
-  margin: 0;
   border: 0;
   outline: 0;
   background-color: inherit;
@@ -25,17 +24,13 @@ code {
   font-size: inherit;
   box-shadow: none;
   box-sizing: border-box;
+  /* border:1px solid red; */
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-h1,
-h2,
-h3 {
-  margin-bottom: 0.1em;
-}
 
 h4 {
   line-height: 1;
@@ -64,6 +59,7 @@ ul {
 
 a {
   text-decoration: none;
+  margin-bottom: 1rem;
 }
 
 button {

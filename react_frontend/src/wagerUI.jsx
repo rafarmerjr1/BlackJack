@@ -14,16 +14,15 @@ export function WagerUI(props){
         <p className="title"> &#40;I will bet the same amount&#41; </p>
         <h4>Your balance is <span className="score">${props.balance}</span></h4>
        <div className="section">
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={props.handleSubmit} autoComplete = "off">
         <input 
              className="form"
              type="text"
              name="bet"
-             value={props.wager}
              onChange={props.handleChange}
              />
              <div>
-             <button className="button section"> <Link to={'/'} onClick={newGame}>new game</Link></button>
+             <Link className="button section" onClick={newGame}  to={'/'}> new game</Link>
              <button className="button section" type="submit">Place Bet</button>
             </div>
         </form>
