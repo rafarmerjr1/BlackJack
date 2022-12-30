@@ -12,7 +12,7 @@ export function Home(props) {
 };
     return (
       <React.Fragment>
-        <div className="home">        
+        <div>        
             <button onClick={NewGame}> 
              <img className="home-Image" src={require('./images/titlecard.png')} alt="homeImage"/> 
             </button>
@@ -20,3 +20,6 @@ export function Home(props) {
       </React.Fragment>
     )
 }
+
+
+//        <div className="center-content">        

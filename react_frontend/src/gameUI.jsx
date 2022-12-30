@@ -27,13 +27,13 @@ export function GameUI(props){
         // First two cards in dealer deck
         let StaticCards = props.dealer_imgs.slice(0, 1).map((cardImage, index) => {
         return(
-            <img className="App-image" key={index} alt="" src={require(`./${cardImage}`)} /> )}
+            <img className="App-image dealer-card" key={index} alt="" src={require(`./${cardImage}`)} /> )}
         );
 
         // all cards beyond the first two dealer cards
         let CardList = props.dealer_imgs.slice(1, count).map((cardImage, index) => {
         return(
-            <img className="App-image" key={index} alt="" src={require(`./${cardImage}`)} /> )}
+            <img className="App-image dealer-card" key={index} alt="" src={require(`./${cardImage}`)} /> )}
         );
 
 // Ask player if they want to hit or stand
@@ -45,8 +45,8 @@ export function GameUI(props){
         return (
             <React.Fragment>
             <div>
-            <button className="btn btn--outline" onClick={() => sendButton("hit")}> Hit </button>
-            <button className="btn btn--outline" onClick={() => sendButton("stand")}> Stand </button>
+            <button className="button" onClick={() => sendButton("hit")}> Hit </button>
+            <button className="button" onClick={() => sendButton("stand")}> Stand </button>
             </div>
             </React.Fragment>
         );
@@ -75,8 +75,8 @@ export function GameUI(props){
         return(
             <React.Fragment>
                <div>
-                <button className="btn btn--outline" onClick={() => keepOrChangeWager("change")}> change Wager </button>
-                <button className="btn btn--outline" onClick={() => keepOrChangeWager("keep")}> Wager ${props.wager} </button>
+                <button className="button" onClick={() => keepOrChangeWager("change")}> change Wager </button>
+                <button className="button" onClick={() => keepOrChangeWager("keep")}> Wager ${props.wager} </button>
                 </div>
             </React.Fragment>
         )
@@ -117,7 +117,6 @@ export function GameUI(props){
 
     return(
     <React.Fragment>
-        
         <div className="cards"> 
             {StaticCards}
             {CardList}
@@ -125,7 +124,7 @@ export function GameUI(props){
             {dealerScore}
         <div className="cards"> 
             {props.player_imgs.map((cardImage, index) => 
-            <img className="App-image-player" key={index} alt="" src={require(`./${cardImage}`)} />)}
+            <img className="App-image" key={index} alt="" src={require(`./${cardImage}`)} />)}
         </div>
             {playerScore}
             {playerActions}

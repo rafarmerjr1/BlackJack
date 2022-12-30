@@ -47,7 +47,7 @@ export function Blackjack(){
 export function Continue(){
     return (
         <React.Fragment>
-            <div className="banner-no-underline">
+            <div className="banner fade-in-image">
             <h2>&nbsp; <span className="outcome_color">&nbsp;</span></h2>
             </div>
         </React.Fragment>

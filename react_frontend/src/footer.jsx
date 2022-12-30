@@ -9,7 +9,7 @@ export function Footer(props){
     return (
         <React.Fragment>
         <div className="outline">
-            <div className="section__title">
+            <div className="title">
                 <Link to={'/'} className="link" onClick={clear}> Start New Game?</Link>
             </div>
                 <p>Balance will reset to $100.</p>

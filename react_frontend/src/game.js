@@ -138,19 +138,21 @@ export default function Game(){
         }  
         return (
             <ErrorBoundary FallbackComponent={ErrorFallBack}>
-            <div className="dark app" id="top">
-                <header className="header center"> 
-                <h1>Let's Play Blackjack!</h1>
+            <div className="bg" id="top">
+                <div className='dark app'>
+                <header className="header"> 
+                <h1>lofi blackjack</h1>
                 <a className="link" href="https://github.com/rafarmerjr1/BlackJack">
                 https://github.com/rafarmerjr1/BlackJack
                 </a>
                 </header>
-                <main className="center">
+                <main className='center-content'>
                 {ui}
                 </main>
-                <footer className="footer center">
+                <footer className="footer">
                 {footer}
                 </footer>
+            </div>
             </div>
             </ErrorBoundary>
             );

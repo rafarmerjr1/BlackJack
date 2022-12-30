@@ -19,5 +19,7 @@ Next items to do:
 - Stateful so that it can be run by multiple users/browsers at once
 - Hosting
 - dockerize
+- generate requirements.txt
+- npm production state
 
 CSS heavily modified from here: https://github.com/rajshekhar26/cleanfolio-minimal
