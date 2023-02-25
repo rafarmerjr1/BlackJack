@@ -1,5 +1,7 @@
 # BlackJack
 
+![image](https://github.com/rafarmerjr1/BlackJack/blob/main/blackjack_shot.png)
+
 ### Description
 Small BlackJack game that utilizes Python as its back-end and React for the front-end.  Communication between the browser and the back-end occurs through a Flask API.  
 
